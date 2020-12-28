@@ -1,0 +1,91 @@
+<div id="principal">
+  <div id="contenu" [style.background-color]="contenuColor">
+    <ng-container *ngIf="isDesktop" >
+      <div id="titre-approuveur-desktop">
+        <h5>{{ 'approuveur.titre' | translate }}</h5>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="isMobile || isTablet" >
+      <div id="titre-approuveur-mobtab">
+        <h5>{{ 'approuveur.titre' | translate }}</h5>
+      </div>
+    </ng-container>
+      <!-- Partie liste des commandes -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"> {{ 'approuveur.numCommande' | translate }} </th>
+          <th scope="col"> {{ 'approuveur.nom' | translate }} </th>
+          <!-- <th scope="col"> {{ 'approuveur.agence' | translate }} </th>
+          <th scope="col"> {{ 'approuveur.matricule' | translate }} </th>
+          <th scope="col"> {{ 'approuveur.fonction' | translate }} </th> -->
+          <th scope="col"> {{ 'approuveur.date' | translate }} </th>
+          <th scope="col"> {{ 'approuveur.quantite' | translate }} </th>
+          <th scope="col"> {{ 'approuveur.total' | translate }} </th>
+          <th scope="col" class="colonne-centrer"> {{ 'approuveur.details' | translate }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let uneCommande of listeCommandes; let i=index">
+            <tr style="background-color: rgba(255, 0, 0, 0.45)" *ngIf="uneCommande.etat === 'Refuse'">
+                <td scope="col">{{ uneCommande.numCommande }}</td>
+                <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td>
+                <td scope="col" colspan="6" class="aligned-cell">{{ uneCommande.motifRefus }}</td>
+                <td scope="col" class="table-icons">
+                  <fa-icon *ngIf="!selected[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                  <fa-icon *ngIf="selected[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">{{ uneCommande.numCommande }}</td>
+                <td scope="col">{{ uneCommande.agence }}
+                <!-- <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td></td>
+                <td scope="col">{{ uneCommande.matricule }}</td>
+                <td scope="col">{{ uneCommande.fonction }}</td> -->
+                <td scope="col">{{ uneCommande.dateCommande }}</td>
+                <td scope="col">{{ uneCommande.nbrpiece }}</td>
+                <td scope="col">{{ uneCommande.montant }} €</td>
+                <td scope="col" class="table-icons">
+                  <fa-icon *ngIf="!selected[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                  <fa-icon *ngIf="selected[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                </td>
+            </tr>
+            <ng-container *ngIf="selected[i]">
+              <tr>
+                <td colspan="10">
+                    <!-- Partie Détails -->
+                  <table class="table" id="tableDetails">
+                    <thead>
+                      <tr>
+                        <th scope="col">{{ 'approuveur.details.reference' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleProduit' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.prixUnitaire' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleTaille' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleColoris' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.quantite' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.total' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let uneLigneDetail of currentDetails; let i=index">
+                        <td scope="col">{{ uneLigneDetail.reference }}</td>
+                        <td scope="col">{{ uneLigneDetail.libelleProduit }}</td>
+                        <td scope="col">{{ uneLigneDetail.prixUnitaire }} €</td>
+                        <td scope="col">{{ uneLigneDetail.libelleTaille }}</td>
+                        <td scope="col">{{ uneLigneDetail.libelleColoris }}</td>
+                        <td scope="col">{{ uneLigneDetail.quantite }}</td>
+                        <td scope="col">{{ uneLigneDetail.total }} €</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-footer [page]="'contenu'"></app-footer>

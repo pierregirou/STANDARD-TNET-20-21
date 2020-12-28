@@ -1,0 +1,277 @@
+
+            /*--------------------/
+            /        Menu        /
+            /-------------------*/
+
+.navbar {
+  padding-left: 7%;
+}
+
+.dropdown-on-hover:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0px;
+ }
+
+ .dropdown-item:hover {
+   background-color: initial;
+ }
+
+ .dropdown-item:active {
+   background-color: initial;
+ }
+
+ .dropdown-item {
+   cursor: pointer;
+ }
+
+ .nav-link {
+   cursor: pointer;
+ }
+
+            /*--------------------/
+            /  Vignettes produit  /
+            /--------------------*/
+
+.container-vignettes {
+  width: 100%;
+  padding: 1% 4%;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+  overflow: hidden;
+  min-height: 140px;
+}
+
+.vignette {
+  width: 24.2%;
+  margin: 0.1% 0.4%;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  font-size: 14px;
+}
+
+.placeholder-vignette {
+  height: 236px;
+}
+
+              /*---------------------/
+              /   Cartes bootstrap  /
+              /--------------------*/
+
+.card {
+  overflow: hidden;
+  height: 236px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.card:hover {
+box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+            0 8px 10px 1px rgba(0, 0, 0, 0.14),
+            0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.row {
+  height: 100%;
+}
+
+.emplacement-photo {
+  display: flex;
+  min-width: 70px;
+  text-align: center;
+}
+
+.photo-produit {
+  height: 100px;
+  width: auto;
+  margin: auto;
+}
+
+.selection-moment-input {
+  margin-bottom: 1rem;
+  margin-right: 2.5rem;
+  float: right;
+}
+
+.container-coloris {
+  max-height: 70px;
+  overflow-y: auto;
+}
+
+.miniature-coloris {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #777272;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #474444;
+}
+
+              /*----------------------------/
+              /   Valider position bouton   /
+              /----------------------------*/
+
+#valid-position {
+  color: rgb(45, 196, 45);
+  font-size:1.2rem;
+  margin-right: 3%;
+  font-weight: bold;
+}
+
+.button-container {
+  width: 100%;
+  padding-left: 10%;
+  background: white;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem 0rem;
+}
+
+            /*--------------------------/
+            /   Ruban promo/selection   /
+            /--------------------------*/
+
+.ribbon-box {
+  position: relative;
+}
+
+.ribbon {
+  position: absolute;
+  right: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px; height: 75px;
+  text-align: right;
+}
+
+.ribbon-l {
+  position: absolute;
+  left: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px; height: 75px;
+  text-align: left;
+}
+
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#2989d8 0%, #1e5799 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px; right: -21px;
+}
+
+.ribbon-l span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#79A70A 0%, #79A70A 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px; left: -21px;
+}
+
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #1e5799;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #1e5799;
+}
+
+.ribbon-l span::before {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #79A70A;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+
+.ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #1e5799;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #1e5799;
+}
+
+.ribbon-l span::after {
+  content: "";
+  position: absolute; left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #79A70A;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+
+                /*----------------------------/
+                /   Informations chargement   /
+                /----------------------------*/
+
+#update-state-container {
+  color: white;
+  padding: 10px 0px;
+  background-color: hsla(0, 0%, 0%, 0.6);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  position: fixed;
+  width: 200px;
+  bottom: 4%;
+  right: 2%;
+  z-index: 100;
+  height: 45px;
+  text-align: center;
+}
+
+#custom-spinner {
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+.message-succes {
+  color: lawngreen;
+}

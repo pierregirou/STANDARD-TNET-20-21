@@ -1,0 +1,536 @@
+<div class="alert alert-warning">Gérez vos paramètres</div>
+<div class="container-fluid">
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187)">Paramètres du site</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+        <!-- Visualisation de la galerie-->
+        <div style="float: left">
+            <p style="font-size: 18px">Visualisation de la galerie</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkVisGalerie" (change)="visGalerieChange()" matTooltip="Autoriser de visualiser la galerie aux utilisateurs non connectés" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Maintenance du site-->
+        <div style="float: left;clear: both;">
+            <p style="font-size: 18px">Maintenance du site</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkMaintenance" (change)="maintenanceChange()" matTooltip="Mettre le site en maintenance" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+          </section>
+        </div><br/>
+        <!-- Drapeau choix de langues-->
+        <div style="float: left;clear: both;">
+            <p style="font-size: 18px">Autoriser le choix des langues</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkLangue" (change)="langueChange()" matTooltip="Autoriser le changement de langue" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+          </section>
+        </div>
+      </div><br/><br/>
+    </mat-card-content>
+  </mat-card>
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">Gestion des comptes</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+          <!-- Modification de l'adresse du profil-->
+          <div style="float: left">
+              <p style="font-size: 18px">Modification de l'adresse du profil</p>
+          </div>
+          <div style="clear: right;margin-left: 20%">
+            <section>
+                <mat-slide-toggle
+                      class="example-margin"
+                      [color]="'primary'"
+                      [checked]="checkUpdateAdresse" (change)="updateAdresseChange()" matTooltip="Autoriser la modification du profil" aria-label="Button that displays a tooltip when focused or hovered over">
+                </mat-slide-toggle>
+              </section>
+          </div><br/>
+          <!-- Articles en promotion -->
+          <div style="float: left">
+              <p style="font-size: 18px">Activer les points</p>
+          </div>
+          <div style="clear: right;margin-left: 20%">
+            <section>
+                <mat-slide-toggle
+                      class="example-margin"
+                      [color]="'primary'"
+                      [checked]="checkPoints" (change)="pointsActivateChange()" matTooltip="Activer les points" aria-label="Button that displays a tooltip when focused or hovered over">
+                </mat-slide-toggle>
+              </section>
+          </div><br/>
+        </div><br/><br/>
+      </mat-card-content>
+    </mat-card>
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">Gestion de l'affichage des produits</div>
+  <mat-card class="result">
+  <mat-card-content>
+    <div style="width: 100%">
+        <!-- Prix de vente conseillé -->
+        <div style="float: left">
+            <p style="font-size: 18px">Prix de vente conseillé</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="prixVenteConseille" (change)="prixVenteConseilleChange()" matTooltip="Activer le prix de vente conseillé sur les produits" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Sélection du moment -->
+        <div style="float: left">
+            <p style="font-size: 18px">Sélection du moment</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkSelectionDuMoment" (change)="selectionMomentChange()" matTooltip="Afficher les sélections du moment" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Articles en promotion -->
+        <div style="float: left">
+            <p style="font-size: 18px">Articles en promotion</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkPromo" (change)="promotionChange()" matTooltip="Afficher les articles en promo" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+          <!-- Promo code tarif -->
+          <div style="float: left">
+            <p style="font-size: 18px">Appliquer promo à un code tarif</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-form-field [color]="'primary'" appearance="outline">
+                  <input matTooltip="Code tarif" matInput type="text" [(ngModel)]="checkCodeTarifP" (change)="codeTarifPromoChange()" placeholder="Code tarif" min="0" step="15">
+                  <mat-error>Code tarif</mat-error>
+              </mat-form-field>
+              <mat-form-field [color]="'primary'" appearance="outline">
+                <input matTooltip="Pourcentage à appliquer" matInput type="number" [(ngModel)]="checkPourcentageT" (change)="PourcentagePromoChange()" placeholder="Pourcentage à appliquer" min="0" step="15">
+                <mat-error>Pourcentage Tarif</mat-error>
+            </mat-form-field>
+            </section>
+        </div><br/>
+          <!-- Promo sur tous le site -->
+          <div style="float: left">
+            <p style="font-size: 18px">Appliquer promo au site complet</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-form-field [color]="'primary'" appearance="outline"> 
+                  <input [disabled]="checkPourcentageS>0" matTooltip="Montant promo à appliquer sur tous le site" matInput type="text" [(ngModel)]="checkMontantS" (change)="montantPromoChange()" placeholder="Promo montant" min="0" step="15">
+                  <mat-error>Code tarif</mat-error>
+              </mat-form-field>
+              <mat-form-field [color]="'primary'" appearance="outline">
+                <input [disabled]="checkMontantS>0" matTooltip="Pourcentage à appliquer sur tous le site" matInput type="number" [(ngModel)]="checkPourcentageS" (change)="pourcentageSPromoChange()" placeholder="Promo pourcentage" min="0" step="15">
+                <mat-error>Pourcentage Tarif</mat-error>
+            </mat-form-field>
+          </section>
+        </div><br/>
+        <!-- Choix affichage des produits -->
+        <div style="float: left">
+            <p style="font-size: 18px">Choix de l'affichage des produits</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-radio-group [(ngModel)]="checkModeSaisie" (change)="modeSaisieChange()" aria-label="Select an option" value="{{checkModeSaisie}}">
+                  <mat-radio-button style="margin-right: 15px" value="1">Mode ligne</mat-radio-button>
+                  <mat-radio-button value="2">Mode tableau</mat-radio-button>
+              </mat-radio-group>
+            </section>
+        </div><br/>
+      </div><br/><br/>
+    </mat-card-content>
+  </mat-card>
+
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187)">Gestion du détail des produits</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+        <!-- Référence-->
+        <div style="float: left">
+            <p style="font-size: 18px">Référence</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="referenceD" (change)="visInformationChange('1')" matTooltip="Activer la visualisation de la référence du produit" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Taille disponible-->
+        <div style="float: left">
+            <p style="font-size: 18px">Taille disponible</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="tailleDisponibleD" (change)="visInformationChange('2')" matTooltip="Activer la visualisation de la référence des tailles disponibles" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Coloris-->
+        <div style="float: left">
+            <p style="font-size: 18px">Coloris</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="colorisD" (change)="visInformationChange('3')" matTooltip="Activer la visualisation de la référence du colori" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Marque-->
+        <div style="float: left">
+            <p style="font-size: 18px">Marque</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="marqueD" (change)="visInformationChange('4')" matTooltip="Activer la visualisation de la marque" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Theme-->
+        <div style="float: left">
+            <p style="font-size: 18px">Thème</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="themeD" (change)="visInformationChange('5')" matTooltip="Activer la visualisation du thème" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Famille-->
+        <div style="float: left">
+            <p style="font-size: 18px">Famille</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="familleD" (change)="visInformationChange('6')" matTooltip="Activer la visualisation de la famille" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Sous-famille-->
+        <div style="float: left">
+            <p style="font-size: 18px">Sous-famille</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="sousFamilleD" (change)="visInformationChange('7')" matTooltip="Activer la visualisation de la sous famille" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Modele -->
+        <div style="float: left">
+            <p style="font-size: 18px">Modele</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="modeleD" (change)="visInformationChange('8')" matTooltip="Activer la visualisation du modele" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">Gestion des commandes</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+          <!-- commandes soColissimo -->
+        <div style="float: left">
+            <p style="font-size: 18px">Activer les commandes Colissimo</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkSoColissimo" (change)="soColissimoChange()" matTooltip="Afficher les articles en promo" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- timer commande -->
+        <div style="float: left">
+            <p style="font-size: 18px">Timer commande</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-form-field [color]="'primary'" appearance="outline">
+                  <input matTooltip="Choisissez un timer pour les commandes en minute: 0->désactivé" matInput type="number" [(ngModel)]="checkTimerCommande" (change)="timerCommandeChange()" placeholder="timer de la commande en minute" min="0" step="15">
+                  <mat-error>timer minute</mat-error>
+              </mat-form-field>
+            </section>
+        </div><br/>
+        <!-- Activer les frais de port  -->
+        <div style="float: left">
+            <p style="font-size: 18px">Activer les frais de port</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkFraisDePort" (change)="fraisDePortChange()" matTooltip="Activer les frais de port" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+              <div *ngIf="checkFraisDePort">
+                <mat-form-field [color]="'primary'" style="margin-right: 15px" appearance="outline">
+                    <input matTooltip="Choisissez un montant pour les frais de port" matInput type="number" [(ngModel)]="checkMontantPort" (change)="montantPortChange()" placeholder="montant des frais de port" min="0">
+                    <mat-error>Montant des frais de port</mat-error>
+                </mat-form-field>
+                <mat-form-field [color]="'primary'" appearance="outline">
+                    <input matTooltip="Choisir un montant pour lequel les frais de port s'annulent" matInput type="number" [(ngModel)]="checkPortGratuit" (change)="portGratuitChange()" placeholder="port gratuit" min="0">
+                    <mat-error>Port gratuit</mat-error>
+                </mat-form-field>
+              </div>
+            </section>
+        </div><br/>
+      </div><br/><br/>
+    </mat-card-content>
+  </mat-card>
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">Gestion du stock</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+        <!-- Activer le stock en couleur -->
+        <div style="float: left">
+            <p style="font-size: 18px">Activer le stock en couleur</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkStockCouleur" (change)="stockCouleurChange()" matTooltip="Activer le stock couleur" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Gérer le stock indisponible  -->
+        <div style="float: left">
+            <p style="font-size: 18px">Stock indisponible</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+            <mat-form-field [color]="'primary'" style="margin-right: 15px" appearance="outline">
+              <input matTooltip="Choisissez une quantité pour le stock indisponible" matInput type="number" [(ngModel)]="checkStockIndisponible" (change)="stockIndisponibleChange()" placeholder="stock indisponible" min="0">
+              <mat-error>Stock indisponible</mat-error>
+            </mat-form-field>
+          </section>
+        </div><br/>
+        <!-- Gérer le stock limité  -->
+        <div style="float: left">
+            <p style="font-size: 18px">Stock limité</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+            <div>
+              <mat-form-field [color]="'primary'" style="margin-right: 15px" appearance="outline">
+                <input matTooltip="Choisissez une quantité pour le minimum du stock limité" matInput type="number" [(ngModel)]="checkMinStockLimite" (change)="minStockLimiteChange()" placeholder="stock disponible" min="0">
+                <mat-error>Stock disponible</mat-error>
+              </mat-form-field>
+              <fa-icon style="font-size: 24px" icon="arrow-circle-right"></fa-icon>
+              <mat-form-field [color]="'primary'" style="margin-right: 15px" style="margin-left: 15px;" appearance="outline">
+                <input matTooltip="Choisissez une quantité pour le maximum du stock limité" matInput type="number" [(ngModel)]="checkMaxStockLimite" (change)="maxStockLimiteChange()" placeholder="stock disponible" min="0">
+                <mat-error>Stock disponible</mat-error>
+              </mat-form-field>
+            </div>
+          </section>
+        </div><br/>
+        <!-- Gérer le stock disponible  -->
+        <div style="float: left">
+            <p style="font-size: 18px">Stock disponible</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+            <mat-form-field [color]="'primary'" style="margin-right: 15px" appearance="outline">
+              <input matTooltip="Choisissez une quantité pour le stock disponible" matInput type="number" [(ngModel)]="checkStockDisponible" (change)="stockDisponibleChange()" placeholder="stock disponible" min="0">
+              <mat-error>Stock disponible</mat-error>
+            </mat-form-field>
+          </section>
+        </div><br/>
+        <!-- Activer le stock en couleur -->
+        <div style="float: left">
+          <p style="font-size: 18px">Contrôle du stock</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkControleStock" (change)="controleStockChange()" matTooltip="Activer le contrôle du stock" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+        </div><br/>
+        <!-- Activer la quantite max du stock  -->
+        <div style="float: left">
+          <p style="font-size: 18px">Activer la quantité de stock limite</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+              <mat-slide-toggle
+                    class="example-margin"
+                    [color]="'primary'"
+                    [checked]="checkQuantiteMax" (change)="quantiteMaxChange()" matTooltip="Activer la quantite max" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+              <div *ngIf="checkQuantiteMax">
+                <mat-form-field [color]="'primary'" style="margin-right: 15px" appearance="outline">
+                    <input matTooltip="Choisissez un montant pour la quantité maximale à afficher" matInput type="number" [(ngModel)]="checkValQteMax" (change)="valQTeMaxChange()" placeholder="Quantite max" min="0">
+                    <mat-error>Quantité max</mat-error>
+                </mat-form-field>
+              </div>
+            </section>
+        </div><br/>
+        <!-- Activer le stock en couleur -->
+        <div style="float: left">
+          <p style="font-size: 18px">Activer Commande par marque</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <section>
+            <mat-slide-toggle
+                class="example-margin"
+                [color]="'primary'"
+                [checked]="checkCdeMarque" (change)="cdeMarqueChange()" matTooltip="Activer la commande marque" aria-label="Button that displays a tooltip when focused or hovered over">
+            </mat-slide-toggle>
+          </section>
+        </div><br/>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">Gestion du menu</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+        <div *ngFor="let menu of menuSelection">
+          <div style="float: left">
+            <p style="font-size: 18px">{{menu[1].nom}}</p>
+          </div>
+          <div style="clear: right;margin-left: 20%">
+            <section>
+              <mat-form-field *ngIf="menu[1].ordreMenu==='0'" [color]="'primary'" style="margin-right: 15px" appearance="outline" >
+                  <input disabled matTooltip="Choisissez une position" matInput type="number" [(ngModel)]="menu[1].ordreMenu" (change)="ordreMenuChange()" placeholder="Quantite max" min="0">
+                  <mat-error>Quantité max</mat-error>
+              </mat-form-field>
+              <mat-form-field *ngIf="menu[1].ordreMenu!=='0'" [color]="'primary'" style="margin-right: 15px" appearance="outline" >
+                  <input  matTooltip="Choisissez une position" matInput type="number" [(ngModel)]="menu[1].ordreMenu" (change)="ordreMenuChange()" placeholder="Quantite max" min="0">
+                  <mat-error>Quantité max</mat-error>
+              </mat-form-field>
+              <mat-slide-toggle
+                  class="example-margin"
+                  [color]="'primary'"
+                  [checked]="getInfoActifMenu(menu[1].actif)" (change)="actifMenuChange(menu[1].id,menu[1].actif,menu[1].ordreMenu)" matTooltip="Activer la {{menu[1].nom}}" aria-label="Button that displays a tooltip when focused or hovered over">
+              </mat-slide-toggle>
+            </section>
+          </div><br/>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187);clear: both">template</div>
+  <mat-card class="result">
+    <mat-card-content>
+      <div style="width: 100%">
+        <div style="float: left">
+          <p style="font-size: 18px">Modifier le texte d'accueil en Français</p>
+        </div><br/><br/>
+        <ck-editor name="editor1" (change)="texteTemplateChange()" [(ngModel)]="checkTexteTemplate" skin="moono-lisa" language="en" [fullPage]="false"></ck-editor>
+        <br/><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Modifier le texte d'accueil en Anglais</p>
+        </div><br/><br/>
+        <ck-editor name="editor1" (change)="texteAngTemplateChange()" [(ngModel)]="checkTexteTemplateAng" skin="moono-lisa" language="en" [fullPage]="false"></ck-editor>
+        <br/><br/>
+        <div style="float: left">
+            <p style="font-size: 18px">Couleur de fond principal</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Modifiez le fond principal du site" (change)="backgroundColorChange($event.target.value)" value="{{bg}}" type="color">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur de fond secondaire</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Choisissez un fond secondaire" (change)="backgroundColorChange2($event.target.value)" type="color" value="{{bg2}}">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur du menu</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Modifiez la couleur du menu" value="{{menuColor}}" (change)="menuColorChange($event.target.value)" type="color">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur du footer</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Choisissez une couleur pour le footer" (change)="footerColorChange($event.target.value)" value="{{footerColor}}" type="color">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur du contenu</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Choisissez une couleur pour le contenu" (change)="contenuColorChange($event.target.value)" value="{{contenuColor}}" type="color">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur du module total</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Choisissez une couleur pour le module total" (change)="totalColorChange($event.target.value)" value="{{totalColor}}" type="color">
+        </div><br/>
+        <div style="float: left">
+          <p style="font-size: 18px">Couleur du module info</p>
+        </div>
+        <div style="clear: right;margin-left: 20%">
+          <input style="cursor:pointer" matTooltip="Choisissez une couleur pour le module info" (change)="infoColorChange($event.target.value)" value="{{infoColor}}" type="color">
+        </div><br/>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

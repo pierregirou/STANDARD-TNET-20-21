@@ -1,0 +1,119 @@
+<div>
+    <h5>{{ 'filtre.filtres' | translate }}</h5>
+</div>
+<div>
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.ligne' | translate }}</mat-label>
+        <mat-select [(ngModel)]="ligneSelect" name="ligne">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let ligne of ligneFiltre" [value]="ligne">
+                {{ligne}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.famille' | translate }}</mat-label>
+        <mat-select [(ngModel)]="familleSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let famille of familleFiltre" [value]="famille">
+                {{famille}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.sousfamille' | translate }}</mat-label>
+        <mat-select [(ngModel)]="sousFamilleSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let sousFamille of sousFamilleFiltre" [value]="sousFamille">
+                {{sousFamille}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.marque' | translate }}</mat-label>
+        <mat-select [(ngModel)]="marqueSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let marque of marqueFiltre" [value]="marque">
+                {{marque}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.theme' | translate }}</mat-label>
+        <!-- (selectionChange)="themeValue($event.value)" -->
+        <mat-select [(ngModel)]="themeSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let theme of themeFiltre" [value]="theme">
+                {{theme}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field><br>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.coloris' | translate }}</mat-label>
+        <mat-select [(ngModel)]="coloriSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let colori of coloriFiltre" [value]="colori">
+                {{colori}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.matiere' | translate }}</mat-label>
+        <mat-select [(ngModel)]="matiereSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let matiere of matiereFiltre" [value]="matiere">
+                {{matiere}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.taille' | translate }}</mat-label>
+        <mat-select [(ngModel)]="tailleSelect" multiple>
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let taille of tailleFiltre" [value]="taille">
+                {{taille}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="filtre-select">
+        <mat-label>{{ 'filtre.modele' | translate }}</mat-label>
+        <mat-select [(ngModel)]="modeleSelect">
+            <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
+            <mat-option *ngFor="let modele of modeleFiltre" [value]="modele">
+                {{modele}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <!--<mat-form-field>
+  <mat-label>Finitions</mat-label>
+  <mat-select (selectionChange)="finitionsValue($event.value)">
+    <mat-option *ngFor="let finition of finitions" [value]="finition.value">
+      {{finition.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Tailles</mat-label>
+  <mat-select (selectionChange)="tailleValue($event.value)">
+    <mat-option *ngFor="let taille of tailleFiltre; let i = index" [value]="taille">
+      {{taille}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>--->
+</div>
+
+<div>
+    <button class="btn btn-primary" (click)="recupFiltres()">{{ 'filtre.appliquer' | translate }}</button>
+    <button class="btn btn-primary" (click)="resetFiltres()">{{ 'filtre.reinitialiser' | translate }}</button>
+</div>

@@ -1,0 +1,139 @@
+<!-- Menu : partie produit -->
+<div class="button-container">
+    <button id="valid-position" (click)="validPos()" mat-button>Valider les positions</button>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="nav-item">
+        <a class="nav-link" (click)="filtreSelonMenu(0)">Tous les produits</a>
+    </div>
+    <div *ngFor="let menu of menuNavbar | keyvalue">
+        <div *ngFor="let menu2 of menu.value | keyvalue" class="dropdown dropdown-on-hover nav-item" style="display:inline-block">
+            <a class="dropdown-item dropdown-toggle nav-link" (click)="filtreSelonMenu(1,[menu2.key])">{{ menu2.key | titlecase }}</a>
+            <div class="dropdown-menu" *ngIf="menu2.key !== menu2.value">
+                <div *ngFor="let menu3 of menu2.value | keyvalue" [class.dropdown-submenu]="menu3.key !== menu3.value">
+                    <a class="dropdown-item" [class.dropdown-toggle]="menu3.key !== menu3.value" data-toggle="dropdown" (click)="filtreSelonMenu(2,[menu2.key,menu3.key])">{{ menu3.key | titlecase }}</a>
+                    <div class="dropdown-menu" *ngIf="menu3.key !== menu3.value">
+                        <div *ngFor="let menu4 of menu3.value | keyvalue" [class.dropdown-submenu]="menu4.key !== menu4.value">
+                            <a class="dropdown-item" [class.dropdown-toggle]="menu4.key !== menu4.value" data-toggle="dropdown" (click)="filtreSelonMenu(3,[menu2.key,menu3.key,menu4.key])">{{ menu4.key | titlecase }}</a>
+                            <div class="dropdown-menu" *ngIf="menu4.key !== menu4.value">
+                                <div *ngFor="let menu5 of menu4.value | keyvalue" [class.dropdown-submenu]="menu5.key !== menu5.value">
+                                    <a class="dropdown-item" [class.dropdown-toggle]="menu5.key !== menu5.value" data-toggle="dropdown" (click)="filtreSelonMenu(4,[menu2.key,menu3.key,menu4.key,menu5.key])">{{ menu5.key | titlecase }}</a>
+                                    <div class="dropdown-menu" *ngIf="menu5.key !== menu5.value">
+                                        <div *ngFor="let menu6 of menu5.value | keyvalue" [class.dropdown-submenu]="menu6.key !== menu6.value">
+                                            <a class="dropdown-item" [class.dropdown-toggle]="menu6.key !== menu6.value" data-toggle="dropdown" (click)="filtreSelonMenu(5,[menu2.key,menu3.key,menu4.key,menu5.key,menu6.key])">{{ menu6.key | titlecase }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Vignettes produit -->
+<div class="container-vignettes" cdkDropListGroup>
+    <div cdkDropList [cdkDropListDisabled]="recherche !== '' && recherche !== undefined" class="vignette ribbon-box" *ngFor="let produit of produits| myfilter:recherche ;let i=index" [cdkDropListData]="i">
+        <div cdkDrag [cdkDragData]="i" (cdkDragEntered)="enterDrag($event)" (cdkDragEnded)="drop($event)">
+            <div *cdkDragPlaceholder class="placeholder-vignette"></div>
+            <div *ngIf="produit && !cdkDragPlaceholder">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 emplacement-photo">
+                            <img class="photo-produit" src="{{produit.image}}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{produit.refproduit}} - {{produit.libelle}}</h5>
+                                <div>
+                                    <mat-form-field *ngIf="recherche === '' || recherche === undefined">
+                                        <input matInput matTooltip="Changer la position de l'article" placeholder="Position" type="number" value="{{ i + 1 }}" (keydown)="onValidChangePos($event, i)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="container-coloris">
+                                    <span *ngFor="let unColori of produit.arrayColori; let j = index">
+                    <ng-container *ngIf="unColori.tarif_promo == produit.tarifPromo">
+                      <span (click)="gestionTarifsPromo(produit,unColori.libcolori,j)" class="miniature-coloris" data-toggle="modal" data-target=".bd-example-modal-lgs">
+                        <img style="width: 20%" src="{{imageService.PhotosArt}}{{unColori.imageMiniature}}" matTooltip="{{unColori.codeColori}} - {{unColori.libcolori}}" />
+                      </span>
+                                    </ng-container>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="produit.tarifPromo !== '0.00'" class="ribbon"><span>Promo</span></div>
+                <div *ngIf="produit.selection === '1'" class="ribbon-l"><span>Selection</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="button-container">
+    <button id="valid-position" (click)="validPos()" mat-button>Valider les positions</button>
+</div>
+
+
+<!-- Modal PVC Promo -->
+<div *ngIf="produitModal" class="modal fade bd-example-modal-lgs" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tarifs - {{produitModal.libelle}} - {{libColoris}} - {{codeColoris}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="selection-moment-input" id="{{produitModal.libelle}}-{{libColoris}}">
+                    <mat-checkbox style="margin-left:15px" (click)="changeSelection(produitModal.selection)" [(ngModel)]="produitModalSelected">Sélection du moment</mat-checkbox>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Code tarif</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">PVC</th>
+                            <th scope="col">Promo</th>
+                            <th scope="col">Tarif promo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tarifPromos of tarifProduitPromo; let i=index">
+                            <th scope="row">{{tarifPromos.codeTarif}}</th>
+                            <th scope="row">{{tarifPromos.prix}}</th>
+                            <th scope="row">
+                                <mat-form-field *ngIf="prixVenteConseille" style="margin-left:15px; width:120px;">
+                                    <input matTooltip="Pensez à appuyer sur entrer pour enregister le changement" (change)="changeTarifPVC($event.target.value,tarifPromos.idproduit)" matInput placeholder="PVC" type="number" value="{{tarifPromos.tarif_pvc}}" class="example-right-align">
+                                    <span matPrefix>€&nbsp;</span>
+                                </mat-form-field>
+                            </th>
+                            <th scope="row">
+                                <mat-checkbox style="margin-left:15px;margin-right: 15px" (change)="changePromo($event,tarifPromos.idproduit,i)" [checked]="bPromoChecked[i]"></mat-checkbox>
+                            </th>
+                            <th scope="row">
+                                <mat-form-field *ngIf="bPromoChecked[i]" style="margin-left:15px;width:115px;">
+                                    <input matTooltip="Pensez à appuyer sur entrer pour enregister le changement" (change)="changeTarifPromo($event,tarifPromos.idproduit,fPromoValue[i])" matInput placeholder="Nouveau prix" type="number" value="{{fPromoValue[i]}}" class="example-right-align">
+                                    <span matPrefix>€&nbsp;</span>
+                                </mat-form-field>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Etat du chargement -->
+
+<div id="update-state-container">
+    <ng-container *ngIf="updatingState">
+        <div class="spinner-border spinner-border-sm text-light" id="custom-spinner" role="status"></div> Chargement ...
+    </ng-container>
+    <ng-container *ngIf="!updatingState">
+        <div class="message-succes">Produits chargés</div>
+    </ng-container>
+</div>

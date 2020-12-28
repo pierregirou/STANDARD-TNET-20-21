@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <app-baniere></app-baniere>
+    <div id="principal">
+        <!--<app-contenu-view [menuSnap]="menuSnap"></app-contenu-view>-->
+        <app-contenu-accueil *ngIf="menuSnap==='accueil' && !maintenance"></app-contenu-accueil>
+        <app-contenu-produits *ngIf="menuSnap==='produits' && !maintenance"></app-contenu-produits>
+        <app-contenu-compte [menuSnapAction]="menuSnapAction" *ngIf="menuSnap==='compte' || menuSnapAction==='modificationC' || menuSnapAction==='modificationMDP' || menuSnapAction==='history' || menuSnapAction==='retourCommande'"></app-contenu-compte>
+        <app-contenu-panier *ngIf="menuSnap==='panier' && !maintenance"></app-contenu-panier>
+        <app-contenu-points *ngIf="menuSnap==='points' && !maintenance"></app-contenu-points>
+        <app-contenu-promo *ngIf="menuSnap==='promo' && !maintenance"></app-contenu-promo>
+        <app-contenu-looks *ngIf="menuSnap==='looks' && !maintenance"></app-contenu-looks>
+        <app-contenu-telechargements *ngIf="menuSnap==='telechargements' && !maintenance"></app-contenu-telechargements>
+        <app-contenu-maintenance *ngIf="maintenance"></app-contenu-maintenance>
+        <div id="modules">
+            <app-total></app-total>
+            <app-info></app-info>
+            <div *ngIf="afficherFiltres" id="filtre" [style.background-color]="totalColor">
+                <app-filtre-box></app-filtre-box>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer [page]="'contenu'"></app-footer>

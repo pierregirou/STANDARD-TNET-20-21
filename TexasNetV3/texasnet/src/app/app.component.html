@@ -1,0 +1,6 @@
+<!-- Pour les clients -->
+<app-menu [compte]="this.authService.loginCompte" [authStatut]="this.authService.isAuth" *ngIf="!filtreSelection"></app-menu>
+<app-modal-panier hidden *ngIf="displayModalPanier"></app-modal-panier>
+<app-confirm-box *ngIf="displayConfirmBox"></app-confirm-box>
+<app-filtre-mobile *ngIf="isMobile && filtreSelection"></app-filtre-mobile>
+<router-outlet *ngIf="!filtreSelection"></router-outlet>

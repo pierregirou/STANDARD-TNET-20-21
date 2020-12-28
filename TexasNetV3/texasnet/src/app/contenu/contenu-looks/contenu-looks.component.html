@@ -1,0 +1,55 @@
+<div id="contenu" [style.background-color]="contenuColor">
+  <div class="row">		
+    <div *ngFor="let look of looks; let i=index" class="col-lg-3">      
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{look.titre}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="{{look.lienImage}}" style="height:450px">
+          <mat-card-content>
+            <div *ngFor="let produit of look.produit;let j=index">
+              <div *ngFor="let detailProduit of produit">
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="onLook(look.titre)" data-toggle="modal" data-target="#look">{{ 'looks.SavoirPlus' | translate }} </button>
+          </mat-card-actions>
+        </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal bootstrap pour en savoir + -->
+<div class="modal fade bd-example-modal-xl" id="look" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ 'looks.look' | translate }} {{titreLook}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-6">
+                <img src="{{imageLook}}" style="height:500px">
+            </div>
+            <div class="col-lg-6">
+              {{ 'looks.diffProd' | translate }}
+                <div *ngFor="let infoProduit of produitLookInfo" >
+                    - <a routerLink="/detail-produit/{{infoProduit[1].refproduit}}" target="_blank" >{{infoProduit[1].refproduit}}</a>
+                  </div><br><br>
+                  <em>{{ 'looks.addProdInf' | translate }}</em>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>

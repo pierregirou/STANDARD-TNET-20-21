@@ -1,0 +1,44 @@
+<div id="container-fluid">
+  <app-baniere></app-baniere>
+  <div id="connexion"><br/>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="example-container">
+        {{ 'compte.texte' | translate }}
+        <mat-form-field>
+          <input matInput placeholder="{{ 'menu.societe' | translate }}" maxlength="35" name="societe" ngModel required onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="{{ 'compte.nom' | translate }}" maxlength="35" name="nom" ngModel required onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>
+        <mat-form-field> 
+        <input matInput placeholder="{{ 'compte.prenom' | translate }}" maxlength="35" name="prenom" ngModel required onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>    
+        <mat-form-field>
+        <input matInput placeholder="Email (ce sera votre identifiant de connexion)" name="email" ngModel required>
+        </mat-form-field>        
+        <mat-form-field>
+          <input matInput placeholder="{{ 'password' | translate }}" [type]="hide ? 'password' : 'text'" name="password" ngModel required>
+          <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="{{ 'compte.adresse1' | translate }}" maxlength="35" name="adresse1" ngModel required onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="{{ 'compte.adresse2' | translate }}" maxlength="35" name="adresse2" ngModel onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="{{ 'compte.cp' | translate }}" maxlength="5" name="cp" ngModel required >
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="{{ 'compte.ville' | translate }}" maxlength="35" name="ville" ngModel required onkeyup="this.value = this.value.toUpperCase();">
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="{{ 'compte.telephone' | translate }}" maxlength="15" name="telephone" ngModel required>
+        </mat-form-field>
+        
+      <button type="submit" class="btn btn-primary float-right">{{ 'menu.inscrire' | translate }}</button>
+      </div>      
+    </form>
+  </div><br/>
+</div>
+<app-footer [page]="'contenu'"></app-footer>

@@ -1,0 +1,9 @@
+#info{
+ height: auto;
+}
+
+#separator {
+    border: 1px solid #dee2e6;
+    width: 60%;
+    margin: 4% auto 4% auto;
+}

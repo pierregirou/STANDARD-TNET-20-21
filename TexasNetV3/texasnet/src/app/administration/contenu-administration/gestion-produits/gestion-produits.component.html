@@ -1,0 +1,12 @@
+<div class="alert alert-warning">Gérez vos produits</div>
+<div>
+  <div style="margin-left: 5%;margin-top:1%">
+    <form *ngIf="ordreAffichage==='5'" class="example-form">
+      <mat-form-field style="width: 500px" class="example-full-width">
+        <input #searchBars (input)="searchChange(searchBars.value)" type="text" placeholder="Recherchez un produit dans la liste" aria-label="Number" matInput [formControl]="myControl">
+        <span matPrefix><i class="material-icons">search</i>&nbsp;</span>
+      </mat-form-field>
+    </form>
+  </div>
+  <app-gestion *ngIf="ordreAffichage==='5'" [recherche]="recherche"></app-gestion>
+</div>

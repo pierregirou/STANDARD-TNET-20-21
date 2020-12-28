@@ -1,0 +1,75 @@
+<div id="contenu" [style.background-color]="contenuColor">
+  <div class="alert alert-primary" *ngIf="codeTarif" role="alert">
+    {{ 'acceuil.promoMessage' | translate }}{{promoPourcentageCodeTarif}} %
+  </div>
+  <div class="container-fluid">
+    <div class="titre-contenu-produit">
+      <h5 style="color: rgb(84, 93, 92)">{{ 'acceuil.title' | translate }}</h5>
+    </div>
+    <div *ngIf="langueSelect===1" style="padding-left:7%;padding-right:5%" [innerHTML]="texteAccueil | safeHtml"></div>
+    <div *ngIf="langueSelect===2" style="padding-left:7%;padding-right:5%" [innerHTML]="texteAccueilAnglais | safeHtml"></div>
+    <div *ngIf="paramSelection" class="titre-contenu-produit">
+      <h5 style="color: rgb(84, 93, 92)">{{ 'acceuil.selection' | translate }}</h5>
+    </div>
+    <div *ngIf="paramSelection">
+      <div class="row">
+        <div *ngFor="let produit of produitSelection | myfilter:recherche;let i=index" style="margin-bottom: 20px;" class="collololo">
+          <div class="cards items-card ribbon-box">
+            <div *ngIf="produit.promo==='1'" class="ribbon"><span>{{ 'acceuil.promotion' | translate }}</span></div>
+            <div class="affImage" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)">
+              <img class="imageProduit" src="{{produit.image}}" (error)="changeImagePres('notfound',i)">
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div class="card-title">
+                <div (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)" style="font-size:14px;font-weight:bold">
+                  {{produit.refproduit}} {{produit.libelle}}<br>
+                  <span>{{produit.texteLibre}}<br></span>
+                  <span *ngIf="mode==='ligne'">{{produit.libcolori}}<br></span>
+                </div>
+                <div class="actionProduit">
+                  <div class="prix" *ngIf="produit.promo==='0'" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)">{{produit.prix}} €</div>
+                  <div class="prix" *ngIf="produit.promo==='1'" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)"><s style="color:red">{{produit.prix}} €</s> {{produit.tarifPromo}}€</div>
+                  <div (click)="onCommande(produit.refproduit,produit.libelle,produit.saison,produit.codeColori,produit.tarifPromo,produit.prix)" data-toggle="modal" data-target="#commande" class="commandeExpress">
+                    {{ 'acceuil.commander' | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="card-text" *ngIf="mode==='tableau'" style="min-height:60px;align-items: center;display:flex;flex-wrap: wrap;justify-content: center;padding: 5px;"
+                (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)">
+                <ng-container *ngFor="let colori of produit.arrayColori">
+                  <span style="margin-left:3px;display:inline-block;" *ngIf="colori.selection === '1'">
+                    <img class="affiche-image-miniature" style="display:flex;" *ngIf="maLangue==='FRA' && colori.tarif_promo === produit.tarifPromo" src="{{imageService.PhotosArt}}{{colori.imageMiniature}}"
+                      matTooltip="{{colori.codeColori}} - {{colori.libcolori}}" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,colori.codeColori,colori.libcolori)" (mouseenter)="changeImagePres(colori.codeColori,i)"/>
+                    <img class="affiche-image-miniature" *ngIf="maLangue==='ANG'" src="{{imageService.PhotosArt}}{{colori.imageMiniature}}" matTooltip="{{colori.codeColori}} - {{colori.libcoloriANG}}"
+                      (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,colori.codeColori,colori.libcolori)" (mouseenter)="changeImagePres(colori.codeColori,i)"/>
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal bootstrap pour la commande expresse -->
+<div class="modal fade bd-example-modal-xl" id="commande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'acceuil.commandeExpress' | translate }} {{coProduit}} {{coRefProduit}} - <s style="color:red" *ngIf="produitPromoInfo > 0 "> {{coPrix}}€ </s>
+          <span *ngIf="produitPromoInfo > 0 "> {{produitPromoInfo}}€</span><span *ngIf="produitPromoInfo < 1 "> {{coPrix}}€</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <app-commande-taille [promo]="produitPromoInfo" *ngIf="commandeExpress"></app-commande-taille>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

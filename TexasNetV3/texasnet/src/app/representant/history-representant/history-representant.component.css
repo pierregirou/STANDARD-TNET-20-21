@@ -1,0 +1,49 @@
+#contenu {
+    overflow: auto;
+}
+
+.table {
+    margin-top: 1%;
+}
+
+#titre-approuveur-desktop{
+    margin-left:5%;
+    width:25%;
+    border-bottom: 1px solid rgb(84, 93, 92);
+    float: left;
+    color: rgb(84, 93, 92);
+}
+
+#titre-approuveur-mobtab {
+    margin-left:5%;
+    width:90%;
+    border-bottom: 1px solid rgb(84, 93, 92);
+    float: left;
+    color: rgb(84, 93, 92);
+}
+
+.colonne-centrer {
+    text-align: center;
+}
+
+.table-icons {
+    text-align: center;
+}
+
+.table-icons input {
+    transform: scale(1.5);
+}
+
+.table-icons fa-icon {
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+.container-button {
+    text-align: right;
+    clear: both;
+}
+
+.aligned-cell {
+  text-align: center;
+}

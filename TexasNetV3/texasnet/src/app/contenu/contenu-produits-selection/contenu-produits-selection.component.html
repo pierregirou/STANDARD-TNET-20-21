@@ -1,0 +1,16 @@
+  <div class="container-fluid">
+      <app-baniere></app-baniere>
+      <div id="principal">
+        <!--<app-contenu-view [menuSnap]="menuSnap"></app-contenu-view>-->
+        <app-contenu-produits></app-contenu-produits>
+        <div id="modules">
+          <app-total></app-total>
+          <app-info></app-info>
+          <div *ngIf="afficherFiltres" id="filtre" [style.background-color]="totalColor">
+              <app-filtre-box></app-filtre-box>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer [page]="'contenu'"></app-footer>
+      

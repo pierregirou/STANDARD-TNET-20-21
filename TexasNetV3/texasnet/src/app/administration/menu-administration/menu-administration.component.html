@@ -1,0 +1,30 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a routerLink="/administration" class="navbar-brand"><img style="width:30px;height:auto" src="{{imageService.LogoNet}}"> Administration</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li routerLinkActive="active" class="nav-item">
+                <a routerLink="/administration/parametres" class="nav-link">Paramètres</a>
+            </li>
+            <li routerLinkActive="active" class="nav-item">
+                <a routerLink="/administration/gestion-produits" class="nav-link">Gestion des produits</a>
+            </li>
+            <!-- <li routerLinkActive="active" class="nav-item">
+                <a routerLink="/administration/gestion-fdp" class="nav-link">Gestion des frais de port</a>
+            </li> -->
+            <li routerLinkActive="active" class="nav-item">
+                <a routerLink="/administration/telechargements" class="nav-link">Téléchargements</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link"><i style="cursor:pointer" data-toggle="collapse" data-target=".navbar-collapse.show" (click)="deconnexion()"><fa-icon icon="power-off" size="2x"></fa-icon></i><span class="d-lg-none">Déconnexion</span></a>
+                </li>
+            </ul>
+        </form>
+    </div>
+</nav>
+<br/>

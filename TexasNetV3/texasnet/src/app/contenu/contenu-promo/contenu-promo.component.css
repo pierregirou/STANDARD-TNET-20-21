@@ -1,0 +1,211 @@
+/* ------------------ @media query --------------------------*/
+
+.collololo{
+  margin: auto 1%;
+}
+
+@media (min-width: 1550px) {
+  .collololo {
+      width:23%;
+  }
+}
+
+@media (max-width: 1549px) and (min-width: 1225px) {
+    .collololo {
+    width: 30%;
+  }
+}
+
+@media (max-width: 1224px) and (min-width: 800px) {
+    .collololo {
+    width: 45%;
+  }
+}
+
+@media (max-width: 799px) and (min-width: 500px) {
+    .collololo {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 499px) {
+    .collololo {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+.items-card:hover {
+    transform: scale(1.05);
+}
+
+.items-card {
+    border: 1px solid #ddd;
+    width: 100%;
+    text-align: center;
+    box-shadow: 8px 8px 12px #aaa;
+    cursor: pointer;
+}
+
+.affiche-image-miniature {
+    border: 1px solid grey;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+.card-text{
+  height:0px;
+  width:auto;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #777272;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #474444;
+}
+/***************************************************Affichage des produits**************************************************************/
+
+.contenu-produit1 {
+    border: 1px solid #ddd;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    box-shadow: 8px 8px 12px #aaa;
+    cursor: pointer;
+}
+
+.contenu-produit1:hover {
+    box-shadow: 20px 20px 28px #aaa;
+}
+
+.affImage {
+    width: 70%;
+    margin: 15px 15%;
+}
+
+.imageProduit {
+    max-height:150px;
+    width:auto;
+    max-width:100%;
+    min-height:150px;
+}
+
+.infoProduit {
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    float: right;
+}
+
+.desProduit {
+    background-color: rgb(221, 221, 221);
+    padding: 2px 2px 2px 2px;
+}
+
+.actionProduit {
+    margin-bottom: 20px;
+    position: relative;
+    padding: 5px 0px;
+}
+
+.prix {
+    width: 50%;
+    background: rgb(51, 51, 51);
+    border: 1px solid black;
+    color: white;
+    position: absolute;
+}
+
+.commandeExpress {
+    width: 50%;
+    margin-left: 50%;
+    background-color: rgb(19, 158, 224);
+    /*bisque*/
+    border: 1px solid black;
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+}
+
+.commandeExpress:hover {
+    width: 85%;
+    margin-left: 15%;
+    transition-duration: 1s;
+}
+
+  /* Ruban promo */
+.ribbon-box {
+  position: relative;
+  overflow: visible;
+}
+
+.ribbon {
+  position: absolute;
+  right: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 90px; height: 90px;
+  text-align: right;
+}
+
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 120px;
+  display: block;
+  background: #92c614;
+  background: linear-gradient(#8cc209 0%, #8cc209 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 26px; right: -25px;
+}
+
+.ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #81b011;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #81b011;
+}
+
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #81b011;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #81b011;
+}
+
+.conteneur-promo {
+  margin: 1% 6%;
+}
+
+.container-commande-taille {
+  padding-bottom: 1rem;
+}

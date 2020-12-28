@@ -1,0 +1,208 @@
+<app-menu-administration></app-menu-administration>
+<div *ngIf="selection!=='parametres' && selection!=='gestion-produits' && selection!=='gestion-fdp' && selection!=='telechargements'">
+    <div class="alert alert-warning" >Bienvenue sur le panel d'administration de TexasNet</div>
+    <div style="border-bottom: 1px solid grey;font-size:24px;color:rgb(196, 187, 187)">Modifier les infos ci-dessous</div>
+    <mat-card class="result">
+        <mat-card-content>
+            <div style="width: 100%">
+                <!-- Nom de la société -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Nom de la société:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Nom de la société" matInput type="text" [(ngModel)]="nomSociete" (input)="changeValueParametrage('nomsociete',nomSociete)" placeholder="nom société">
+                            <mat-error>nom société</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Adresse 1 -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Adresse :</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Adresse" matInput type="text" [(ngModel)]="adresse1" (input)="changeValueParametrage('adresse1',adresse1)" placeholder="adresse">
+                            <mat-error>Adresse</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Adresse 2-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Complément d'adresse</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Complément d'adresse" matInput type="text" [(ngModel)]="adresse2" (input)="changeValueParametrage('adresse2',adresse2)" placeholder="complément adresse">
+                            <mat-error>complément d'adresse</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Téléphone-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Téléphone:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="téléphone" matInput type="text" [(ngModel)]="telephone" (input)="changeValueParametrage('telephone',telephone)" placeholder="téléphone">
+                            <mat-error>téléphone</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- fax-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Fax:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Fax" matInput type="text" [(ngModel)]="fax" (input)="changeValueParametrage('fax',fax)" placeholder="fax">
+                            <mat-error>Fax</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- e-mail -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">E-mail:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="e-mail" matInput type="text" [(ngModel)]="email" (input)="changeValueParametrage('email',email)" placeholder="e-mail">
+                            <mat-error>e-mail</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Site web-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Site web:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Site web" matInput type="text" [(ngModel)]="siteweb" (input)="changeValueParametrage('siteweb',siteweb)" placeholder="site web">
+                            <mat-error>site web</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Code langue-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Code langue:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Code langue" matInput type="text" [(ngModel)]="codeLangue" (input)="changeValueParametrage('codeLangue',codeLangue)" placeholder="code langue">
+                            <mat-error>code langue</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- code devise-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Code devise:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Code devise" matInput type="text" [(ngModel)]="codeDevise" (input)="changeValueParametrage('codeDevise',codeDevise)" placeholder="code devise">
+                            <mat-error>code devise</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- codeTarif -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Code tarif:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="Code tarif" matInput type="text" [(ngModel)]="codeTarif" (input)="changeValueParametrage('codeTarif',codeTarif)" placeholder="code tarif">
+                            <mat-error>code tarif</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Date min livraison-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Date min livraison:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="date minimum de livraison" matInput type="text" [(ngModel)]="dateMinLivraison" (input)="changeValueParametrage('dateMinLivraison',dateMinLivraison)" placeholder="date minimum de livraison">
+                            <mat-error>date minimum de livraison</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- texteCommandeFRA -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Texte commande FRA:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="texte commande FRA" matInput type="text" [(ngModel)]="texteCommandeFra" (input)="changeValueParametrage('texteCommandeFra',texteCommandeFra)" placeholder="texte commande FRA">
+                            <mat-error>texte commande FRA</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- texteCommandeANG-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Texte commande ANG:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="texte commande ANG" matInput type="text" [(ngModel)]="texteCommandeAng" (input)="changeValueParametrage('texteCommandeAng',texteCommandeAng)" placeholder="nom société">
+                            <mat-error>texte commande ANG</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- saisonCommande -->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Saison commande:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="saison commande" matInput type="text" [(ngModel)]="saisonCommande" (input)="changeValueParametrage('saisonCommande',saisonCommande)" placeholder="saison commande">
+                            <mat-error>saison commande</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>
+                <!-- Photo largeur-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Photo largeur:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="photo largeur" matInput type="text" [(ngModel)]="photoLargeur" (input)="changeValueParametrage('photoLargeur',photoLargeur)" placeholder="photo largeur">
+                            <mat-error>photo largeur</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>   
+                <!-- Photo hauteur-->
+                <div style="float: left">
+                    <p style="font-size: 18px;margin-top:15px">Photo hauteur:</p>
+                </div>
+                <div style="clear: right;margin-left: 20%">
+                    <section>
+                        <mat-form-field [color]="'primary'" appearance="outline">
+                            <input matTooltip="photo hauteur" matInput type="text" [(ngModel)]="photoHauteur" (input)="changeValueParametrage('photoLongueur',photoLongueur)" placeholder="photo hauteur">
+                            <mat-error>photo hauteur</mat-error>
+                        </mat-form-field>
+                    </section>
+                </div><br/>   
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+<app-parametres-administration *ngIf="selection==='parametres'"></app-parametres-administration>
+<app-gestion-produits *ngIf="selection==='gestion-produits'"></app-gestion-produits>
+<app-gestion-fdp *ngIf="selection==='gestion-fdp'"></app-gestion-fdp>
+<app-telechargement-administration *ngIf="selection==='telechargements'"></app-telechargement-administration>
+<app-footer [page]="'contenu'"></app-footer>

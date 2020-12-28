@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <app-baniere></app-baniere>
+    <div id="principal">
+        <div id="contenu" [style.background-color]="contenuColor">
+            <div id="detailProduit">
+                <div class="header-detail-prod">
+                    <div style="float:left;">
+                        <button (click)="returnProducts()" class="btn btn-light">{{ 'panier.retourProd' | translate }}</button>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="text-align:center;border-bottom: 1px solid #139fe02c;display:inline-block;">
+                            <h1 *ngIf="lcLibelle1" style="display:inline-block;">{{refproduit}} {{libelle}}</h1>
+                            <h1 *ngIf="lcLibelle2" style="display:inline-block;">{{libelle}}</h1>
+                            <h1 *ngIf="lcTheme && theme!== 'Sans'" style="display:inline-block;"> - {{theme}}</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-detail-prod">
+
+                    <div class="container-image-miniature">
+                        <img *ngFor="let imageP of arrayTailleImage, let k = index" class="image-miniature" src="{{imageService.PhotosArt}}{{imageP}}" (click)="changePhoto(imageP,arrayTailleImageZ[k])" />
+                    </div>
+
+                    <div class="container-image-zoom">
+                        <!-- style="max-width: 400px;max-height: 477px; overflow: auto;" -->
+                        <div>
+                            <ngx-image-zoom [thumbImage]=image [fullImage]=imageZ [magnification]="1.25" [zoomMode]="'hover'"></ngx-image-zoom>
+                        </div>
+                    </div>
+
+
+                    <div class="container-description">
+                        <div *ngIf="codeTarifClient" class="alert alert-primary">{{ 'acceuil.promoMessage' | translate }} {{promoPourcentageCodeTarif}} %!</div>
+                        <div style="margin-bottom:2%">
+                            <span *ngIf="prixSelect>0 && !promo" style="font-size: 30px;">{{prixSelect | number : '.2-2'}} €</span><br>
+                            <span *ngIf="prixSelect>0 && promo" style="font-size: 30px;text-decoration: line-through; font-weight: bold;font-weight: bold;margin-bottom: 2%;">{{prixSelect | number : '.2-2'}} € </span>
+                            <span *ngIf="prixSelect>0 && promo" style="font-size: 30px;color:rgb(54, 177, 54);margin-left:18px;font-weight: bold"> {{promo | number : '.2-2'}} €</span>
+                        </div>
+                        <div style="margin-bottom:2%">
+                            <div style="clear: right;font-size:18px;" *ngIf="PVC"><strong style="clear: left;font-size:18px" *ngIf="PVC">PVC : </strong>{{t_pvc}} € </div>
+                        </div>
+                        <p>
+                            <strong *ngIf="champsstat != ''">{{ 'detail.composition' | translate }} :</strong><span> {{ champsstat }}<br/></span>
+                            <strong *ngIf="libelle2 != '' ">{{ 'detail.conteudupack' | translate }} :</strong><span *ngIf="libelle2 != '' "> {{ 'produit.prixUnitaire' | translate }} : <b> {{textLibre}} </b><br> {{ libelle2 }}<br/></span>
+                            <strong *ngIf="visRefProduit">{{ 'detail.refProd' | translate }} :</strong> <span *ngIf="visRefProduit"> {{ refproduit }}<br/></span>
+                            <strong *ngIf="visTaille">{{ 'detail.taille' | translate }} :</strong><span *ngIf="visTaille"> {{tailleDisponible}}<br/></span>
+                            <strong *ngIf="visColoris">{{ 'detail.coloris' | translate }} :</strong><span *ngIf="visColoris"> {{nbColori}}<br/></span>
+                            <strong *ngIf="visMarque">{{ 'detail.marque' | translate }} :</strong><span *ngIf="visMarque"> {{ marque }}<br/></span>
+                            <strong *ngIf="visTheme">{{ 'detail.theme' | translate }} :</strong><span *ngIf="visTheme"> {{ theme }}<br/></span>
+                            <strong *ngIf="visFamille ">{{ 'detail.famille' | translate }} :</strong><span *ngIf="visFamille"> {{ famille }}<br/></span>
+                            <strong *ngIf="visSousFamille">{{ 'detail.sousFamille' | translate }} :</strong><span *ngIf="visSousFamille"> {{ sousFamille }}<br/></span>
+                            <strong *ngIf="visModele">{{ 'detail.modele' | translate }} :</strong><span *ngIf="visModele"> {{ modele }}</span>
+                        </p>
+                        <div *ngIf=" description " class="titre-information">{{ 'detail.titre.description' | translate | titlecase }} : </div>
+
+                        <span style="text-align: justify;"><span id="description-art" [innerHTML]="description"></span></span><br>
+                        <div *ngIf="colori != 'PACK'" class="titre-information">{{ 'detail.titre.couleur' | translate | titlecase }} :<br>
+                            <div *ngFor="let imagePs of arrayColorisImage, let p = index" class="imageMiniature" style="display:inline-block"><img src="{{imageService.PhotosArt}}{{imagePs}}" style="width:auto;height:40px" (click)="changeColoris(arrayColorisLib[p])" matTooltip="{{arrayColorisLib[p]}} - {{arrayColorisLibelle[p]}}" aria-label="Button that displays a tooltip when focused or hovered over"
+                                />&nbsp;</div><br></div>
+                    </div>
+                </div>
+                <app-commande-taille *ngIf="isAuth" [promo]="promo" [colorFromDetailProduit]="colorPourCommandeTaille" (changeColor)="changeColoris($event)"></app-commande-taille>
+            </div>
+        </div>
+        <div id="modules">
+            <app-total></app-total>
+            <app-info></app-info>
+            <div *ngIf="afficherFiltres" id="filtre" [style.background-color]="totalColor">
+                <app-filtre-box></app-filtre-box>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer [page]="'contenu'"></app-footer>

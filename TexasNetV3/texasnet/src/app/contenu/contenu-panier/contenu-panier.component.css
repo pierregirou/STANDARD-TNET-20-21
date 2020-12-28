@@ -1,0 +1,41 @@
+.modal-body {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::ng-deep .mat-horizontal-content-container{
+  padding: 0 !important;
+}
+
+.form-input-mobile {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.form-input-desktop {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.delete-button-container {
+  text-align: right;
+  padding: 6px 45px;
+  padding-bottom: 16px;
+}
+
+#valid-button {
+  float: right;
+  color: rgb(45, 196, 45);
+  font-size:18px;
+  height:35px;
+  margin: 16px 45px;
+  border: solid 1px rgb(45, 196, 45);
+}
+
+th:first-child, td:first-child
+{
+  position:sticky;
+  left:0px;
+}

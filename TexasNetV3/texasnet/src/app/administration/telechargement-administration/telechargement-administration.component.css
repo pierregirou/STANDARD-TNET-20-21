@@ -1,0 +1,7 @@
+.main-container {
+  padding: 3% 8%;
+  margin: 2% 10%;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  background: white;
+}

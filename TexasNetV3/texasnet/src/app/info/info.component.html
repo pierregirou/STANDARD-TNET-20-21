@@ -1,0 +1,14 @@
+<div id="info" [style.background-color]="">
+    <h5>Infos</h5>
+    <ng-container *ngIf="messageSoc != ''">
+        <div [innerHTML]="messageSoc"></div>
+        <div id="separator"></div>
+    </ng-container>
+    <span><strong> {{nomsociete}}</strong></span><br/>
+    <span><fa-icon icon="id-card"></fa-icon> {{adresse1}} <br> {{adresse2}}</span><br/>
+    <span><fa-icon icon="globe-europe"></fa-icon><a href="{{siteweb}}" target="_BLANK"> {{siteweb}}</a></span><br/>
+    <span><fa-icon icon="globe-europe"></fa-icon><a href="https://degre7.com/" target="_BLANK"> https://degre7.com/</a></span><br/>
+    <span><fa-icon icon="globe-europe"></fa-icon><a href="https://henri-duvillard.com/fr/ " target="_BLANK"> https://henri-duvillard.com/fr/ </a></span><br/>
+    <span><fa-icon icon="phone"></fa-icon> {{telephone}}</span><br/>
+    <span><fa-icon icon="at"></fa-icon> {{email}}</span>
+</div>

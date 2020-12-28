@@ -1,0 +1,101 @@
+.clickableColoris{
+    cursor: pointer;
+}
+
+.tab-footer {
+  text-align: right;
+}
+
+.resize{
+    width:800px;
+}
+
+      /* Mode de saisie 1 */
+
+.container-photos-express {
+  padding: 10px;
+  text-align: center;
+}
+
+.container-photos-express > img {
+  margin: 0px 5px;
+}
+
+.container-btn-ajout {
+  text-align: center;
+  padding: 10px;
+  padding-top: 5px;
+}
+
+.btn-ajout-panier {
+  margin: auto;
+  cursor: pointer;
+}
+
+.une-taille {
+  padding: 2px 8px;
+  margin: 4px 6px;
+}
+
+.disabled-ajout-panier {
+  background-color: grey;
+  border-color: grey;
+  cursor: not-allowed;
+}
+
+.input-group-apprend {
+  display: flex;
+}
+
+.input-group {
+  padding: 10px 0px;
+}
+
+.border-plus {
+  border-radius: 0px;
+  padding: 0px 10px;
+}
+
+.border-minus {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding: 0px 10px;
+}
+
+.quantity-icon {
+  font-size: 24px;
+  color: rgba(19, 159, 224, 0.882);
+  cursor: pointer;
+}
+
+.disabled-button {
+  color: grey !important;
+  cursor: not-allowed !important;
+}
+
+.container-coloris, .container-taille {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 1% 5%;
+  margin: 8px;
+}
+
+.prix-promo {
+  font-size: 24px;
+  color: rgb(54, 177, 54);
+}
+
+.prix-non-promo {
+  font-size: 24px;
+}
+
+.prix-non-promo-barre {
+  text-decoration: line-through;
+}
+
+.container-taille> button {
+  margin: 0% 50px;
+}

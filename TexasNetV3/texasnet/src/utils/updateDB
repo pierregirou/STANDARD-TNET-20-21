@@ -1,0 +1,1 @@
+CREATE TABLE `texasnet`.`positiongalerie` ( `idPos` INT NOT NULL AUTO_INCREMENT , `refproduit` INT NOT NULL , `position1` INT NOT NULL , `position2` INT NOT NULL , `position3` INT NOT NULL , `position4` INT NOT NULL , `position5` INT NOT NULL , `position6` INT NOT NULL , PRIMARY KEY (`idPos`), INDEX `INDEX` (`refproduit`)) ENGINE = InnoDB;

@@ -1,0 +1,30 @@
+<div id="container-fluid">
+  <app-baniere></app-baniere>
+  <div id="bandeau-connexion">
+        <!-- Affiche le cadenas si l'utilisateur n'est pas authentifié -->
+        <i *ngIf="iconStatut==='lock'"><fa-icon id="icon-lock" style="color:white" icon="{{iconStatut}}"></fa-icon></i>
+        <i *ngIf="iconStatut==='times-circle'"><fa-icon id="icon-lock" style="color:white" icon="{{iconStatut}}"></fa-icon></i>
+        <!-- Affiche un spinner lorsque l'utilisateur tente de se connecter -->
+        <i *ngIf="iconStatut==='spinner'"><fa-icon style="color:white" icon="{{iconStatut}}" spin="true" size="6x"></fa-icon></i>
+  </div>
+  <div id="connexion"><br/>
+  <!--<div class="alert alert-danger" role="alert">
+      Le login ou le mot de passe est incorrect
+  </div>-->
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="example-container">
+        <mat-form-field>
+          <input matInput placeholder="{{ 'login' | translate }}" name="login" ngModel required>
+        </mat-form-field><br/>
+        <mat-form-field>
+            <input matInput placeholder="{{ 'password' | translate }}" [type]="hide ? 'password' : 'text'" name="password" ngModel required>
+            <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </div>
+      <button [disabled]="f.invalid || disableConnexion" type="submit" class="btn btn-primary">{{ 'menu.connexion' | translate }}</button>
+      
+      <!--<a routerLink="inscription" type="submit" class="btn btn-primary float-right">{{ 'menu.inscrire' | translate }}</a>-->
+    </form>
+  </div><br/>
+</div>
+<app-footer [page]="'connexion'"></app-footer>

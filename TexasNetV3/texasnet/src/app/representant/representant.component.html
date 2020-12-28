@@ -1,0 +1,5 @@
+
+<app-menu-representant (onChangeMode)="changeMode($event)"></app-menu-representant>
+<app-contenu-maintenance *ngIf="maintenance"></app-contenu-maintenance>
+<app-contenu-representant *ngIf="mode === 'liste' && !maintenance"></app-contenu-representant>
+<app-history-representant *ngIf="mode === 'commande' && !maintenance"></app-history-representant>

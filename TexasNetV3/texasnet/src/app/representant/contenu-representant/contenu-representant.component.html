@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <mat-list>
+    <h3 *ngIf="clientRep.length === 1">{{ 'representant.client' | translate }}</h3>
+    <h3 *ngIf="clientRep.length > 1">{{ 'representant.client.pluriel' | translate }}</h3>
+    <!-- Liste de tous les participants associés au codeClient du représentant-->
+    <mat-form-field id="filter-container" [style.fontSize.px]="12">
+      <input #filter [(ngModel)]="recherche" (ngModelChange)="filterList(recherche)" type="text" matInput placeholder="Rechercher">
+    </mat-form-field>
+    <ng-container *ngFor="let client of clientRep;let i=index">
+      <ng-container *ngIf="afficheClient[i] === true">
+        <mat-list-item>
+          <mat-icon style="cursor: pointer" (click)="getClientRep(client,i)" matTooltip="Accès au compte {{client}}" mat-list-icon>account_box</mat-icon>
+          <h4 style="cursor: pointer" (click)="getClientRep(client,i)" mat-line>{{client}} - {{codeClientRep[i]}} - {{societeRep[i]}}</h4>
+        </mat-list-item>
+      </ng-container>
+    </ng-container>
+  </mat-list>
+</div>

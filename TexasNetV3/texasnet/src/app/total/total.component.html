@@ -1,0 +1,17 @@
+<div id="total" [style.background-color]="totalColor" *ngIf="articleExiste">
+    <h5>{{ 'total.Total' | translate }}</h5>
+    <div style="max-height: 140px; overflow:auto">
+        <ul class="list-group">
+            <li *ngFor="let commande of arrayCommande" style="font-size: 12px" class="list-group-item d-flex justify-content-between align-items-center">
+            {{commande.libelle}} <span *ngIf="modeSaisie===1" style="color: black"> {{commande.taille}}</span>
+            <!-- Si mode ligne affiche tous les produits et leurs quantité-->
+            <span class="badge badge-primary badge-pill" *ngIf="modeSaisie===1" >x{{commande.quantite}}</span>
+            <!-- Si modeTableau affiche la quantité de produit assoicé à la référence du produit-->
+            <span class="badge badge-primary badge-pill" *ngIf="modeSaisie===2" >x{{commande.quantTab}}</span>
+            </li>
+        </ul>
+    </div><br/>
+   <!--- <mat-form-field style="width:100px"><input  matInput type="text" value="{{montant}} €" placeholder="Montant" disabled><mat-error>Montant</mat-error></mat-form-field>
+    <mat-form-field style="width:100px"><input  matInput type="text" value="{{pieces}}" placeholder="Pièces" disabled><mat-error>Pièces</mat-error></mat-form-field><br/>---->
+    <button [disabled]="!isDisabled" (click)="buttonCommande()" mat-mini-fab color="primary"><fa-icon icon="check" size="2x"></fa-icon></button><br/><br/>
+</div>

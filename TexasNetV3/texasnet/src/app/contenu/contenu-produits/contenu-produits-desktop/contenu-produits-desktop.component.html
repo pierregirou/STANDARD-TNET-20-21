@@ -1,0 +1,71 @@
+<!-- Lien pour remonter en haut de la page -->
+<div *ngIf="isDesktop">
+    <a id="cRetour" class="cInvisble" (click)="hautPage()"></a>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div *ngFor="let produit of produits | myfilter:recherche;let i=index" style="margin-bottom: 20px;" class="collololo">
+            <div class="cards items-card ribbon-box">
+                <div *ngIf="produit.promo==='1'" class="ribbon"><span>{{ 'acceuil.promotion' | translate }}</span></div>
+                <div class="affImage" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)">
+                    <img class="imageProduit" src="{{produit.image}}" (error)="changeImagePres('notfound',i)">
+                </div>
+                <div class="card-body" style="padding: 0px;">
+                    <div class="card-title">
+                        <div (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)" style="font-size:14px;font-weight:bold">
+                            <span *ngIf="lcLibelle1">{{produit.refproduit}}</span><br>
+                            <span *ngIf="produit.libelle != '' ">{{produit.libelle}}</span>
+                            <span *ngIf="lcLibelle2 && maLangue === 'FRA' ">{{produit.libelle}}</span><br>
+                            <span *ngIf="lcLibelle2 && maLangue === 'ANG' ">{{produit.libelleANG}}</span><br>
+                            <span *ngIf="lcTheme"></span>
+
+                        </div>
+                        <div class="actionProduit">
+                            <div class="prix" *ngIf="produit.promo==='0'" [routerLink]="['/detail-produit/',produit.refproduit]">{{produit.prix}} €</div>
+                            <div class="prix" *ngIf="produit.promo==='1'" [routerLink]="['/detail-produit/',produit.refproduit,produit.tarifPromo]"><s style="color:red">{{produit.prix}} €</s> {{produit.tarifPromo}}€</div>
+                            <div (click)="onCommande(produit.refproduit,produit.libelle,produit.saison,produit.codeColori,produit.tarifPromo,produit.prix)" data-toggle="modal" data-target="#commande" class="commandeExpress">
+                                {{ 'acceuil.commander' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-text" *ngIf="mode==='tableau'" style="min-height:60px;align-items: center;display:block;flex-wrap: wrap;justify-content: center;padding: 5px;" (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)">
+                        <div class="" style="display: block;">
+                            <!--contenue du pack pour amateis-->
+                            <!-- <span style="float: left;margin-left: 15px;font-size: 2em;"><i class="fas fa-level-down-alt fa-flip-horizontal"></i></span> -->
+                            <div *ngIf="produit.texteLibre!==''"> {{ 'produit.prixUnitaire' | translate }} : <b> {{produit.texteLibre}} </b></div>
+                            <div *ngIf=" produit.libelle2 !== ''">{{produit.libelle2}}</div>
+                        </div>
+                        <span *ngIf="mode === 'ligne' ">{{produit.libcolori}}<br></span>
+                        <div style="margin-left:3px;display:inline-block;text-align: center;" *ngFor="let colori of produit.arrayColori">
+                            <img class="affiche-image-miniature" style="display:flex;" *ngIf="maLangue==='FRA' && colori.tarif_promo === produit.tarifPromo && colori.codeColori != 'PACK'" src="{{imageService.PhotosArt}}{{colori.imageMiniature}}" matTooltip="{{colori.codeColori}} - {{colori.libcolori}}"
+                                (click)="goDetail(produit.promo,produit.refproduit, produit.tarifPromo,colori.codeColori)" (mouseenter)="changeImagePres(colori.codeColori,i)" />
+                            <img class="affiche-image-miniature" *ngIf="maLangue==='ANG' && colori.tarif_promo === produit.tarifPromo" src="{{imageService.PhotosArt}}{{colori.imageMiniature}}" matTooltip="{{colori.codeColori}} - {{colori.libcoloriANG}}" (click)="goDetail(produit.promo,produit.refproduit, produit.tarifPromo,colori.codeColori)"
+                                (mouseenter)="changeImagePres(colori.codeColori,i)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal bootstrap pour la commande express -->
+<div *ngIf="isAuth" class="modal fade bd-example-modal-xl" id="commande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'acceuil.commandeExpress' | translate }} {{coProduit}} {{coRefProduit}} - <s style="color:red" *ngIf="produitPromo > 0 "> {{coPrix}}€</s> <span *ngIf="produitPromo > 0 "> {{produitPromo}}€
+        </span><span *ngIf="produitPromo < 1 "> {{coPrix}}€</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="container-commande-taille">
+                <app-commande-taille [promo]="produitPromo" *ngIf="commandeExpress"></app-commande-taille>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

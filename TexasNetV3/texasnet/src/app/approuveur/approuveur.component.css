@@ -1,0 +1,78 @@
+#contenu {
+    overflow: auto;
+}
+
+.table {
+    margin-top: 1%;
+}
+
+#table-historique {
+    margin-top: 70px;
+}
+
+#titre-approuveur-desktop{
+    margin-left:5%;
+    width:25%;
+    border-bottom: 1px solid rgb(84, 93, 92);
+    float: left;
+    color: rgb(84, 93, 92);
+}
+
+#titre-approuveur-mobtab {
+    margin-left:5%;
+    width:90%;
+    border-bottom: 1px solid rgb(84, 93, 92);
+    float: left;
+    color: rgb(84, 93, 92);
+}
+
+.colonne-centrer {
+    text-align: center;
+}
+
+.table-icons {
+    text-align: center;
+}
+
+.table-icons input {
+    transform: scale(1.5);
+}
+
+.table-icons fa-icon {
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+#approuver-button {
+    float: right;
+    color: rgb(45, 196, 45);
+    font-size:1.2rem;
+    margin-right: 3%;
+}
+
+.approuve-button {
+    color: rgb(45, 196, 45);
+    font-size:1rem;
+}
+
+.refuse-button {
+    color: rgb(216, 18, 18);
+    font-size:1rem;
+}
+
+.container-button {
+    text-align: right;
+    clear: both;
+}
+
+.importantBtn {
+  font-weight: bold;
+}
+
+#containerModal {
+  padding: 1%;
+}
+
+.aligned-cell {
+    text-align: center;
+}

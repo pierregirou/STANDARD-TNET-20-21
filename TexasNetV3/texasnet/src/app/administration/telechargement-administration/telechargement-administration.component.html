@@ -1,0 +1,55 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-6">
+      <table>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"> Nom du document</th>
+              <th scope="col">UPLOAD / URL</th>
+              <th scope="col">SUPPRIMER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let telecharge of telechargement, let i=index">
+              <th scope="row">{{telecharge.intitule}}</th>
+              <td> {{telecharge.type}} </td>
+              <td><a (click)="deleteTelechargement(telecharge.id)" style="color:#CF0A1D;"><fa-icon icon="trash"></fa-icon> Supprimer </a></td>
+            </tr>
+          </tbody>
+        </table>
+      </table>
+
+    </div>
+    <div class="col-2"></div>
+    <div class="col-4">
+      <form [formGroup]="uploadForm" (ngSubmit)="onUpload()">
+  
+        <mat-form-field class="form-group">
+          <input matInput type="text" placeholder="Nom" formControlName="intitule" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <input matInput type="url" placeholder="Lien URL" formControlName="url" (input)="checkLinks('url')">
+        </mat-form-field>
+        <br>
+        - Ou -
+        <br>
+  
+        <mat-form-field class="form-group" (click)="fileInput.click()">
+          <input matInput type="url" placeholder="Upload ..." formControlName="relativeLink">
+        </mat-form-field>
+        <button type="button" (click)="fileInput.click()" class="btn btn-primary btn-sm">
+          <span>Parcourir</span>
+          <input #fileInput type="file" (change)="onFileInput($event.target.files)" style="display:none;" />
+        </button>
+  
+        <br>
+        <button type="submit" class="btn btn-primary" [disabled]="!uploadForm.valid">Upload</button>
+      </form>
+  
+    </div>
+
+  </div>
+  
+</div>

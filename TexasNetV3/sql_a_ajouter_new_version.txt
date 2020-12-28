@@ -1,0 +1,1 @@
+ALTER TABLE `parametrage` ADD `fiscalFrancais` VARCHAR(5) NULL AFTER `photoHauteur`;

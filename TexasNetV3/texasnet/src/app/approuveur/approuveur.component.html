@@ -1,0 +1,238 @@
+<div id="container-fluid">
+  <app-baniere></app-baniere>
+</div>
+
+<div id="principal">
+      <!-- Partie liste des commandes -->
+  <ng-container *ngIf="modeAffichage==='liste'">
+    <div id="contenu" [style.background-color]="contenuColor">
+      <ng-container *ngIf="isDesktop">
+        <div id="titre-approuveur-desktop">
+          <h5>{{ 'approuveur.titre' | translate }}</h5>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="isMobile || isTablet">
+        <div id="titre-approuveur-mobtab">
+          <h5>{{ 'approuveur.titre' | translate }}</h5>
+        </div>
+      </ng-container>
+
+      <div class="container-button">
+        <button class="approuve-button importantBtn" (click)="approveAll()" mat-button>{{ 'approuveur.approuveAll' | translate }}</button>
+      </div>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> {{ 'approuveur.numCommande' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.nom' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.agence' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.matricule' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.fonction' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.date' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.quantite' | translate }} </th>
+            <th scope="col"> {{ 'approuveur.total' | translate }} </th>
+            <th scope="col" class="colonne-centrer"> {{ 'approuveur.approuver' | translate }} </th>
+            <th scope="col" class="colonne-centrer"> {{ 'approuveur.refuser' | translate }} </th>
+            <th scope="col" class="colonne-centrer"> {{ 'approuveur.details' | translate }} </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="listeCommandes.length === 0">
+            <td scope="col" class="colonne-centrer" colspan="11">{{ 'approuveur.noCommand' | translate }}</td>
+          </ng-container>
+          <ng-container *ngFor="let uneCommande of listeCommandes; let i=index">
+            <tr>
+              <td scope="col">{{ uneCommande.numCommande }}</td>
+              <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td>
+              <td scope="col">{{ uneCommande.agence }}</td>
+              <td scope="col">{{ uneCommande.matricule }}</td>
+              <td scope="col">{{ uneCommande.fonction }}</td>
+              <td scope="col">{{ uneCommande.dateCommande }}</td>
+              <td scope="col">{{ uneCommande.nbrpiece }}</td>
+              <td scope="col">{{ uneCommande.montant }} €</td>
+              <td scope="col"><button class="approuve-button" (click)="updateOneCmd(uneCommande.numCommande, 'approuve')" mat-button>{{ 'approuveur.approuver' | translate }}</button></td>
+              <td scope="col"><button class="refuse-button" data-toggle="modal" data-target="#validationModal" (click)="modalCmdId = i" mat-button>{{ 'approuveur.refuser' | translate }}</button></td>
+              <td scope="col" class="table-icons">
+                <fa-icon *ngIf="!selected[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                <fa-icon *ngIf="selected[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+              </td>
+            </tr>
+            <ng-container *ngIf="selected[i]">
+              <tr>
+                <td colspan="11">
+                  <!-- Partie Détails -->
+                  <table class="table" id="tableDetails">
+                    <thead>
+                      <tr>
+                        <th scope="col">{{ 'approuveur.details.reference' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleProduit' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.prixUnitaire' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleTaille' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.details.libelleColoris' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.quantite' | translate }}</th>
+                        <th scope="col">{{ 'approuveur.total' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let uneLigneDetail of currentDetails; let p=index">
+                        <td scope="col">{{ uneLigneDetail.reference }}</td>
+                        <td scope="col">{{ uneLigneDetail.libelleProduit }}</td>
+                        <td scope="col">{{ uneLigneDetail.prixUnitaire }} €</td>
+                        <td scope="col">{{ uneLigneDetail.libelleTaille }}</td>
+                        <td scope="col">{{ uneLigneDetail.libelleColoris }}</td>
+                        <td scope="col">
+                          <input type="number" value="{{uneLigneDetail.quantite}}" min="0" max="{{uneLigneDetail.quantite}}" (change)="updateQte(p)" name="newQteR">
+                        <td scope="col">{{ uneLigneDetail.total }} €</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+      <!-- Partie historique -->
+  <ng-container *ngIf="modeAffichage==='history'">
+    <div id="contenu" [style.background-color]="contenuColor">
+        <ng-container *ngIf="isDesktop" >
+          <div id="titre-approuveur-desktop">
+            <h5>{{ 'menu.history' | translate }}</h5>
+          </div>
+        </ng-container>
+    
+        <ng-container *ngIf="isMobile || isTablet" >
+          <div id="titre-approuveur-mobtab">
+            <h5>{{ 'menu.history' | translate }}</h5>
+          </div>
+        </ng-container>
+
+        <table class="table" id="table-historique">
+          <thead>
+            <tr>
+              <th scope="col"> {{ 'approuveur.numCommande' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.nom' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.agence' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.matricule' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.fonction' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.date' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.quantite' | translate }} </th>
+              <th scope="col"> {{ 'approuveur.total' | translate }} </th>
+              <th scope="col" class="colonne-centrer"> {{ 'approuveur.details' | translate }} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let uneCommande of listeCommandesHisto; let i=index">
+              <ng-container *ngIf="uneCommande.etat !== '0'">
+                <tr style="background-color: rgba(255, 0, 0, 0.45)" *ngIf="uneCommande.etat === 'Refuse'">
+                    <td scope="col">{{ uneCommande.numCommande }}</td>
+                    <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td>
+                    <td scope="col" colspan="6" class="aligned-cell">{{ uneCommande.motifRefus }}</td>
+                    <td scope="col" class="table-icons">
+                      <fa-icon *ngIf="!selectedHisto[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                      <fa-icon *ngIf="selectedHisto[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                    </td>
+                </tr>
+                <tr *ngIf="uneCommande.etat === 'A valider'">
+                    <td scope="col">{{ uneCommande.numCommande }}</td>
+                    <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td>
+                    <td scope="col">{{ uneCommande.agence }}</td>
+                    <td scope="col">{{ uneCommande.matricule }}</td>
+                    <td scope="col">{{ uneCommande.fonction }}</td>
+                    <td scope="col">{{ uneCommande.dateCommande }}</td>
+                    <td scope="col">{{ uneCommande.nbrpiece }}</td>
+                    <td scope="col">{{ uneCommande.montant }} €</td>
+                    <td scope="col" class="table-icons">
+                      <fa-icon *ngIf="!selectedHisto[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                      <fa-icon *ngIf="selectedHisto[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                    </td>
+                </tr>
+                <tr style="background-color: rgba(0, 255, 33, 0.45)" *ngIf="uneCommande.etat === 'En attente' || uneCommande.etat === 'Exporte'">
+                    <td scope="col">{{ uneCommande.numCommande }}</td>
+                    <td scope="col">{{ uneCommande.nom }} {{ uneCommande.prenom }}</td>
+                    <td scope="col">{{ uneCommande.agence }}</td>
+                    <td scope="col">{{ uneCommande.matricule }}</td>
+                    <td scope="col">{{ uneCommande.fonction }}</td>
+                    <td scope="col">{{ uneCommande.dateCommande }}</td>
+                    <td scope="col">{{ uneCommande.nbrpiece }}</td>
+                    <td scope="col">{{ uneCommande.montant }} €</td>
+                    <td scope="col" class="table-icons">
+                      <fa-icon *ngIf="!selectedHisto[i]" icon="chevron-circle-right" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                      <fa-icon *ngIf="selectedHisto[i]" icon="chevron-circle-down" (click)="afficherDetails(uneCommande.numCommande, i)"></fa-icon>
+                    </td>
+                </tr>
+                <ng-container *ngIf="selectedHisto[i]">
+                  <tr>
+                    <td colspan="10">
+                      <table class="table" id="tableDetails">
+                        <thead>
+                          <tr>
+                            <th scope="col">{{ 'approuveur.details.reference' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.details.libelleProduit' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.details.prixUnitaire' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.details.libelleTaille' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.details.libelleColoris' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.quantite' | translate }}</th>
+                            <th scope="col">{{ 'approuveur.total' | translate }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let uneLigneDetail of currentDetailsHisto; let i=index">
+                            <td scope="col">{{ uneLigneDetail.reference }}</td>
+                            <td scope="col">{{ uneLigneDetail.libelleProduit }}</td>
+                            <td scope="col">{{ uneLigneDetail.prixUnitaire }} €</td>
+                            <td scope="col">{{ uneLigneDetail.libelleTaille }}</td>
+                            <td scope="col">{{ uneLigneDetail.libelleColoris }}</td>
+                            <td scope="col">{{ uneLigneDetail.quantite }}</td>
+                            <td scope="col">{{ uneLigneDetail.total }} €</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+  </ng-container>
+
+  <div id="modules">
+    <app-info></app-info>
+  </div>
+</div>
+
+<app-footer [page]="'contenu'"></app-footer>
+
+<!-- Modal  -->
+<div class="modal fade bd-example-modal-xl" id="validationModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="listeCommandes[modalCmdId]"> Motif du refus de la commande N°{{ listeCommandes[modalCmdId].numCommande }} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="containerModal">
+        <div>
+          {{ motifRefus.length }}/150 caractères restants
+        </div>
+        <div>
+          <textarea name="name" rows="5" cols="60" maxlength="150" [(ngModel)]="motifRefus"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="updateOneCmd(listeCommandes[modalCmdId].numCommande, 'refuse')" mat-button>{{ 'approuveur.valider' | translate }}</button>
+        <button class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

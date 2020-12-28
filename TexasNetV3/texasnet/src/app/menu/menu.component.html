@@ -1,0 +1,182 @@
+<div class="navbar-supporter"></div>
+<nav [style.background-color]="menuColor" class="navbar fixed-top navbar-expand-lg navbar-light" style="padding:0;">
+    <button id="navbar-toggler-menu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <ng-container *ngIf="mobNav">
+        <div id="fixe-nav-mobile">
+            <a *ngIf="!getAuthStatut()" routerLink="connexion" class="nav-link">
+                <i class="icon-nav-mobile"><fa-icon icon="sign-in-alt"></fa-icon></i>
+            </a>
+            <mat-form-field [style.fontSize.px]="12" class="barre-de-recherche-mobile" *ngIf="getAuthStatut()">
+                <input #searchBarMobile (input)="searchInput(searchBarMobile.value)" type="text" matInput placeholder="{{'rechercher'| translate }}" id="navbar-search-input2">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <a routerLink="contenu/telechargements" *ngIf="getAuthStatut() && !maintenance" class="separation-verticale nav-link-mobile" data-toggle="collapse" (click)="closeMenu('telechargements')" data-target=".navbar-collapse.show">
+                <i class="icon-nav-mobile">
+          <fa-icon icon="download"></fa-icon>
+        </i>
+            </a>
+            <a routerLink="contenu/panier" *ngIf="getAuthStatut() && !maintenance && !getApprouveur()" class="nav-link-mobile" data-toggle="collapse" (click)="closeMenu('panier')" data-target=".navbar-collapse.show">
+                <i class="icon-nav-mobile">
+          <fa-icon icon="shopping-cart"></fa-icon>
+        </i>
+            </a>
+            <a routerLink="contenu/compte" *ngIf="getAuthStatut() && !maintenance" class="separation-verticale nav-link-mobile" data-toggle="collapse" (click)="closeMenu('compte')" data-target=".navbar-collapse.show">
+                <i class="icon-nav-mobile">
+          <fa-icon icon="user"></fa-icon>
+        </i>
+            </a>
+            <a *ngIf="getAuthStatut()" class="nav-link-mobile" (click)="deconnexion()">
+                <i class="icon-nav-mobile">
+          <fa-icon icon="power-off"></fa-icon>
+        </i>
+            </a>
+        </div>
+    </ng-container>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand"><img style="width:30px;height:auto;margin-left: 5%" src="{{imageService.LogoNet}}"> {{ 'menu.TexasNet' | translate }}</a>
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!--  Lien Acceuil  -->
+            <li routerLinkActive="active" class="nav-item">
+                <a (click)="resetSearchBar()" *ngIf="!getAuthStatut() && !maintenance  && visGalerie" routerLink="texasnet/accueil" class="nav-link">
+                    <span *ngIf="!mobNav">{{ 'menu.accueil' | translate }}</span>
+                    <span *ngIf="mobNav" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false">{{ 'menu.accueil' | translate }}</span>
+                </a>
+                <a (click)="resetSearchBar()" *ngIf="getAuthStatut() && !maintenance && !getApprouveur()" routerLinkActive="active" routerLink="contenu/accueil" (click)="closeMenu('accueil')" class="nav-link">
+                    <span *ngIf="!mobNav">{{ 'menu.accueil' | translate }}</span><span class="sr-only">(current)</span>
+                    <span *ngIf="mobNav" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false">{{ 'menu.accueil' | translate }}</span><span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+            <li routerLinkActive="active" class="nav-item">
+                <a *ngIf="getAuthStatut() && !maintenance && getApprouveur()" routerLink="approuveur/liste" class="nav-link"><span>{{ 'menu.commandes' | translate }}</span></a>
+            </li>
+
+            <li routerLinkActive="active" class="nav-item">
+                <a *ngIf="getAuthStatut() && !maintenance && getApprouveur()" routerLink="approuveur/history" class="nav-link"><span>{{ 'menu.history' | translate }}</span></a>
+            </li>
+
+            <!--  Lien Produits  -->
+            <li *ngIf="nbActifSubMenu==0" routerLinkActive="active" class="nav-item">
+                <a *ngIf="getAuthStatut() && !maintenance && !getApprouveur()" routerLink="contenu/produits" class="nav-link" data-toggle="collapse" (click)="closeMenu('produits')" data-target=".navbar-collapse.show">
+                    <span *ngIf="!mobNav">{{ 'menu.produits' | translate }}</span>
+                    <span *ngIf="mobNav" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false">{{ 'menu.produits' | translate }}</span>
+                </a>
+            </li>
+            <li routerLinkActive="active" class="nav-item">
+                <a *ngIf="!getAuthStatut() && !maintenance && visGalerie" routerLink="texasnet/produits" class="nav-link">
+                    <span *ngIf="!mobNav">{{ 'menu.produits' | translate }}</span>
+                    <span *ngIf="mobNav" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false">{{ 'menu.produits' | translate }}</span>
+                </a>
+            </li>
+
+            <ng-container *ngIf="getAuthStatut() && !maintenance && !getApprouveur()">
+                <div *ngFor="let menu of menuNavbar | keyvalue">
+                    <div *ngFor="let menu2 of menu.value | keyvalue" class="dropdown dropdown-on-hover nav-item entete-menu">
+                        <a *ngIf="menu2.value !== null" class="dropdown-item dropdown-toggle nav-link" (click)="redirectLink(menu2.key)">{{ menu2.key | titlecase }}</a>
+                        <div class="dropdown-menu container-sous-menu" *ngIf="menu2.key !== menu2.value">
+                            <div *ngFor="let menu3 of menu2.value | keyvalue" [class.dropdown-submenu]="menu3.key !== menu3.value">
+                                <a class="dropdown-item" [class.dropdown-toggle]="menu3.key !== menu3.value" data-toggle="dropdown" (click)="redirectLink(menu2.key,menu3.key)">{{ menu3.key | titlecase }}</a>
+                                <div class="dropdown-menu" *ngIf="menu3.key !== menu3.value">
+                                    <div *ngFor="let menu4 of menu3.value | keyvalue" [class.dropdown-submenu]="menu4.key !== menu4.value">
+                                        <a class="dropdown-item" [class.dropdown-toggle]="menu4.key !== menu4.value" data-toggle="dropdown" (click)="redirectLink(menu2.key,menu3.key,menu4.key)">{{ menu4.key | titlecase }}</a>
+                                        <div class="dropdown-menu" *ngIf="menu4.key !== menu4.value">
+                                            <div *ngFor="let menu5 of menu4.value | keyvalue" [class.dropdown-submenu]="menu5.key !== menu5.value">
+                                                <a class="dropdown-item" [class.dropdown-toggle]="menu5.key !== menu5.value" data-toggle="dropdown" (click)="redirectLink(menu2.key,menu3.key,menu4.key,menu5.key)">{{ menu5.key | titlecase }}</a>
+                                                <div class="dropdown-menu" *ngIf="menu5.key !== menu5.value">
+                                                    <div *ngFor="let menu6 of menu5.value | keyvalue" [class.dropdown-submenu]="menu6.key !== menu6.value">
+                                                        <a class="dropdown-item" [class.dropdown-toggle]="menu6.key !== menu6.value" data-toggle="dropdown" (click)="redirectLink(menu2.key,menu3.key,menu4.key,menu5.key,menu6.key)">{{ menu6.key | titlecase }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <li routerLinkActive="active" *ngIf="nbActifSubMenu==0" style="cursor:pointer" class="nav-item">
+                <a routerLink="/contenu/promo" *ngIf="getAuthStatut() && paramPromo && !maintenance" id="promo" (click)="closeMenu('promo')" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">Promo</a>
+            </li>
+            <li routerLinkActive="active" style="cursor:pointer" class="nav-item">
+                <a routerLink="/contenu/looks" *ngIf="getAuthStatut() && paramLook && !maintenance" id="looks" (click)="closeMenu('looks')" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">Looks</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" *ngIf="!mobNav">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li>
+                    <mat-form-field [style.fontSize.px]="12" class="barre-de-recherche">
+                        <input #searchBar (input)="searchInput(searchBar.value)" type="text" matInput placeholder="{{'rechercher'| translate }}" id="navbar-search-input">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </li>
+
+                <li routerLinkActive="active" style="cursor:pointer" id="telechargements" class="nav-item">
+                    <a routerLink="contenu/telechargements" *ngIf="getAuthStatut() && !maintenance" class="separation-verticale nav-link" data-toggle="collapse" (click)="closeMenu('telechargements')" data-target=".navbar-collapse.show" matTooltip="{{ 'menu.telechargements' | translate }}">
+                        <i>
+              <fa-icon icon="download"></fa-icon>
+            </i> {{ 'menu.telechargements' | translate }}
+                    </a>
+                </li>
+                <li routerLinkActive="active" style="cursor:pointer" id="panier" class="nav-item">
+                    <a routerLink="contenu/panier" *ngIf="getAuthStatut() && !maintenance && !getApprouveur()" class="nav-link" data-toggle="collapse" (click)="closeMenu('panier')" data-target=".navbar-collapse.show" matTooltip="{{ 'menu.panier' | translate }}">
+                        <span><i>
+                <fa-icon icon="shopping-cart"></fa-icon>
+              </i></span> ({{this.commandeService.pieces}})
+                    </a>
+                </li>
+                <li *ngIf="paramPoints && points && points>0 && points<=1 && !maintenance" routerLinkActive="active" style="cursor:pointer" id="points" class="nav-item">
+                    <a routerLink="contenu/points" *ngIf="getAuthStatut() && !maintenance" class="separation-verticale nav-link" data-toggle="collapse" (click)="closeMenu('points')" data-target=".navbar-collapse.show">
+                        <i>
+              <fa-icon icon="coins" size="1.5x"></fa-icon>
+            </i> {{points}} {{ 'menu.point' | translate }}
+                    </a>
+                </li>
+                <li *ngIf="paramPoints && points && points>1 && !maintenance" routerLinkActive="active" style="cursor:pointer" id="points" class="nav-item">
+                    <a routerLink="contenu/points" *ngIf="getAuthStatut()" class="separation-verticale nav-link" data-toggle="collapse" (click)="closeMenu('points')" data-target=".navbar-collapse.show">
+                        <i>
+              <fa-icon icon="coins" size="1.5x"></fa-icon>
+            </i> {{points}} {{ 'menu.points' | translate }}
+                    </a>
+                </li>
+                <li routerLinkActive="active" style="cursor:pointer" id="compte" class="nav-item">
+                    <a routerLink="contenu/compte" *ngIf="getAuthStatut() && !maintenance" class="separation-verticale nav-link" data-toggle="collapse" (click)="closeMenu('compte')" data-target=".navbar-collapse.show" matTooltip="{{ 'menu.compte' | translate }}">
+                        <i>
+              <fa-icon icon="user" size="1.5x"></fa-icon>
+            </i> {{ compte }}
+                    </a>
+                </li>
+                <li routerLinkActive="active" style="cursor:pointer" id="compte" class="nav-item">
+                    <a routerLink="representant" *ngIf="getAuthStatut() && !maintenance && getRepresentant()" class="separation-verticale nav-link" data-toggle="collapse" (click)="returnRepresentant()" data-target=".navbar-collapse.show">
+            {{ 'representant.revenir' | translate }}
+          </a>
+                </li>
+                <li routerLinkActive="active" style="cursor:pointer" class="nav-item">
+                    <a *ngIf="!getAuthStatut()" routerLink="connexion" class="nav-link">
+                        <span *ngIf="!mobNav"> {{ 'menu.connexion' | translate }}</span>
+                        <span *ngIf="mobNav" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"> {{ 'menu.connexion' | translate }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <ng-container *ngIf="!mobNav"><a *ngIf="getAuthStatut()" class="nav-link" (click)="deconnexion()"><i style="cursor:pointer">
+                <fa-icon icon="power-off" size="2x"></fa-icon>
+              </i><span class="d-lg-none">{{ 'menu.deconnexion' | translate }}</span></a></ng-container>
+                    <ng-container *ngIf="mobNav"><a *ngIf="getAuthStatut()" class="nav-link" (click)="deconnexion()" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"><i style="cursor:pointer">
+                <fa-icon icon="power-off" size="2x"></fa-icon>
+              </i><span class="d-lg-none">{{ 'menu.deconnexion' | translate }}</span></a></ng-container>
+                </li>
+            </ul>
+        </form>
+        <a *ngIf="langueAng && !maintenance" class="nav-link langue" (click)="useLanguage('fr')">
+            <div class="drapeau"><img src="{{imageService.FrFlag}}" class="img-drapeau" alt="Fr"></div>
+        </a>
+        <a *ngIf="!langueAng && !maintenance" class="nav-link" (click)="useLanguage('en')">
+            <div class="drapeau"><img src="{{imageService.EnFlag}}" class="img-drapeau" alt="En"></div>
+        </a>
+    </div>
+</nav>

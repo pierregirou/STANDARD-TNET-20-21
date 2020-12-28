@@ -1,0 +1,288 @@
+<div id="contenu" [style.background-color]="contenuColor"> <!-- div contenu -->
+  <div *ngIf="!menuSnapAction" id="boutonsCompte"> <!-- Affiche les 3 options modif,change,historique -->
+    <ng-container *ngIf="!bloqueModifParams">
+      <div class=" centerCard card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{ 'compte.coordonnees' | translate }}</div>
+        <div class="card-body">
+            <a routerLink='modificationC'><fa-icon style="color:white" icon="tools" size=6x></fa-icon></a>
+        </div>
+      </div>
+      <div class="centerCard card text-white bg-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{ 'compte.password' | translate }}</div>
+        <div class="card-body">
+            <a routerLink="modificationMDP"><fa-icon style="color:white" icon="key" size=6x></fa-icon></a>
+        </div>
+      </div>
+    </ng-container>
+    <div class="centerCard card text-white bg-success mb-3" style="max-width: 18rem;">
+      <div class="card-header">{{ 'compte.historique' | translate }}</div>
+      <div class="card-body">
+          <a routerLink="history"><fa-icon style="color:white" icon="history" size=6x></fa-icon></a>
+      </div>
+    </div>
+    <div *ngIf="scRetourB" class="centerCard card text-white bg-info mb-3" style="max-width: 18rem;">
+      <div class="card-header">{{ 'compte.retour' | translate }}</div>
+      <div class="card-body">
+          <a routerLink="retourCommande"><fa-icon style="color:white" icon="undo" size=6x></fa-icon></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Partie modification des coordonées -->
+  <div id="modificationC" *ngIf="menuSnapAction==='modificationC'"><br/>
+    <div style="text-align:center"><fa-icon style="color:#698FFF" icon="user-edit" size=6x></fa-icon></div><br/>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.nom' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{nom}}" matInput placeholder="Placeholder" name="nom" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.prenom' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{prenom}}" matInput placeholder="Placeholder" name="prenom" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+          <div class="example-container">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'compte.adresse1' | translate }}</mat-label>
+              <input [disabled]="!updateAdresse" value="{{adresse1}}" matInput placeholder="Placeholder" name="adresse1" ngModel>
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.adresse2' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{adresse2}}" matInput placeholder="Placeholder" name="adresse2" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.cp' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{cp}}" matInput placeholder="Placeholder" name="cp" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.ville' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{ville}}" matInput placeholder="Placeholder" name="ville" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.telephone' | translate }}</mat-label>
+            <input type="tel" [disabled]="!updateAdresse" value="{{telephone}}" matInput placeholder="Placeholder" name="telephone" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'compte.email' | translate }}</mat-label>
+            <input [disabled]="!updateAdresse" value="{{email}}" matInput placeholder="Placeholder" name="email" ngModel>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="example-container">
+          <mat-form-field appearance="outline">
+            <mat-select [disabled]="!updateAdresse" [value]="langue" placeholder="Select" name="langue" ngModel>
+              <mat-option value="FRA">{{ 'compte.francais' | translate }}</mat-option>
+              <mat-option value="ANG">{{ 'compte.anglais' | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="updateAdresse" style="text-align:center"><button type="submit" class="btn btn-primary"><fa-icon style="color:white" icon="save" size=1x></fa-icon> {{ 'compte.enregistrer' | translate }}</button></div>
+    </form><br/>
+  </div>
+
+
+  <!-- Modification du mot de passe client -->
+
+  <div id="modificationMDP" *ngIf="menuSnapAction==='modificationMDP'"><br/>
+    <div style="text-align:center"><fa-icon style="color:#698FFF" icon="key" size=6x></fa-icon></div><br/><br/><br/>
+    <div style="text-align:center"><h1>{{ 'compte.password' | translate }}</h1></div>
+    <!-- test Stepper angular --Echec pour la modification de mot de passe mais fonctionnel -->
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [formGroup]="PassForm">
+        <form [formGroup]="PassForm" (ngSubmit)="onPassSubmit(stepper)">
+          <ng-template matStepLabel>{{ 'compte.passwordClient' | translate }}</ng-template>
+          <mat-form-field>
+              <input matInput placeholder="Votre mot de passe" [type]="hide ? 'password' : 'text'" name="password" formControlName="mdp" required>
+              <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+          <div>
+            <button [disabled]="PassForm.invalid" mat-button matStepperNext>Suivant</button>
+          </div>
+        </form>
+        <p class="alert-danger">{{ messageErreurAuth }}</p>
+      </mat-step>
+      <mat-step [stepControl]="PassForm" [optional]="isOptional">
+        <p *ngIf="!isOptional">
+          {{goBack(stepper)}}
+        </p>
+        <form [formGroup]="ChangeForm" (ngSubmit)="onSubmitChange(stepper)">
+          <ng-template matStepLabel>{{ 'compte.changePassword' | translate }}</ng-template>
+          <mat-form-field>
+              <input matInput placeholder="{{ 'compte.newpass' | translate }}" [type]="hide ? 'password' : 'text'" name="password" formControlName="newMDP" required>
+              <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field><br/>
+          <mat-form-field>
+              <input matInput placeholder="{{ 'compte.confpass' | translate }}" [type]="hide ? 'password' : 'text'" name="password" formControlName="confirmMDP" required>
+              <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Retour</button>
+            <button [disabled]="ChangeForm.invalid" mat-button matStepperNext>{{ 'compte.suivant' | translate }}</button>
+          </div>
+        </form>
+        <p class="alert-danger">{{ messageErreurChange }}</p>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Fin</ng-template>
+          <p *ngIf="isChange" class="alert-success">{{ 'compte.validPass' | translate }}</p>
+          <p *ngIf="!isChange" class="alert-danger">{{ 'compte.downPass' | translate }}</p>
+        <div>
+          <button mat-button routerLink="/contenu/accueil">{{ 'compte.backHome' | translate }}</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+
+  <!-- Visualisation de l'historique du client ici -->
+  <div id="historique" *ngIf="menuSnapAction==='history'">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'compte.numero' | translate }}</th>
+            <th *ngIf="affichageMobile" scope="col">{{ 'compte.dateCde' | translate }}</th>
+            <th scope="col">{{ 'compte.montant' | translate }}</th>
+            <th scope="col">{{ 'compte.pieces' | translate }}</th>
+            <th scope="col">{{ 'compte.pdf' | translate }}</th>
+            <th scope="col">{{ 'compte.xls' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let historique of arrayHistorique" data-toggle="modal">
+            <th scope="row">{{historique.numCommande}}</th>
+            <td *ngIf="affichageMobile">{{historique.dateValidation}}</td>
+            <td>{{historique.montant}} €</td>
+            <td>{{historique.nbrpiece}}</td>
+            <td><a href="{{imageService.PhotosArt}}/Factures/facture.php?numcmd={{historique.numCommande}}&view=P" target="_blank"><fa-icon icon="file-pdf" size="2x"></fa-icon></a></td>
+            <td><a href="{{imageService.PhotosArt}}/Factures/facture_ang.php?numcmd={{historique.numCommande}}&view=P" target="_blank"><fa-icon icon="file-pdf" size="2x"></fa-icon></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+      <!-- Visualisation des retours de commande du client ici -->
+  <div id="retourcommande" *ngIf="menuSnapAction==='retourCommande'">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'compte.numero' | translate }}</th>
+              <th scope="col">{{ 'compte.dateCde' | translate }}</th>
+              <th scope="col">{{ 'compte.dateLiv' | translate }}</th>
+              <th scope="col">{{ 'compte.nbrPieces' | translate }}</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let historique of arrayHistorique" (click)="onCommande(historique.numCommande)" data-toggle="modal" data-target="#retourCommande" >
+              <th scope="row">{{historique.numCommande}}</th>
+              <td>{{historique.dateValidation}}</td>
+              <td>{{historique.dateValidation}}</td>
+              <td>{{historique.nbrpiece}}</td>
+              <td>{{historique.montant}} €</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" id="retourCommande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'compte.retour' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let detail of detailLigne" style="text-align:center">
+          <div *ngFor="let dtl2 of detail.detailproduit;let j=index">
+            <div *ngFor="let dtl of dtl2; let i=index">
+              <div *ngIf="i !== 0">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{ 'compte.refProd' | translate }}" disabled value="{{dtl.refproduit}}" name="refProduit{{i}}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{ 'compte.qte' | translate }}" disabled value="{{dtl.quantite}}" name="quantite{{i}}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" style="margin-right:10px;">
+                  <input matInput placeholder="{{ 'compte.prix' | translate }}" disabled value="{{dtl.prix}} name="prix{{i}}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input #quantiteR matInput type="number" placeholder="{{ 'compte.qteR' | translate }}" max="{{dtl.quantite}}" min="0" value="0" name="quantiteR{{i}}" (change)="onChangeForm(dtl.refproduit,quantiteR.value,detail.numCommande,dtl.idDetailProduit)">
+                  </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <button style="color: rgb(45, 196, 45);font-size:18px" mat-button (click)="onSubmitForm()">{{ 'compte.retourneProd' | translate }} <fa-icon icon="check"></fa-icon></button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" id="ligneCommande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'compte.ligneCde' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let detail of detailLigne" style="text-align:center">
+          <div *ngFor="let dtl2 of detail.detailproduit;let j=index">
+            <div *ngFor="let dtl of dtl2; let i=index">
+              <div *ngIf="i !== 0">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{ 'compte.refProd' | translate }}" disabled value="{{dtl.refproduit}}" name="refProduit{{i}}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{ 'compte.qte' | translate }}" disabled value="{{dtl.quantite}}" name="quantite{{i}}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" style="margin-right:10px;">
+                  <input matInput placeholder="{{ 'compte.prix' | translate }}" disabled value="{{dtl.prix}} name="prix{{i}}">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

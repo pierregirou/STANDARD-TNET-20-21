@@ -1,0 +1,22 @@
+<div id="contenu" [style.background-color]="contenuColor">
+  <div>
+    <div class="titre-contenu-produit"><h5 style="color: rgb(84, 93, 92)">{{'produits.liste'| translate }}</h5></div>
+    <div style="float: right;margin-right:5%">
+      <span style="font-size:12px">{{'categorie' | translate}} : </span>
+      <mat-form-field [style.fontSize.px]="12">
+        <input #searchBar (input)="searchInput(searchBar.value)" type="text" matInput placeholder="{{'rechercher'| translate }}">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div><br/><br/><br/>
+
+
+
+  <div  class="container">
+    <a id="haut"></a>
+    <!-- Affichage des produits sur ordinateur + option de filtre -->
+    <app-contenu-produits-desktop [recherche]="recherche"></app-contenu-produits-desktop>
+    <!-- Lien pour remonter en haut de la page -->
+    <div *ngIf="isDesktop"><a id="cRetour" class="cInvisble" (click)="hautPage()"></a></div>
+  </div>
+</div>

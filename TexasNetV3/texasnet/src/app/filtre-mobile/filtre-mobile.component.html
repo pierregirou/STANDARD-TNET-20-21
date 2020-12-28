@@ -1,0 +1,45 @@
+<div (click)="returnProducts()" style="cursor:pointer;text-align:center;font-size:24px;min-width: 100%; background-color: rgb(19, 158, 224)" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""><fa-icon icon="times"></fa-icon> Fermer</div>
+<div style="width: 100%;height:40px;border-bottom:1px solid grey">
+  <div style="margin-top:5px;float: left;font-weight:bold;font-size:18px">Couleur</div>
+  <div (click)="onSelect('couleur','true')" *ngIf="actionCouleur==false" style="float: right;cursor:pointer"><fa-icon icon="chevron-right"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+  <div (click)="onSelect('couleur','false')" *ngIf="actionCouleur==true" style="float: right;cursor:pointer"><fa-icon icon="chevron-down"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+</div>
+<div *ngIf="actionCouleur" style="width:100%">
+  <button (click)="selectAll('couleur')" type="button" class="btn" style="background-color:rgb(19, 158, 224)">
+    {{messageCouleur}} <span class="badge badge-light">{{countColor}}</span>
+  </button>
+  <div class="row">
+    <div class="col-3 col-sm-3" *ngFor="let color of colorTab;let i=index">
+      <div *ngIf="color.select==0" (click)="getColor(i,color.select)" style="width:40px;height:40px;margin:5px 5px 5px 5px;border: 1px solid grey;border-radius:5px;cursor:pointer" [style.background-color]="color.color" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></div>
+      <div *ngIf="color.select==1" (click)="getColor(i,color.select)" style="width:40px;height:40px;margin:5px 5px 5px 5px;border: 1px solid grey;border-radius:5px;cursor:pointer" [style.background-color]="color.color" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""><fa-icon icon="check" style="color:white" size="2x"></fa-icon></div>
+    </div>
+  </div>
+  <div (click)="apply('couleur')" style="margin-top:15px;width: 100%;text-align:center;font-size:16px;font-weight:bold;background-color: rgb(146, 137, 137);padding-top:5px;padding-bottom:10px;border-radius:20px;cursor:pointer" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">Appliquer</div>
+</div>
+<div style="width: 100%;height:40px;border-bottom:1px solid grey">
+  <div style="margin-top:5px;float: left;font-weight:bold;font-size:18px">Taille</div>
+  <div (click)="onSelect('taille','true')" *ngIf="actionTaille==false" style="float: right;cursor:pointer"><fa-icon icon="chevron-right"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+  <div (click)="onSelect('taille','false')" *ngIf="actionTaille==true" style="float: right;cursor:pointer"><fa-icon icon="chevron-down"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+</div>
+<div *ngIf="actionTaille" style="width:100%">
+  <button (click)="selectAll('taille')" type="button" class="btn" style="background-color:rgb(19, 158, 224)">
+    {{messageTaille}} <span class="badge badge-light">{{countTaille}}</span>
+  </button>
+  <div class="row">
+    <div class="col-3 col-sm-3" *ngFor="let taille of tailleTab;let i=index">
+      <div (click)="getTaille(i,taille.select)" style="text-align:center;padding-top:5px;width:40px;height:40px;margin:5px 5px 5px 5px;border: 1px solid grey;border-radius:5px;cursor:pointer" [style.background-color]="taille.select==0?'white':'#333'" [style.color]="taille.select==0?'#333':'white'" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{taille.taille}}</div>
+    </div>
+  </div>
+  <div (click)="apply('taille')" style="margin-top:15px;width: 100%;text-align:center;font-size:16px;font-weight:bold;background-color: rgb(146, 137, 137);padding-top:5px;padding-bottom:10px;border-radius:20px;cursor:pointer" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">Appliquer</div>
+</div>
+<div style="width: 100%;height:40px;border-bottom:1px solid grey">
+  <div style="margin-top:5px;float: left;font-weight:bold;font-size:18px">Thème</div>
+  <div (click)="onSelect('theme','true')" *ngIf="actionTheme==false" style="float: right;cursor:pointer"><fa-icon icon="chevron-right"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+  <div (click)="onSelect('theme','false')" *ngIf="actionTheme==true" style="float: right;cursor:pointer"><fa-icon icon="chevron-down"style="font-size:18px" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon></div>
+</div>
+<div *ngIf="actionTheme" style="height: 100px;width:100%;border: 1px solid black">
+  Ici les thèmes
+</div>
+<div style="margin-top:5px;width: 100%;height:40px;border-bottom:1px solid grey">
+    <div style="font-weight:bold;font-size:18px">Prix</div>
+</div>

@@ -1,0 +1,8 @@
+[SPECIFICATIONS]
+
+le transfert sur le SFTP est géré par le programme Transfert_FTP.exe un tache planifier execute le ficher bat TransfertFTPExport.bat
+les fichier envoyé sont : ART Client STK Description.
+
+
+1- affichage des articles en focntion des marques autorisées sur le représentant attaché au client qui se connecte 
+(requete dans info-menu.php)  puis dans la table module la colonne rattachMarque est passer a 1

@@ -1,0 +1,108 @@
+<div id="commander">
+    <ng-container *ngIf="modeSaisie===2">
+        <form (ngSubmit)="onSubmitTableauCommande(f)" #f='ngForm'>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="color: rgb(19, 158, 224)" scope="col">{{ 'commandetaille.coloris' | translate }} </th>
+                        <th style="text-align: center" *ngFor="let tailles of arrayTaille[0]" scope="col">{{tailles.taille}}</th>
+                        <th scope="col" style="width:120px">{{ 'compte.nbrPieces' | translate }}</th>
+                        <th scope="col" style="width:140px">{{ 'panier.total' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let taille of arrayTaille;let i=index">
+                        <th style="color: rgb(19, 158, 224);font-size:10px" scope="row"><span class="clickableColoris" (click)="changeColor.emit(libCodeColorisArray[i])"><img style="max-width:30px;" src="{{imageService.PhotosArt}}{{libPictoArray[i]}}" />
+                {{libCodeColorisArray[i]}}</span><br><span *ngIf="libColorisArray[i] != 'Pack' ">{{libColorisArray[i]}}</span></th>
+                        <td *ngFor="let tailles of taille;let j=index" class="resize">
+                            <input class="form-control" *ngIf="tailles.quantite<=0 && controlStock && stockCouleur" (click)="noStock(tailles.taille)" style="width: 100%;border:1px solid rgb(177, 48, 48);background-color:#696969" min="0" max="{{tailles.quantite}}" matInput title="Quantité : {{tailles.quantite}}"
+                                type="number" disabled (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite<=0 && !controlStock && stockCouleur" style="width: 100%;border:1px solid rgb(177, 48, 48)" min="0" matInput title="Quantité : {{tailles.quantite}}" type="number" name="{{i}}-{{j}}-{{tailles.taille}}"
+                                [ngModel]="tailles.value" (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite>stockDisponible && stockCouleur" style="width: 100%;border:1px solid rgb(56, 155, 56)" min="0" max="{{tailles.quantite}}" matInput title="Quantité : {{tailles.quantite}}" type="number" name="{{i}}-{{j}}-{{tailles.taille}}"
+                                [ngModel]="tailles.value" (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite>=stockIndisponible && stockCouleur && tailles.quantite<=stockDisponible" style="width: 100%;border: 1px solid rgb(219, 164, 61)" min="0" max="{{tailles.quantite}}" matInput title="Quantité : {{tailles.quantite}}"
+                                type="number" name="{{i}}-{{j}}-{{tailles.taille}}" [ngModel]="tailles.value" (input)="updateQteLigne(f)">
+
+                            <input class="form-control" *ngIf="tailles.quantite<=0 && !controlStock && !stockCouleur" (click)="noStock(tailles.taille)" (focus)="prixSelectTableau(i,j)" style="width: 100%;background-color:#D3D3D3" min="0" matInput title="Quantité : {{tailles.quantite}}"
+                                type="number" (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite<=0 && controlStock && !stockCouleur" (focus)="prixSelectTableau(i,j)" style="width: 100%;background-color:#696969" min="0" matInput title="Quantité : 0" name="{{i}}-{{j}}-{{tailles.taille}}" [ngModel]="tailles.value"
+                                disabled (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite>stockDisponible && !stockCouleur" (focus)="prixSelectTableau(i,j)" style="width: 100%;background-color:#D3D3D3" min="0" max="{{tailles.quantite}}" matInput title="Quantité : {{tailles.quantite}}" type="number"
+                                name="{{i}}-{{j}}-{{tailles.taille}}" [ngModel]="tailles.value" (input)="updateQteLigne(f)">
+                            <input class="form-control" *ngIf="tailles.quantite>=stockIndisponible && !stockCouleur && tailles.quantite<=stockDisponible" (focus)="prixSelectTableau(i,j)" style="width: 100%;background-color:#D3D3D3" min="0" max="{{tailles.quantite}}" matInput title="Quantité : {{tailles.quantite}}"
+                                data-toggle="tooltip" data-placement="bottom" type="number" name="{{i}}-{{j}}-{{tailles.taille}}" [ngModel]="tailles.value" (input)="updateQteLigne(f)">
+                        </td>
+                        <ng-container>
+                            <td *ngIf="taille.totLigneQte" style="width:100px;">{{ taille.totLigneQte }}</td>
+                            <td *ngIf="taille.totLignePrix" style="min-width:130px;">{{ taille.totLignePrix | number : '.2-2'}} €</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tab-footer">
+                <button class="btn btn-success" type="submit" (click)="closeModal()">{{ 'commandetaille.ajouter' | translate }}</button>
+            </div>
+        </form>
+    </ng-container>
+
+
+
+
+    <ng-container *ngIf="modeSaisie===1">
+        <ng-container *ngIf="commandeExpress">
+            <div class="container-photos-express">
+                <ng-container *ngFor="let unArrayColori of produit.arrayColori; let t=index">
+                    <img *ngIf="coloriValide(unArrayColori.libcolori)" (click)="detectColori(t, unArrayColori)" src="{{imageService.PhotosArt}}{{unArrayColori.image}}" width="50" />
+                </ng-container>
+            </div>
+        </ng-container>
+        <div class="container-coloris">
+            <div *ngFor="let taille of arrayTaille; let t=index" style="clear: right">
+                <span *ngIf="selectColori===t">
+          <img src="{{imageService.PhotosArt}}{{colorFromDetailProduit.imageMiniature}}" />
+          {{ langueSelected === 2 ? colorFromDetailProduit.libcoloriANG : colorFromDetailProduit.libcolori }}
+        </span>
+            </div>
+        </div>
+        <div class="container-coloris">
+            <div *ngFor="let taille of arrayTailleLigne,let j=index">
+                <div class="une-taille" *ngIf="stockCouleur" (click)="selectTaille(j,taille.quantite)" [ngClass]="{'affTaille':taille.select===0 && taille.quantite>=stockDisponible,'affTailleSelect':taille.select===1 && taille.quantite>0,'affTailleCross':taille.quantite<stockIndisponible && taille.select===0,'affTailleOrange':taille.quantite>=stockIndisponible && taille.quantite<stockDisponible && taille.select===0}"
+                    matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{taille.taille}}</div>
+                <div class="une-taille" *ngIf="!stockCouleur" (click)="selectTaille(j,taille.quantite)" [ngClass]="{'affTailleDefault':true,'affTailleSelect':taille.select===1 && taille.quantite>0,'affTailleCrossDefault':taille.quantite<stockIndisponible && taille.select===0}"
+                    matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{taille.taille}}</div>
+            </div>
+        </div>
+        <div>
+            <ng-container *ngIf="prixSelectPromo <= 0 || prixSelectPromo === undefined">
+                <span class="prix-non-promo">{{quantiteTaille > 0 ? prixSelect*quantiteTaille : prixSelect}} €</span>
+            </ng-container>
+            <ng-container *ngIf="prixSelectPromo > 0">
+                <span class="badge badge-pill badge-success">{{ 'acceuil.promotion' | translate }}</span>
+                <div><span class="prix-promo">{{quantiteTaille > 0 ? prixSelectPromo*quantiteTaille : prixSelectPromo}} €</span></div>
+                <div>{{ 'commandetaille.auLieuDe' | translate }} <span class="prix-non-promo-barre">{{quantiteTaille > 0 ? prixSelect*quantiteTaille : prixSelect}} €</span></div>
+            </ng-container>
+        </div>
+        <div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'panier.quantite' | translate }}</span>
+                </div>
+                <input class="form-control" type="number" value="{{ quantiteTaille }}">
+                <div class="input-group-apprend">
+                    <span class="input-group-text border-plus">
+            <fa-icon class="quantity-icon" icon="plus-square" (click)="quantitePlus()" [ngClass]="{'disabled-button':quantiteTaille<=0}"></fa-icon>
+          </span>
+                    <span class="input-group-text border-minus">
+            <fa-icon class="quantity-icon" icon="minus-square" (click)="quantiteMoins()" [ngClass]="{'disabled-button':quantiteTaille<=0}"></fa-icon>
+          </span>
+                </div>
+            </div>
+            <div class="container-btn-ajout">
+                <button class="btn btn-primary btn-ajout-panier" [ngClass]="{'disabled-ajout-panier':quantiteTaille<=0}" (click)="onAjoutPanier()">
+          <fa-icon icon="cart-arrow-down"></fa-icon> {{ 'commandetaille.ajoutpanier' | translate }}
+        </button>
+            </div>
+        </div>
+    </ng-container>
+</div>

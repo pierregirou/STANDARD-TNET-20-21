@@ -1,0 +1,1208 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/*thème angular pour @angular/material ==>ex : stepper */
+
+
+/* You can add global styles to this file, and also import other style files */
+
+
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: rgb(239, 239, 239);
+    /*background-color: rgb(28, 29, 47) */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* permet d'avoir un éffet plus lent lors d'un scroll automatique*/
+}
+
+.titre-contenu-produit {
+    display: inline-block;
+    margin-left: 5%;
+    width: auto;
+    text-decoration: underline;
+    margin-top: 1%;
+}
+
+#connexion {
+    clear: left;
+    width: 50%;
+    padding: 0px 20px 20px 20px;
+    background-color: white;
+    margin-left: 25%;
+    margin-right: 25%;
+    box-shadow: 8px 8px 12px rgb(190, 191, 207);
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container>* {
+    width: 100%;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+#bandeau-connexion {
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    background-color: rgb(0, 123, 255);
+    opacity: 0.5;
+}
+
+#icon-lock {
+    font-size: 80px;
+}
+
+#footer_page {
+    background: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    clear: left;
+    z-index: 150;
+    -webkit-box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.footer-is-relative {
+    position: relative !important;
+}
+
+.footer-is-absolute {
+    position: absolute !important;
+}
+
+
+/***************************************************MENU*****************************************************************************/
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #cccccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+.img-drapeau {
+    height: 30px;
+    width: 40px;
+}
+
+.drapeau img:hover {
+    filter: drop-shadow(5px 5px 10px black);
+    -webkit-filter: drop-shadow(5px 5px 10px black);
+}
+
+.mat-snack-bar-container {
+    z-index: 120;
+}
+
+.separation-verticale {
+    border-left-style: solid;
+    border-left-color: rgba(0, 0, 0, 0.5);
+    border-width: 1px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+
+/************************************************************************************************************************************/
+
+#logo-bienvenue {
+    /* logo modulable de l'entreprise */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    max-width: 90%;
+    /* For IE8 and earlier */
+}
+
+
+/*************************************************Accueil*****************************************************************************/
+
+#principal {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#contenu {
+    width: 75%;
+    min-height: 850px;
+    margin-left: 2.5%;
+    float: left;
+    background-color: white;
+    box-shadow: 8px 8px 12px #aaa;
+    padding: 2%;
+    margin-bottom: 40px;
+    clear: both;
+}
+
+#modules {
+    width: 17.5%;
+    float: right;
+    margin-right: 2.5%;
+}
+
+#info {
+    width: 95%;
+    margin: 0% 0% 5% 5%;
+    padding: 2% 0%;
+    min-height: 150px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 8px 8px 12px #aaa;
+    position: relative;
+}
+
+#total {
+    width: 95%;
+    min-height: 200px;
+    padding: 2% 5% 0% 5%;
+    margin: 0% 0% 5% 5%;
+    text-align: center;
+    background-color: white;
+    box-shadow: 8px 8px 12px #aaa;
+    position: relative;
+}
+
+#filtre {
+    padding: 5% 5%;
+    margin: 0% 0% 5% 5%;
+    text-align: center;
+    background-color: white;
+    box-shadow: 8px 8px 12px #aaa;
+    position: relative;
+    z-index: 200;
+}
+
+#boutonsCompte {
+    text-align: center;
+    padding-top: 3%;
+}
+
+.centerCard {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.iconCompte {
+    font-size: 80px;
+}
+
+.bubble-text {
+    background: rgb(19, 158, 224);
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 3px;
+    width: 90%;
+}
+
+.bubble-text::after {
+    content: "";
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid rgb(19, 158, 224);
+    position: absolute;
+}
+
+
+/***************************************************************************************************************************************/
+
+
+/***************************************************Affichage des produits**************************************************************/
+
+
+/*----------------------------------*/
+
+.contenu-produit1 {
+    border: 1px solid #ddd;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    box-shadow: 8px 8px 12px #aaa;
+    cursor: pointer;
+}
+
+.contenu-produit1:hover {
+    box-shadow: 20px 20px 28px #aaa;
+}
+
+.affImage {
+    text-align: center;
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    margin-top: 15px;
+}
+
+.imageProduit {
+    width: 95%;
+    height: auto;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.infoProduit {
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    float: right;
+}
+
+.desProduit {
+    background-color: rgb(221, 221, 221);
+    padding: 2px 2px 2px 2px;
+}
+
+.actionProduit {
+    width: 100%;
+    text-align: center;
+    margin-right: 25%;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.prix {
+    /*border-bottom: 50px solid red;
+    border-right: 20px solid transparent;
+    height: 25px;
+    width: 50%;
+    float: left;*/
+    width: 50%;
+    float: left;
+    background: rgb(51, 51, 51);
+    border: 1px solid black;
+    color: white;
+    position: absolute;
+    z-index: 1;
+}
+
+.prixPromo {
+    width: 50%;
+    float: left;
+    background: rgb(38, 121, 38);
+    border: 1px solid black;
+    color: white;
+    position: absolute;
+    z-index: 1;
+}
+
+.commandeExpress {
+    /*border-bottom: 50px solid blue;
+    border-right: 20px solid transparent;
+    height: 0px;
+    width: 50%;
+    float: right;
+    transform: rotate(180deg);*/
+    width: 50%;
+    margin-left: 50%;
+    background-color: rgb(19, 158, 224);
+    /*bisque*/
+    border: 1px solid black;
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+}
+
+.commandeExpress:hover {
+    width: 85%;
+    margin-left: 15%;
+    /*transition-property: margin-left;  Active la transition sur margin-left */
+    transition-duration: 1s;
+    /* La transition dure 1s */
+}
+
+
+/**************Bouton pour retourner en haut de la page des produits (seulement sur pc) *****************/
+
+a#cRetour {
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 20px;
+    opacity: 1;
+    z-index: 100;
+    /* place le bouton au dessus de tous les autres élements du DOM */
+    transition: all ease-in 0.2s;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-decoration: none;
+}
+
+a#cRetour:before {
+    content: "\25b2";
+}
+
+a#cRetour:hover {
+    background: rgba(0, 0, 0, 1);
+    transition: all ease-in 0.2s;
+}
+
+a#cRetour.cInvisible {
+    /* Classe pour rendre invisible le bouton */
+    bottom: -35px;
+    opacity: 0;
+    transition: all ease-in 0.5s;
+}
+
+a#cRetour.cVisible {
+    /* Classe pour rendre visible le bouton */
+    bottom: 20px;
+    opacity: 1;
+}
+
+
+/**************************************************************************************************************/
+
+
+/*-----------------------------------*/
+
+.contenu-produitT {
+    /* Tablette */
+    border: 1px solid grey;
+    height: 250px;
+    margin-top: 0%;
+    margin-bottom: 25px;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    /*padding-top: 150px;*/
+    padding-bottom: 35px;
+    cursor: pointer;
+}
+
+.affPhoto {
+    width: 90%;
+    height: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    height: 70%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.imagePres {
+    width: 100%;
+    height: auto;
+}
+
+.info-produit {
+    position: absolute;
+    bottom: 0;
+}
+
+.ref-produit {
+    text-align: center;
+}
+
+.ref-produitT {
+    /* Tablette */
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+.prix-produit {
+    position: absolute;
+    bottom: 0;
+}
+
+.example-ripple-container {
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/** Styles to make the demo look better. */
+
+.example-ripple-checkbox {
+    margin: 6px 12px 6px 0;
+}
+
+.example-ripple-form-field {
+    margin: 0 12px 0 0;
+}
+
+.selectTrie {
+    cursor: pointer;
+    text-align: center;
+    width: 80px;
+    padding: 2px 2px 2px 2px;
+    background-color: rgba(19, 159, 224, 0.176);
+    border-radius: 50px;
+}
+
+.selectTrieSelect {
+    cursor: pointer;
+    text-align: center;
+    width: 80px;
+    padding: 2px 2px 2px 2px;
+    background-color: rgb(19, 158, 224);
+    color: white;
+    border-radius: 50px;
+}
+
+.selectTrie:hover {
+    background-color: rgb(19, 158, 224);
+    color: white;
+}
+
+
+/* modal de trie couleur,taille,themme... visible/invisible */
+
+#contenuFiltre {
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+#contenuFiltreItem {
+    width: 60%;
+}
+
+.modalColorVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 250px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalColorInvisible {
+    display: none;
+}
+
+.modalTailleVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 250px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalTailleInvisible {
+    display: none;
+}
+
+.modalThemeVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 200px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalThemeInvisible {
+    display: none;
+}
+
+.modalLigneVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 200px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalLigneInvisible {
+    display: none;
+}
+
+.modalPrixVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 200px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalPrixInvisible {
+    display: none;
+}
+
+.modalAutreVisible {
+    background-color: white;
+    position: absolute;
+    z-index: 6;
+    margin-top: 15px;
+    width: 200px;
+    border: 1px solid grey;
+    min-height: 300px;
+}
+
+.modalAutreInvisible {
+    display: none;
+}
+
+
+/************************************/
+
+
+/*bouton appliquer sur les filtres */
+
+.applyFilterActive {
+    padding-left: 25px;
+    background-color: rgba(19, 159, 224, 0.557);
+    color: white;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.applyFilter {
+    padding-left: 25px;
+    background-color: rgba(139, 139, 139, 0.637);
+    color: white;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: not-allowed;
+}
+
+.applyFilterActive:hover {
+    background-color: rgb(19, 158, 224);
+}
+
+
+/*liste des couleurs */
+
+.colorList {
+    width: 100%;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.colorListSelect {
+    width: 100%;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+    background-color: rgba(190, 189, 189, 0.42);
+}
+
+.colorList:hover {
+    background-color: rgba(190, 189, 189, 0.42);
+}
+
+
+/* Liste des tailles */
+
+.tailleList {
+    width: 100%;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    cursor: pointer
+}
+
+.tailleListSelect {
+    width: 100%;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.tailleList:hover {
+    background-color: rgba(190, 189, 189, 0.42);
+}
+
+
+/* Empêcher la surbrillance du texte */
+
+.non-selectionnable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+/*******************Affichage des produits tablet*******************/
+
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    margin-top: 0px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+
+/* Position the "next button" to the right */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+#containProduitsTab {
+    min-height: 600px;
+    max-width: 1000px;
+    position: relative;
+    margin-top: -50px;
+    margin-bottom: 50px;
+}
+
+.produitsTab {
+    text-align: center;
+    min-height: 250px;
+}
+
+.produitsAffTab {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 25px;
+}
+
+
+/*******************************************************************/
+
+
+/*******************Affichage des produits mobile*******************/
+
+.containProduitsMob {
+    margin-top: 30px;
+}
+
+.contenuProduitMobile {
+    border: 1px solid #ddd;
+    height: 100%;
+    width: 100%;
+    box-shadow: 8px 8px 12px #aaa;
+    cursor: pointer;
+}
+
+.produitsAffMob {
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 50px;
+}
+
+#optionProduitsMobile {
+    width: 100%;
+    height: auto;
+    padding: 5px 5px 5px 5px;
+}
+
+.containProductMobileM {
+    height: 225px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.containProductMobileMP {
+    height: 350px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.containProductMobileS {
+    text-align: center;
+    height: 375px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.prixMobile {
+    background-color: rgb(51, 51, 51);
+    margin-right: 5px;
+    margin-left: 5px;
+    color: white;
+    text-align: center;
+}
+
+.desProduitMobile {
+    text-align: center;
+    background-color: rgb(221, 221, 221);
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+/*******************************************************************/
+
+
+/******************Filtre mobile************************************/
+
+
+/***************************************************Detail produit*********************************************************************/
+
+#detailProduit {
+    margin-top: 10px;
+}
+
+#descriptionProduit {
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 9%
+}
+
+.imageDetail {
+    min-width: 850px;
+    margin-left: 5%;
+}
+
+#imageDetail {
+    width: 35%;
+    height: auto;
+    margin-right: 5%;
+    margin-left: 5%;
+    float: left;
+    overflow: hidden;
+}
+
+#infoProduit {
+    float: right;
+    margin-right: 5%;
+    width: 40%;
+    margin-top: 20px;
+    /*style="width: 35%;float: right;margin-top:20px"*/
+}
+
+#commander {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    clear: both;
+}
+
+.affTailleDefault {
+    border: 1px solid rgba(128, 128, 128, 0.26);
+    height: auto;
+    text-align: center;
+    cursor: pointer;
+}
+
+.affTaille {
+    border: 1px solid rgba(128, 128, 128, 0.26);
+    height: auto;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(56, 155, 56)
+}
+
+.affTailleOrange {
+    border: 1px solid rgba(128, 128, 128, 0.26);
+    height: auto;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(219, 164, 61);
+}
+
+.affTailleCrossDefault {
+    border: 1px solid rgba(128, 128, 128, 0.26);
+    height: auto;
+    text-align: center;
+    cursor: no-drop;
+    color: white;
+    background-color: rgb(51, 51, 51);
+}
+
+.affTailleCross {
+    border: 1px solid rgba(128, 128, 128, 0.26);
+    height: auto;
+    text-align: center;
+    cursor: no-drop;
+    color: white;
+    background-color: rgb(177, 48, 48);
+}
+
+.affTailleSelect {
+    border: 1px solid #139fe088;
+    height: auto;
+    text-align: center;
+    cursor: pointer;
+}
+
+.affTaille:hover {
+    border: 1px solid #139fe088;
+}
+
+#ajoutPanierV {
+    cursor: pointer;
+    float: right;
+    margin-left: 15px;
+    padding: 5px 5px 5px 5px;
+    font-size: 18px;
+    background-color: rgba(19, 159, 224, 0.882);
+    color: white
+}
+
+#ajoutPanierC {
+    cursor: pointer;
+    float: right;
+    margin-left: 15px;
+    padding: 5px 5px 5px 5px;
+    font-size: 18px;
+    background-color: rgba(128, 128, 128, 0.384);
+    color: white;
+}
+
+
+/***************************************************Modal ajout panier*****************************************************************/
+
+#modalAjoutPanier {
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+    /*padding-right:25%;
+    padding-left:2.5%;*/
+    min-height: 250px;
+    border: 1px solid rgba(163, 161, 161, 0.507);
+    background-color: white;
+    position: fixed;
+    z-index: 100;
+}
+
+#contenuModalGauche {
+    width: 50%;
+    float: left;
+    min-height: 250px;
+    border-right: 1px solid rgba(163, 161, 161, 0.507);
+}
+
+#contenuModalDroite {
+    width: 50%;
+    float: right;
+    padding-left: 2%;
+    padding-right: 1%;
+    min-height: 250px;
+}
+
+
+/************************************************Confirm box***************************************************************************/
+
+#confirmBox {
+    position: fixed;
+    z-index: 12;
+    margin-top: 15%;
+    margin-right: 30%;
+    margin-left: 30%;
+    width: 40%;
+    height: 175px;
+    background-color: white;
+    border: 1px solid rgba(189, 185, 185, 0.541);
+}
+
+#textConfirm {
+    font-size: 24px;
+}
+
+#actionConfirm {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+}
+
+#actionConfirmCancel {
+    cursor: pointer;
+    text-align: center;
+    width: 50%;
+    background-color: rgba(226, 83, 83, 0.432);
+    height: 100%;
+    float: left;
+    color: white;
+    font-size: 24px;
+    padding-top: 1%;
+}
+
+#actionConfirmCancel:hover {
+    background-color: rgba(206, 22, 22, 0.815);
+}
+
+#actionConfirmValid {
+    cursor: pointer;
+    text-align: center;
+    width: 50%;
+    background-color: rgba(60, 141, 60, 0.575);
+    height: 100%;
+    float: right;
+    color: white;
+    font-size: 24px;
+    padding-top: 1%;
+}
+
+#actionConfirmValid:hover {
+    background-color: rgb(22, 122, 22);
+}
+
+#navbar-toggler-menu {
+    margin: 5px;
+}
+
+.navbar {
+    min-height: 50px;
+}
+
+.navbar-supporter {
+    height: 50px;
+    display: block
+}
+
+
+/***************************************************************************************************************************************/
+
+
+/******************************************************Footer**************************************************************************/
+
+.footer_hover:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/***************************************************************************************************************************/
+
+
+/***********************************************Appareils mobile***********************************************************************/
+
+@media screen and (max-width: 500px) {
+    .container-fluid {
+        padding: 0;
+    }
+    #contenu {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    #principal {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #logo-bienvenue {
+        width: 90%;
+    }
+    .separation-verticale {
+        border-left-style: none;
+        border-left-color: rgba(0, 0, 0, 0.5);
+        border-width: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #principal {
+        clear: both;
+        height: auto;
+    }
+    #contenu {
+        width: 95%;
+        min-height: 700px;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+        float: none;
+    }
+    #modules {
+        width: 95%;
+        float: none;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+        margin-top: 5%;
+    }
+    #info {
+        width: 100%;
+        margin: 5% 0% 0% 0%;
+        height: 100px;
+    }
+    #total {
+        width: 100%;
+        min-height: 150px;
+        margin: 5% 0% 0% 0%;
+    }
+    #filtre {
+        width: 100%;
+        margin: 5% 0% 0% 0%;
+        margin-bottom: 2.5%;
+    }
+    #connexion {
+        clear: left;
+        width: 90%;
+        padding: 5px 5px 5px 5px;
+        background-color: white;
+        margin-left: 5%;
+        margin-right: 5%;
+        box-shadow: 8px 8px 12px #aaa;
+    }
+    #bandeau-connexion {
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 90%;
+        padding: 5px 5px 5px 5px;
+        text-align: center;
+        background-color: rgb(0, 123, 255);
+    }
+    #imageDetail {
+        width: 100%;
+        float: none;
+        text-align: center;
+        margin-left: 0%;
+    }
+    .imageDetail {
+        width: 70%;
+    }
+    #infoProduit {
+        width: 100%;
+        float: none;
+    }
+    #textConfirm {
+        font-size: 16px;
+    }
+    #confirmBox {
+        width: 90%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    #actionConfirmCancel {
+        font-size: 16px;
+    }
+    #actionConfirmValid {
+        font-size: 16px;
+    }
+    #modalAjoutPanier {
+        width: 90%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    #contenuModalGauche {
+        width: 100%;
+        float: none;
+    }
+    #contenuModalDroite {
+        width: 100%;
+        float: none;
+    }
+}
+
+
+/***************************************************************************************************************************************/
+
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+}

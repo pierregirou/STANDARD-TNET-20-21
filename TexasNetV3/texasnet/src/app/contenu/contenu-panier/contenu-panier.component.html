@@ -1,0 +1,484 @@
+<div id="contenu" [style.background-color]="contenuColor">
+    <div *ngIf="isDesktop" style="margin-left:5%;width:fit-content;border-bottom: 1px solid rgb(84, 93, 92)">
+        <h5 style="color: rgb(84, 93, 92)">{{ 'menu.panier' | translate }}
+            <fa-icon icon="shopping-cart" style="font-size:25px"></fa-icon>
+        </h5>
+    </div><br />
+    <div *ngIf="isMobile || isTablet" style="margin-left:5%;width:90%;border-bottom: 1px solid rgb(84, 93, 92)">
+        <h5 style="color: rgb(84, 93, 92)">{{ 'menu.panier' | translate }}
+            <fa-icon icon="shopping-cart" style="font-size:25px"></fa-icon>
+        </h5>
+    </div><br />
+    <div [ngClass]="{'container-fluid':isDesktop}">
+        <div *ngIf="nbPiece===0" class="alert alert-warning" role="alert">
+            {{ 'panier.vide' | translate }}
+        </div>
+        <button (click)="returnProducts()" class="btn btn-light">{{ 'panier.retourProd' | translate }}</button>
+
+        <div *ngIf="nbPiece>0">
+            <mat-horizontal-stepper linear #stepper>
+                <!-- Stepper Partie 1 : Mon Panier -->
+                <mat-step>
+                    <ng-template *ngIf="nbPiece===1" matStepLabel>{{ 'menu.panier' | translate }}({{quantitePanier}} article) </ng-template>
+                    <ng-template *ngIf="nbPiece>=1" matStepLabel>{{ 'menu.panier' | translate }}({{quantitePanier}} articles) </ng-template>
+                    <!-- modeSaisie === 2 : tableau -->
+                    <ng-container *ngIf="modeSaisie===2">
+                        <div *ngFor="let commande of arrayCommande;let i=index;let t=index">
+                            <table class="table" style="width: 90%;margin-left:5%;margin-right:5%">
+                                <tr style="height: 35px;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white">
+                                    <th style="width: 10%;font-size:14px">{{ 'panier.produit' | translate }} </th>
+                                    <th style="width: 10%;font-size:14px">{{ 'panier.refProd' | translate }} </th>
+                                    <th style="width: 10%;font-size:14px">{{ 'panier.libelle' | translate }} </th>
+                                    <th style="width: 15%;font-size:14px">{{ 'panier.prixUnitaire' | translate }} </th>
+                                    <th style="width: 15%;font-size:14px">{{ 'panier.taille' | translate }} </th>
+                                    <th style="width: 10%;font-size:14px">{{ 'panier.pieceTotal' | translate }} </th>
+                                    <th style="width: 10%;font-size:14px">{{ 'panier.total' | translate }} </th>
+                                    <th style="width: 5% ;font-size:14px">{{ 'panier.modifier' | translate }}</th>
+                                    <th style="width: 5% ;font-size:14px">{{ 'panier.supprimer' | translate }}</th>
+                                </tr>
+                                <tr [style.background-color]="(i+2)%2==0 ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)'" style="margin-left:2%;width:100%; height: 100%;clear: right">
+                                    <td>
+                                        <div [routerLink]="['/detail-produit/',commande.info[3][1]]" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="" style="padding:5px 5px 5px 5px;cursor:pointer">
+                                            <img style="width: 80px;height: auto " src="{{imgEnCours[i]}}">
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 14px">{{commande.info[3][1]}}</td>
+                                    <td style="font-size: 14px">{{commande.info[5][1]}}</td>
+                                    <td style="font-size: 14px">{{commande.info[2][1]}} €</td>
+                                    <td style="font-size: 14px" *ngIf="commande.info[15][1] !== null">{{commande.info[14][1]}} {{ 'panier.AProposition' | translate }} {{commande.info[15][1]}}</td>
+                                    <td style="font-size: 14px" *ngIf="commande.info[15][1] === null">{{commande.info[14][1]}}</td>
+                                    <td style="font-size: 14px">{{commande.info[12][1]}}</td>
+                                    <td style="font-size: 14px">{{commande.info[6][1]}} €</td>
+                                    <td style="text-align: center;">
+                                        <fa-icon matTooltip="{{ 'panier.editProd' | translate }}" icon="eye" style="cursor: pointer;color:rgb(108, 182, 255)" (click)="afficherDetails[t] = !afficherDetails[t]"></fa-icon>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <fa-icon matTooltip="{{ 'panier.deleteProd' | translate }}" aria-label="Button that displays a tooltip in various positions" icon="trash" style="cursor: pointer;color:rgb(108, 182, 255)" (click)="onDeleteProduitTab(infoTailleCommandeTableau[i],commande.info[2][1])"
+                                            matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="width: 90%;margin-right:5%;margin-left:5%;overflow: auto">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="color: rgb(19, 158, 224);background-color: #fff" scope="col">{{ 'commandetaille.coloris' | translate }} </th>
+                                            <th style="text-align: center;width: 200px" scope="col" *ngFor="let tailles of tailleDebFin[i]">{{tailles}}</th>
+
+                                            <th scope="col" style="width:120px;">{{ 'compte.nbrPieces' | translate }} </th>
+                                            <th scope="col" style="width:140px;">{{ 'panier.total' | translate }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let coloris of arrayTailleTableau[i];let j=index">
+                                            <ng-container *ngIf="afficherLignePanier(commande,infoTailleCommandeTableau[i][j],t)">
+                                                <th style="color: rgb(19, 158, 224);font-size:12px;background-color: #fff" scope="row"><img src="{{imageService.PhotosArt}}{{libPictoArray[i][j]}}" style="cursor: pointer;max-width:30px" (click)="changeColori(commande.info[17][1],coloris,i)" /> <span style="cursor: pointer;" (click)="changeColori(commande.info[17][1],coloris,i)"> {{libCodeColorisArray[i][j]}} {{coloris}} </span></th>
+                                                <td style="min-width: 100px" *ngFor="let infoTailles of infoTailleCommandeTableau[i][j]">
+
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" (click)="noStock(infoTailles.taille)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0"
+                                                        max="{{infoTailles.stockdisponible}}" matInput type="text" matTooltip="Quantité : {{infoTailles.stockdisponible}}" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}"
+                                                        type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(56, 155, 56)" min="0" max="{{infoTailles.stockdisponible}}"
+                                                        matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>=stockIndisponible && stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border: 1px solid rgb(219, 164, 61)"
+                                                        min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" (click)="noStock(infoTailles.taille)" style="width: 100%;background-color:#D3D3D3"
+                                                        min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number">
+                                                    <input class="form-control" *ngIf="infoTailles.quantite === null && infoTailles.stockdisponible<=0 && controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" style="width: 100%;background-color:#696969"
+                                                        min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="text" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)" style="width: 100%;background-color:#D3D3D3"
+                                                        min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+                                                    <input class="form-control" *ngIf="(infoTailles.quantite !== null || infoTailles.stockdisponible > 0) && !stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)"
+                                                        style="width: 100%;background-color:#D3D3D3" min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+
+                                                </td>
+
+                                                <ng-container *ngFor="let infoTaille of infoTailleCommandeTableau[i][j]">
+                                                    <ng-container *ngIf="infoTaille.montantLigne >= 0">
+                                                        <td style="width:120px;">{{infoTaille.quantiteLigne}}</td>
+                                                        <td style="width:120px;">{{infoTaille.montantLigne}} €</td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <!-- --------------------1ere partie-mode mobile ------------------------------------- -->
+                    <ng-container *ngIf="modeSaisie===1">
+                        <div *ngFor="let commande of arrayCommande;let i=index;let t=index">
+                            <!-- information article   ref - nom - Prix Unitaire - supprimer-->
+                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white">
+                                <thead>
+                                    <tr>
+                                        <th>{{ commande.info[3][1] }}</th>
+                                        <th>{{ commande.info[5][1] }}</th>
+                                        <th>{{ commande.info[2][1] }} €</th>
+                                        <th><span style="text-align:right">
+                        <fa-icon matTooltip="{{ 'panier.deleteProd' | translate }}" aria-label="Button that displays a tooltip in various positions" icon="trash" style="cursor: pointer;color:white;"
+                          (click)="onDeleteProduitTab(infoTailleCommandeTableau[i],commande.info[2][1])" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon>
+                      </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div [routerLink]="['/detail-produit/',commande.info[3][1]]" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="" style="padding:5px 5px 5px 5px;cursor:pointer">
+                                <img style="width: 80px;height:auto;display:flex;margin-left:auto;margin-right:auto" src="{{imgEnCours[i]}}">
+                            </div>
+                            <!-- autres informations articles commandés   taille - nb de piece - prix total - modifier-->
+                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white">
+                                <tr>
+                                    <th>{{ 'panier.taille' | translate }}</th>
+                                    <th> {{ 'panier.pieceTotal' | translate }} </th>
+                                    <th> {{ 'panier.total' | translate }}</th>
+                                    <th> {{ 'panier.modifier' | translate }} </th>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 14px" *ngIf="commande.info[15][1] !== null"> {{ commande.info[14][1] }} {{ 'panier.AProposition' | translate }} {{ commande.info[15][1] }} </td>
+                                    <td style="font-size: 14px" *ngIf="commande.info[15][1] === null"> {{ commande.info[14][1] }} </td>
+                                    <td style="font-size: 14px"> {{ commande.info[12][1] }} </td>
+                                    <td style="font-size: 14px"> {{ commande.info[6][1] }} € </td>
+                                    <td>
+                                        <fa-icon matTooltip="{{ 'panier.editProd' | translate }}" icon="eye" style="cursor: pointer" (click)="afficherDetails[t] = !afficherDetails[t]"></fa-icon>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-------------- Grille de tailles produit  ------------------------->
+                            <div style="width: 90%;margin-right:5%;margin-left:5%;overflow: auto">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="color: rgb(19, 158, 224);background-color: #fff" scope="col">{{ 'commandetaille.coloris' | translate }} </th>
+                                            <th style="text-align: center;width: 200px" scope="col" *ngFor="let tailles of tailleDebFin[i]">{{tailles}}</th>
+
+                                            <th scope="col" style="width:120px;">{{ 'compte.nbrPieces' | translate }} </th>
+                                            <th scope="col" style="width:140px;">{{ 'panier.total' | translate }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let coloris of arrayTailleTableau[i];let j=index">
+                                            <ng-container *ngIf="afficherLignePanier(commande,infoTailleCommandeTableau[i][j],t)">
+                                                <th style="color: rgb(19, 158, 224);font-size:12px;background-color: #fff" scope="row"><img src="{{imageService.PhotosArt}}{{libPictoArray[i][j]}}" style="cursor: pointer;max-width:30px" (click)="changeColori(commande.info[17][1],coloris,i)" /> <span style="cursor: pointer;" (click)="changeColori(commande.info[17][1],coloris,i)"> {{libCodeColorisArray[i][j]}} {{coloris}} </span></th>
+                                                <td style="min-width: 100px" *ngFor="let infoTailles of infoTailleCommandeTableau[i][j]">
+
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" (click)="noStock(infoTailles.taille)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0"
+                                                        max="{{infoTailles.stockdisponible}}" matInput type="text" matTooltip="Quantité : {{infoTailles.stockdisponible}}" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}"
+                                                        type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(56, 155, 56)" min="0" max="{{infoTailles.stockdisponible}}"
+                                                        matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>=stockIndisponible && stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border: 1px solid rgb(219, 164, 61)"
+                                                        min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" (click)="noStock(infoTailles.taille)" style="width: 100%;background-color:#D3D3D3"
+                                                        min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number">
+                                                    <input class="form-control" *ngIf="infoTailles.quantite === null && infoTailles.stockdisponible<=0 && controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" style="width: 100%;background-color:#696969"
+                                                        min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="text" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)" style="width: 100%;background-color:#D3D3D3"
+                                                        min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+                                                    <input class="form-control" *ngIf="(infoTailles.quantite !== null || infoTailles.stockdisponible > 0) && !stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)"
+                                                        style="width: 100%;background-color:#D3D3D3" min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
+                                                </td>
+
+                                                <ng-container *ngFor="let infoTaille of infoTailleCommandeTableau[i][j]">
+                                                    <ng-container *ngIf="infoTaille.montantLigne >= 0">
+                                                        <td style="width:120px;">{{infoTaille.quantiteLigne}}</td>
+                                                        <td style="width:120px;">{{infoTaille.montantLigne}}€</td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <!----- informations facturations (partie commune) ----->
+                    <div class="container">
+                        <div class="row" class="delete-button-container">
+                            <button class="btn btn-danger">
+                <fa-icon matTooltip=" {{ 'panier.ViderPanier' | translate }}" (click)="onConfirmDeleteAll()" aria-label="Button that displays a tooltip in various positions" icon="trash" style="cursor: pointer;color:white" matRipple
+                  [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon> <span (click)="onConfirmDeleteAll()"> {{ 'panier.ViderPanier' | translate }}</span>
+              </button>
+                        </div>
+
+                        <div *ngIf="promoMontant>0" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>{{ 'panier.reducApplique' | translate }}</strong></div>
+                            </div>
+                            <div class="col">
+                                <div style="float:right">{{promoPourcentageCodeTarif}}%</div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>{{ 'panier.totalPanier' | translate }} </strong></div>
+                            </div>
+                            <div *ngIf="promoMontant>0" class="col">
+                                <div><span style="color: rgb(87, 182, 87)"> -{{promoMontant}}€</span></div>
+                            </div>
+                            <div *ngIf="promoPourcentage>0" class="col">
+                                <div><span style="color: rgb(87, 182, 87)"> -{{promoPourcentage}}%</span></div>
+                            </div>
+                            <div class="col" style="text-align:center">
+                                <div>{{quantitePanier}}</div>
+                            </div>
+                            <div class="col">
+                                <div style="float:right">{{totalPanier | number : '.2-2'}}€</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="tauxEscompte > 0" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>Escompte {{ tauxEscompte | number : '.2-2'}} %</strong></div>
+                            </div>
+                            <div class="col">
+                                <div style="float:right">{{ montantEscompte | number : '.2-2'}}€</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="tauxEscompte > 0" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>TPH 0,0675 % </strong></div>
+                            </div>
+                            <div class="col">
+                                <div style="float:right">{{ montantNetTPH | number : '.2-2'}}€</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="fraisDePort" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>{{ 'panier.FDP' | translate }}</strong></div>
+                            </div>
+                            <div class="col">
+                                <div *ngIf="totalPanier<portGratuit" style="float:right">{{ montantPort | number : '.2-2'}}€</div>
+                                <div *ngIf="totalPanier>portGratuit" style="float:right"> 0€</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="fraisDePortJOTT" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <div><strong>{{ 'panier.FDP' | translate }}</strong></div>
+                            </div>
+                            <div class="col">
+                                <div style="float:right">{{ montantPort | number : '.2-2'}}€</div>
+                            </div>
+                        </div>
+                        <div *ngIf="codeFiscal === fiscalFrancais" class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <td><strong>{{ 'panier.montantTVA' | translate }}</strong></td>
+                            </div>
+                            <div class="col">
+                                <td style="float:right">{{ montantTVA | number : '.2-2'}}€</td>
+                            </div>
+                        </div>
+
+                        <div class="row" style="border: 1px solid rgba(187, 180, 180, 0.411)">
+                            <div class="col">
+                                <td><strong>{{ 'panier.montantHT' | translate }}</strong></td>
+                            </div>
+                            <div class="col">
+                                <td style="float:right"><b>{{totalPanierPlusFDP + montantTVA  | number : '.2-2'}}€</b></td>
+                                <!--+          pour le TTC-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <button id="valid-button" mat-button matStepperNext>{{ 'panier.validPanier' | translate }}
+              <fa-icon icon="check"></fa-icon>
+            </button>
+                    </div>
+                </mat-step>
+
+                <!-- Stepper Partie 2 : Coordonnées -->
+                <mat-step [stepControl]="formCommandeColissimo" *ngIf="soColissimo">
+                    <form [formGroup]="formCommandeColissimo" (ngSubmit)="onSubmit()" *ngIf="soColissimo">
+                        <input name="pudoFOId" style="display:none;" [ngModel]="scFoid" formControlName="scFoid" />
+                        <input name="key" style="display:none;" [ngModel]="scCleSHA1" formControlName="scCleSHA1" />
+                        <input name="trReturnUrlKo" id="trReturnUrlKo" style="display:none;" [ngModel]="'http://localhost:4200/contenu/panier'" formControlName="scURLKO" />
+                        <input name="trReturnUrlok" style="display:none;" [ngModel]="'http://localhost:4200/contenu/panier'" formControlName="scURLOK" />
+                        <input name="dyForwardingCharges" style="display:none;" [ngModel]="scFraisExpedition" formControlName="scFraisExpedition" />
+                        <input name="orderId" style="display:none;" [ngModel]="'COLIPOSTE123456'" formControlName="scOrderID" />
+                        <input name="numVersion" style="display:none;" [ngModel]="scVersionColissimo" formControlName="scVersionColissimo" />
+                        <input name="trClientNumber" style="display:none;" [ngModel]="'ASTI'" formControlName="scNumClient" />
+                        <input name="signature" style="display:none;" [ngModel]="" formControlName="scSignature" />
+                        <ng-template matStepLabel>{{'panier.coordonnees' | translate}}
+                            <fa-icon icon="building"></fa-icon>
+                        </ng-template>
+                        <div style="width:90%;margin-right:5%;margin-left:5%;text-align:center">
+                            <div style="width: auto;border-bottom: 1px solid rgba(170, 166, 166, 0.623)"><strong>Colissimo</strong></div><br />
+                            <mat-radio-group aria-label="genre" name="ceCivility" formControlName="genre">
+                                <mat-radio-button checked value="monsieur" style="margin-right:15px">{{ 'panier.sexeM' | translate }}</mat-radio-button>
+                                <mat-radio-button value="madame">{{ 'panier.sexeF' | translate }}</mat-radio-button>
+                            </mat-radio-group><br />
+                            <mat-form-field>
+                                <input matInput [attr.disabled]="dateBloqPanier ? '' : null" [matDatepicker]="picker2" placeholder="Angular forms (w/ deserialization)" [formControl]="serializedDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field style="width: 50%">
+                                <input matInput [matDatepicker]="picker" placeholder="Date de livraison souhaitée" formControlName="date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="nom" name="ceName" matInput placeholder="Votre nom" formControlName="nom">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="prenom" name="ceFirstName" matInput placeholder="Votre prénom" formControlName="prenom">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="adresse1" name="ceAdress3" matInput placeholder="Adresse de livraison 1" formControlName="adresse1">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="adresse2" name="ceAdress2" matInput placeholder="Adresse de livraison 2" formControlName="adresse2">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="cp" name="ceZipCode" matInput placeholder="Code postal" formControlName="cdp">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="ville" name="ceTown" matInput placeholder="Ville" formControlName="ville">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="email" name="ceEmail" type="email" matInput placeholder="Votre email" formControlName="email">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <input [ngModel]="telephone" name="cePhoneNumber" type="tel" matInput placeholder="Votre téléphone" formControlName="tel">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width">
+                                <textarea matInput name="ceDeliveryInformation" placeholder="Laissez un commentaire" formControlName="commentaire"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <br><br>
+
+                            <mat-radio-group *ngIf="cintreActif" aria-label="cintreCheck" name="cintreCheck" formControlName="cintreCheck">
+                                <mat-radio-button value="1" style="margin-right:15px">{{ 'panier.livraisonAvec' | translate }}</mat-radio-button>
+                                <mat-radio-button value="0">{{ 'panier.livraisonSans' | translate }}</mat-radio-button>
+                            </mat-radio-group><br />
+                            <div *ngIf="CGV" [formGroup]="formCommandeNormal">
+                                <input type="checkbox" [ngModel]="CGVcheck" formControlName="CGVcheck" /> {{ 'panier.accepterCGV1' | translate }}
+                                <a href="#" data-toggle="modal" data-target="#myModal">{{ 'panier.accepterCGV2' | translate }}</a>
+                            </div>
+                            <button style="float: right;font-size:18px" [style.color]="formCommandeColissimo.invalid?'rgb(84, 93, 92)':'rgb(45,196,45)'" mat-button matStepperNext [disabled]="formCommandeColissimo.invalid">Valider la commande <fa-icon icon="check">
+                </fa-icon></button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="formCommandeNormal" *ngIf="!soColissimo">
+                    <form [formGroup]="formCommandeNormal" (ngSubmit)="onSubmitNormal()" *ngIf="!soColissimo" name="formCommandeNormal">
+                        <ng-template matStepLabel>{{'panier.coordonnees' | translate}}</ng-template>
+                        <div style="width:90%;margin-right:5%;margin-left:5%;text-align:center">
+                            <mat-form-field [ngClass]="modeSaisie===1 ? 'form-input-mobile':'form-input-desktop'">
+                                <input matInput [matDatepicker]="picker" placeholder="{{ 'compte.dateLiv' | translate }}" formControlName="date">
+                                <mat-datepicker-toggle *ngIf="dateBloqPanier" matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker *ngIf="dateBloqPanier" #picker></mat-datepicker>
+                            </mat-form-field><br />
+                            <mat-form-field [ngClass]="modeSaisie===1 ? 'form-input-mobile':'form-input-desktop'">
+                                <mat-label>{{ 'panier.adresseLiv' | translate }}</mat-label>
+                                <mat-select formControlName="adresseL" [(ngModel)]="selectedOptionL">
+                                    <mat-option *ngFor="let adresse of adresseClientL" [value]="adresse.id">{{adresse.adresse1}} - {{adresse.adresse2}} - {{adresse.codePostal}} - {{adresse.ville}} - {{adresse.pays}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field [ngClass]="modeSaisie===1 ? 'form-input-mobile':'form-input-desktop'">
+                                <mat-label>{{ 'panier.adresseFac' | translate }}</mat-label>
+                                <mat-select formControlName="adresseF" [(ngModel)]="selectedOptionF">
+                                    <mat-option *ngFor="let adresse of adresseClientF" value="{{adresse.id}}">{{adresse.adresse1}} - {{adresse.adresse2}} - {{adresse.codePostal}} - {{adresse.ville}} - {{adresse.pays}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field style="width: 50%" *ngIf="gestionGroupe">
+                                <mat-label>{{ 'panier.libelle' | translate }}</mat-label>
+                                <mat-select formControlName="libelleServ">
+                                    <mat-option value="MAG">Magasin</mat-option>
+                                    <mat-option value="SAV">Service après-vente</mat-option>
+                                </mat-select>
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width" *ngIf="gestionGroupe">
+                                <input matInput placeholder="Nom" formControlName="nom">
+                            </mat-form-field><br />
+                            <mat-form-field style="width: 50%" class="example-full-width" *ngIf="gestionGroupe">
+                                <input matInput placeholder="Prénom" formControlName="prenom">
+                            </mat-form-field><br />
+                            <mat-form-field hintLabel="{{ valueAreaComment?valueAreaComment.length:0 }}/80" class="example-full-width" [ngClass]="modeSaisie===1 ? 'form-input-mobile':'form-input-desktop'">
+                                <textarea matInput maxlength="80" placeholder="{{ 'panier.commentaire' | translate }}" formControlName="commentaire" [(ngModel)]="valueAreaComment"></textarea>
+                            </mat-form-field>
+                            <div>
+                                <br><br>
+
+                                <mat-radio-group *ngIf="cintreActif" aria-label="cintreCheck" name="cintreCheck" formControlName="cintreCheck">
+                                    <mat-radio-button value="1" style="margin-right:15px">{{ 'panier.livraisonAvec' | translate }}</mat-radio-button>
+                                    <mat-radio-button value="0">{{ 'panier.livraisonSans' | translate }}</mat-radio-button>
+                                </mat-radio-group><br />
+                                <div *ngIf="CGV" [formGroup]="formCommandeNormal">
+                                    <input type="checkbox" [ngModel]="CGVcheck" formControlName="CGVcheck" /> {{ 'panier.accepterCGV1' | translate }}
+                                    <a href="#" data-toggle="modal" data-target="#myModal">{{ 'panier.accepterCGV2' | translate }}</a>
+                                </div>
+                                <div>
+
+                                    <i style="color:red;font-size:12px;float:right;"> {{ 'panier.msgCocher' | translate}}</i><br>
+                                    <button style="float: right;color: rgb(45, 196, 45);font-size:18px" [style.color]="formCommandeNormal.invalid?'rgb(84, 93, 92)':'rgb(45,196,45)'" [disabled]="formCommandeNormal.invalid" mat-button matStepperNext>{{ 'panier.validPanier' | translate }}
+                    <fa-icon icon="check"></fa-icon>
+                  </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <!-- en cours -->
+                    <ng-template matStepLabel>{{ 'panier.finalCde' | translate }} </ng-template>
+                    <div class="alert alert-success">{{ 'panier.cdeValid' | translate }} </div>
+                    <div>
+                        <button mat-button matStepperPrevious>{{ 'panier.retour' | translate }} </button>
+                        <button mat-button (click)="stepper.reset()">{{ 'panier.reset' | translate }} </button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" id="commande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'acceuil.commandeExpress' | translate }} {{coProduit}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <app-commande-taille *ngIf="commandeExpress"></app-commande-taille>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="overflow: auto" class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'panier.titreCGV' | translate }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <embed [src]="CGVpath[langueSelect]" width=800 height=700 type='application/pdf' />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'acceuil.annuler' | translate }} </button>
+            </div>
+        </div>
+    </div>
+</div>

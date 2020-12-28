@@ -1,0 +1,8 @@
+<div id="confirmBox" >
+  <fa-icon (click)="closeConfirm()" icon="times" style="float: right;color:grey;cursor:pointer" matTooltip="Fermer" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon><br/>
+  <p id="textConfirm">{{ 'confirm.videpanier' | translate }}</p>
+  <div id="actionConfirm" >
+    <div id="actionConfirmCancel" (click)="closeConfirm()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'acceuil.annuler' | translate }}</div>
+    <div id="actionConfirmValid" (click)="confirm()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'confirm.confirmer' | translate }}</div>
+  </div>
+</div>

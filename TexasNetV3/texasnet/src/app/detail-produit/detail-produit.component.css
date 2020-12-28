@@ -1,0 +1,171 @@
+/* Old or Common */
+
+#infoProduit {
+    text-align: justify;
+}
+
+.imageMiniature {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.titre-information {
+    margin: 2% 0%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.testContainer {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: blue !important;
+}
+
+
+/* Large screen*/
+
+@media screen and (min-width: 1000px) {
+    .container-image-miniature {
+        width: 50px;
+        order: 1;
+    }
+    .container-image-zoom {
+        order: 2;
+    }
+    .image-miniature {
+        margin: 5% 0%;
+    }
+}
+
+
+/* gestion pour amateis*/
+
+@media screen and (max-width: 1615px) {
+    .container-description {
+        width: 420px;
+    }
+}
+
+@media screen and (max-width: 1409px) {
+    .container-description {
+        width: 390px;
+    }
+}
+
+@media screen and (max-width: 1360px) {
+    .container-description {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .container-description {
+        width: 270px;
+    }
+}
+
+@media screen and (max-width: 1225px) {
+    .container-description {
+        width: 250px;
+    }
+}
+
+
+/* FIN gestion pour amateis*/
+
+
+/* Small screen */
+
+@media not screen and (min-width: 1000px) {
+    /* Containers */
+    .container-image-miniature {
+        text-align: center;
+        max-width: 300px;
+        max-height: 400px;
+        overflow: auto;
+        width: 100%;
+        order: 2;
+    }
+    .container-image-zoom {
+        margin: auto;
+        width: 100%;
+        order: 1;
+    }
+    /* Img element */
+    .image-miniature {
+        margin: 0% 1.5%;
+    }
+    .container-description {
+        width: 100%;
+    }
+}
+
+
+/* Common for both screens */
+
+
+/* Containers */
+
+.container-detail-prod {
+    display: flex;
+    padding: 3% 4%;
+    flex-wrap: wrap;
+}
+
+.container-image-miniature {
+    display: inline-block;
+    margin: 2% 1%;
+}
+
+.container-image-zoom {
+    display: inline-block;
+}
+
+.container-description {
+    display: inline-block;
+    max-width: 550px;
+    order: 3;
+    text-align: justify;
+    margin: 0 auto;
+}
+
+
+/* Img element */
+
+.image-miniature {
+    width: 50px;
+}
+
+
+/* Ribbon */
+
+.ribbon-box {
+    position: relative;
+}
+
+.ribbon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+}
+
+.ribbon span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 40px;
+    width: 8%;
+    display: block;
+    background: #3f9c3f;
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 40px;
+    right: 50%;
+}
