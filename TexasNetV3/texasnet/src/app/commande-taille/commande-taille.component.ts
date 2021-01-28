@@ -576,7 +576,7 @@ export class CommandeTailleComponent implements OnInit, OnDestroy {
             //currentPrice += (parseInt(form.form.value[prop]) * parseInt(this.arrayTaille[currentLine][col].prix));
             currentPrice += (parseInt(form.form.value[prop]) * this.arrayTaille[currentLine][col].prix);
           } else {
-            currentPrice += (parseInt(form.form.value[prop]) * parseInt(this.arrayTaille[currentLine][col].prixPromo));
+            currentPrice += (parseInt(form.form.value[prop]) * this.arrayTaille[currentLine][col].prixPromo);
           }
         }
       }

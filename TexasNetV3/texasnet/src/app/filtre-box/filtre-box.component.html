@@ -4,7 +4,7 @@
 <div>
     <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.ligne' | translate }}</mat-label>
-        <mat-select [(ngModel)]="ligneSelect" name="ligne">
+        <mat-select [(ngModel)]="ligneSelect" name="ligne" (ngModelChange)="getElementAndReturnNewArrayInFilter()">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
             <mat-option *ngFor="let ligne of ligneFiltre" [value]="ligne">
                 {{ligne}}
@@ -14,7 +14,7 @@
 
     <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.famille' | translate }}</mat-label>
-        <mat-select [(ngModel)]="familleSelect">
+        <mat-select [(ngModel)]="familleSelect" (ngModelChange)="getElementAndReturnNewArrayInFilter()">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
             <mat-option *ngFor="let famille of familleFiltre" [value]="famille">
                 {{famille}}
@@ -22,7 +22,7 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="filtre-select">
+    <!-- <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.sousfamille' | translate }}</mat-label>
         <mat-select [(ngModel)]="sousFamilleSelect">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
@@ -30,9 +30,9 @@
                 {{sousFamille}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <mat-form-field class="filtre-select">
+    <!-- <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.marque' | translate }}</mat-label>
         <mat-select [(ngModel)]="marqueSelect">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
@@ -40,23 +40,22 @@
                 {{marque}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
 
-    <mat-form-field class="filtre-select">
+    <!-- <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.theme' | translate }}</mat-label>
-        <!-- (selectionChange)="themeValue($event.value)" -->
         <mat-select [(ngModel)]="themeSelect">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
             <mat-option *ngFor="let theme of themeFiltre" [value]="theme">
                 {{theme}}
             </mat-option>
         </mat-select>
-    </mat-form-field><br>
+    </mat-form-field> --><br>
 
     <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.coloris' | translate }}</mat-label>
-        <mat-select [(ngModel)]="coloriSelect">
+        <mat-select [(ngModel)]="coloriSelect" (ngModelChange)="getElementAndReturnNewArrayInFilter()">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
             <mat-option *ngFor="let colori of coloriFiltre" [value]="colori">
                 {{colori}}
@@ -66,7 +65,7 @@
 
     <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.matiere' | translate }}</mat-label>
-        <mat-select [(ngModel)]="matiereSelect">
+        <mat-select [(ngModel)]="matiereSelect" (ngModelChange)="getElementAndReturnNewArrayInFilter()">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
             <mat-option *ngFor="let matiere of matiereFiltre" [value]="matiere">
                 {{matiere}}
@@ -74,7 +73,7 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="filtre-select">
+    <!-- <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.taille' | translate }}</mat-label>
         <mat-select [(ngModel)]="tailleSelect" multiple>
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
@@ -82,9 +81,9 @@
                 {{taille}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <mat-form-field class="filtre-select">
+    <!-- <mat-form-field class="filtre-select">
         <mat-label>{{ 'filtre.modele' | translate }}</mat-label>
         <mat-select [(ngModel)]="modeleSelect">
             <mat-option [value]="">{{ 'filtre.aucuneSelec' | translate }}</mat-option>
@@ -92,7 +91,7 @@
                 {{modele}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
 
     <!--<mat-form-field>

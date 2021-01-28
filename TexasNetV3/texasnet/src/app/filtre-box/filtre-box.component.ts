@@ -58,9 +58,7 @@ export class FiltreBoxComponent implements OnInit {
   langueSelectSubscription:Subscription;
   themeSelected: string;
 
-  constructor(private produitService:ProduitService, private router:Router,private route:ActivatedRoute, private filtreService:FiltreService, private langueService:LangueService){}
-
-  ngOnInit() {
+  constructor(private produitService:ProduitService, private router:Router,private route:ActivatedRoute, private filtreService:FiltreService, private langueService:LangueService){
 
     this.myLangue();
 
@@ -75,7 +73,13 @@ export class FiltreBoxComponent implements OnInit {
         this.langueSelect = "ANG";
       }
       this.chargeFiltres();
+      this.getElementAndReturnNewArrayInFilter()
+
     })
+  }
+
+  ngOnInit() {
+    this.chargeFiltres();
 
     this.ligneProduit = this.filtreService.ligneSubject.subscribe(
       (ligne:string) =>{
@@ -183,6 +187,7 @@ export class FiltreBoxComponent implements OnInit {
    this.produitService.recupColorisFiltreBox(this.langueSelect);
    this.coloriFiltreSubscription=this.produitService.colorisFiltreBoxSubject.subscribe(
      (coloris:any[])=>{
+      console.log(coloris);
        this.coloriFiltre=[]
        for(let i = 0; i < coloris.length; i++){
          var myValue = coloris;
@@ -229,6 +234,7 @@ export class FiltreBoxComponent implements OnInit {
    this.produitService.recupFamilleFiltre(this.langueSelect);
    this.familleFiltreSubscription=this.produitService.familleFiltreBoxSubject.subscribe(
      (famille:any[])=>{
+       console.log(famille);
        this.familleFiltre=[]
        for(let i = 0; i < famille.length; i++){
          var myValue = famille;
@@ -333,15 +339,24 @@ export class FiltreBoxComponent implements OnInit {
   }
 
   resetFiltres() {
-    this.ligneSelect = "";
-    this.familleSelect = "";
-    this.themeSelect = "";
-    this.coloriSelect = "";
-    this.matiereSelect = "";
-    this.tailleSelect = "";
-    this.sousFamilleSelect = "";
-    this.marqueSelect = "";
-    this.modeleSelect = "";
+    // this.ligneSelect = "";
+    // this.familleSelect = "";
+    // this.themeSelect = "";
+    // this.coloriSelect = "";
+    // this.matiereSelect = "";
+    // this.tailleSelect = "";
+    // this.sousFamilleSelect = "";
+    // this.marqueSelect = "";
+    // this.modeleSelect = "";
+    this.ligneSelect = undefined;
+    this.familleSelect = undefined;
+    this.themeSelect = undefined;
+    this.coloriSelect = undefined;
+    this.matiereSelect = undefined;
+    this.tailleSelect = undefined;
+
+    this.chargeFiltres();
+
   }
 
   myLangue(){
@@ -364,4 +379,43 @@ export class FiltreBoxComponent implements OnInit {
   }
 
 
-}
+  /* recuperer la value de l'input pour renvoyer des donnée correspondant au valeur deja selectionnée dans le filtres */
+  getElementAndReturnNewArrayInFilter(){
+    /* ------------FILTRE LIGNE (genre) ------------------*/
+    if(this.ligneSelect != undefined){
+     this.familleFiltre = [];
+     this.coloriFiltre = [];
+     for(let produit of this.produitService.produits){
+       if(produit['ligne'] == this.ligneSelect){
+         if(!this.familleFiltre.includes(produit['famille'])){
+           this.familleFiltre.push(produit['famille'])
+           this.familleFiltre.sort()
+         }
+         if(!this.coloriFiltre.includes(produit['libcolori'])){
+           this.coloriFiltre.push(produit['libcolori'])
+           this.coloriFiltre.sort()
+         }
+       }
+      }
+     }
+
+    /* ------------FILTRE FAMILLE (categorie) ------------------*/
+      if(this.familleSelect != undefined){
+       this.coloriFiltre = [];
+        for(let produit of this.produitService.produits){
+          if(produit['famille'] === this.familleSelect){
+            if(!this.coloriFiltre.includes(produit['libcolori'])){
+              this.coloriFiltre.push(produit['libcolori'])
+              this.coloriFiltre.sort()
+             }
+           }
+        }
+       }
+
+        console.log('this.coloriSelect '+ this.coloriSelect);
+        console.log('this.familleSelect '+ this.familleSelect);
+        console.log('this.tailleSelect '+ this.tailleSelect);
+        console.log('this.ligneSelect '+ this.ligneSelect);
+
+    }
+  }

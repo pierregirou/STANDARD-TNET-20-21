@@ -62,7 +62,7 @@ export class ModalPanierComponent implements OnInit, OnDestroy {
 
 
     // rajout pour AMATEIS car il ne veulent pas la modal panier qui ralentie la prise de commande des VRP
-    //this.closeModalPanier();
+    this.closeModalPanier();
 
 
 

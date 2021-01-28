@@ -41,8 +41,8 @@
                             <div style="clear: right;font-size:18px;" *ngIf="PVC"><strong style="clear: left;font-size:18px" *ngIf="PVC">PVC : </strong>{{t_pvc}} € </div>
                         </div>
                         <p>
-                            <strong *ngIf="champsstat != ''">{{ 'detail.composition' | translate }} :</strong><span> {{ champsstat }}<br/></span>
-                            <strong *ngIf="libelle2 != '' ">{{ 'detail.conteudupack' | translate }} :</strong><span *ngIf="libelle2 != '' "> {{ 'produit.prixUnitaire' | translate }} : <b> {{textLibre}} </b><br> {{ libelle2 }}<br/></span>
+                            <!-- <strong *ngIf="champsstat != ''">{{ 'detail.composition' | translate }} :</strong><span> {{ champsstat }}<br/></span> -->
+                            <strong *ngIf="libelle2 != '' ">{{ 'detail.conteudupack' | translate }} :</strong><span> {{ libelle2 }}<br/></span>
                             <strong *ngIf="visRefProduit">{{ 'detail.refProd' | translate }} :</strong> <span *ngIf="visRefProduit"> {{ refproduit }}<br/></span>
                             <strong *ngIf="visTaille">{{ 'detail.taille' | translate }} :</strong><span *ngIf="visTaille"> {{tailleDisponible}}<br/></span>
                             <strong *ngIf="visColoris">{{ 'detail.coloris' | translate }} :</strong><span *ngIf="visColoris"> {{nbColori}}<br/></span>

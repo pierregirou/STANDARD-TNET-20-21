@@ -26,7 +26,7 @@ export class ProduitService implements OnInit{
     produitPromoSubject=new Subject<Produits[]>();
     /* Array pour le filtre colori */
     coloriFiltre:Colori[]=[];
-    coloriFiltreBox:Colori[];
+    coloriFiltreBox:any[];
     coloriFiltreSubject=new Subject<Colori[]>();
     /* Array pour le filtre taille */
     tailleFiltre:TailleFiltre[];
@@ -93,6 +93,14 @@ export class ProduitService implements OnInit{
             //détermine le mode d'affichage pour les produits 1-->ligne 2-->tableau
             this.moduleService.modeSaisie().then(data=>{
                 if(data==="1"){
+                  if(sessionStorage.getItem("produits") !== null){
+                    const array = []
+                    const getStringItem = sessionStorage.getItem("produits");
+                    array.push(JSON.parse(getStringItem))
+                    this.produits = array
+                    this.emitProduits(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
+                    this.recupColoriFiltre();
+                  }else{
                     this.httpClient.post(this.httpRequest.InfoProduit,{
                         "login":sessionStorage.getItem("loginCompte"), //les produits retournés correspondent à ceux associés au codeTarif du client
                         "type":"login", //spécifie à l'API la réception des produits de l'utilisateur associé à son code tarif
@@ -144,8 +152,17 @@ export class ProduitService implements OnInit{
                         this.emitProduits(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
                         this.recupColoriFiltre();
                     })
+                  }
                 }
                 if(data==="2"){
+                  if(sessionStorage.getItem("produits") !== null){
+                    const array = []
+                    const getStringItem = sessionStorage.getItem("produits");
+                    array.push(JSON.parse(getStringItem))
+                    this.produits = array
+                    this.emitProduits(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
+                    this.recupColoriFiltre();
+                  }else{
                     this.httpClient.post(this.httpRequest.InfoProduit,{
                         "login":sessionStorage.getItem("loginCompte"), //les produits retournés correspondent à ceux associés au codeTarif du client
                         "type":"login", //spécifie à l'API la réception des produits de l'utilisateur associé à son code tarif
@@ -200,6 +217,7 @@ export class ProduitService implements OnInit{
                           this.recupColoriFiltre();
                         }
                     })
+                  }
                 }
             })
 
@@ -207,6 +225,13 @@ export class ProduitService implements OnInit{
         this.moduleService.visGalerieStatus().then(
             (status)=>{
                 if(status){
+                  if(sessionStorage.getItem("produits") !== null){
+                    const array = []
+                    const getStringItem = sessionStorage.getItem("produits");
+                    array.push(JSON.parse(getStringItem))
+                    this.produits = array
+                    this.emitProduits(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
+                  }else{
                     if(!(sessionStorage.getItem("isLoggedIn")=='true')){
                         this.httpClient.post(this.httpRequest.InfoProduit,{
                             "visGalerie":"true" //les produits retournés correspondent à ceux associés au codeTarif du client
@@ -257,6 +282,7 @@ export class ProduitService implements OnInit{
                         this.emitProduits(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
                         })
                     }
+                  }
                 }
             }
         )
@@ -377,6 +403,13 @@ export class ProduitService implements OnInit{
     /* Récupe de la selection du moment */
 
     recupPromo(langue){
+      if(sessionStorage.getItem("PROMOproduits") !== null){
+        const array = []
+        const getStringItem = sessionStorage.getItem("PROMOproduits");
+        array.push(JSON.parse(getStringItem))
+        this.produits = array
+        this.emitProduitPromo(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
+      }else{
         this.httpClient.post(this.httpRequest.InfoProduit,{
             "login":sessionStorage.getItem("loginCompte"),
             "type":"promo",
@@ -426,6 +459,7 @@ export class ProduitService implements OnInit{
             }
             this.emitProduitPromo(); // produits est déclaré en private permet de l'émettre dans le reste de l'appli
         })
+      }
     }
 
     /****************************************** Filtre  ***********************************************/
@@ -436,9 +470,11 @@ export class ProduitService implements OnInit{
       let colorPresent = [];
       this.coloriFiltre=[]; // rénitialise l'array es coloris
       for(let unProduit of this.produits) {
-        for(let uneCouleur of unProduit.arrayColori) {
-          if(colorPresent.indexOf(uneCouleur.libcolori) === -1) {
-              colorPresent.push(uneCouleur.libcolori);
+        if(unProduit.arrayColori){
+          for(let uneCouleur of unProduit.arrayColori) {
+            if(colorPresent.indexOf(uneCouleur.libcolori) === -1) {
+                colorPresent.push(uneCouleur.libcolori);
+            }
           }
         }
       }
@@ -505,6 +541,13 @@ export class ProduitService implements OnInit{
                     })
                 }
                 if(data==="2"){
+                  if(sessionStorage.getItem("produits") !== null){
+                    const array = []
+                    const getStringItem = sessionStorage.getItem("produits");
+                    array.push(JSON.parse(getStringItem))
+                    this.produits = array
+                    this.emitProduits();
+                  }else{
                     this.httpClient.post(this.httpRequest.InfoProduit,{
                         "login":sessionStorage.getItem("loginCompte"), //les produits retournés correspondent à ceux associés au codeTarif du client
                         "mode":"tableau",
@@ -555,6 +598,7 @@ export class ProduitService implements OnInit{
                         }
                         this.emitProduits();
                     })
+                  }
                 }
             }
             if(type=='taille'){
@@ -740,7 +784,15 @@ export class ProduitService implements OnInit{
     recupTailleFiltre(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.tailleFiltre=[];
-            this.httpClient.post(this.httpRequest.InfoFiltre,{
+            if(sessionStorage.getItem("TailleFiltre")!= null){
+              var array:any=[]
+              const myArray = JSON.parse(sessionStorage.getItem("TailleFiltre"))
+              myArray.forEach(element => {
+                this.tailleFiltre.push(element)
+              });
+              this.emitTailleFiltre();
+            }else{
+              this.httpClient.post(this.httpRequest.InfoFiltre,{
                 "login":sessionStorage.getItem("loginCompte"),
                 "type":"taille",
                 "langue":langue
@@ -748,17 +800,27 @@ export class ProduitService implements OnInit{
                 for(let i=1;i<Object.keys(data).length;i++){
                     var array:any=[]
                     for(let j=0;j<data[i].taille.length;j++){
+                      const monIdConstruit =j+1
                         array.push([
                             {
+                                "codeGTT": data[i].codeGammeTaille+''+monIdConstruit,
                                 "taille":data[i].taille[j],
                                 "select":0
                             }
                         ]);
+                        // array.push([
+                        //     {
+                        //         "taille":data[i].taille[j],
+                        //         "select":0
+                        //     }
+                        // ]);
                     }
                     this.tailleFiltre.push(new TailleFiltre(data[i].codeGammeTaille,array));
                 }
-                this.emitTailleFiltre();
+                sessionStorage.setItem("TailleFiltre", JSON.stringify(this.tailleFiltre))
+              this.emitTailleFiltre();
             })
+            }
         }
     }
 
@@ -766,17 +828,25 @@ export class ProduitService implements OnInit{
     recupColorisFiltreBox(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.coloriFiltreBox=[];
-            this.httpClient.post(this.httpRequest.InfoFiltre,{
-                "login":sessionStorage.getItem("loginCompte"),
-                "type":"colori",
-                "langue":langue
-            }).subscribe(data=>{
-                var len = Object.keys(data).length
-                for(let i=1;i<len;i++){
-                    this.coloriFiltreBox.push(data[i]);
-                }
+              if(sessionStorage.getItem("ColorisFiltre")!= null){
+                const getStringItem = sessionStorage.getItem("ColorisFiltre")
+                this.coloriFiltreBox.push(getStringItem.split(','))
+                this.coloriFiltreBox = this.coloriFiltreBox[0]
                 this.emitColorisFiltre();
-            })
+              }else{
+                this.httpClient.post(this.httpRequest.InfoFiltre,{
+                    "login":sessionStorage.getItem("loginCompte"),
+                    "type":"colori",
+                    "langue":langue
+                }).subscribe(data=>{
+                    var len = Object.keys(data).length
+                    for(let i=1;i<len;i++){
+                        this.coloriFiltreBox.push(data[i]);
+                    }
+                    sessionStorage.setItem("ColorisFiltre", this.coloriFiltreBox.toString())
+                    this.emitColorisFiltre();
+                })
+              }
         }
     }
 
@@ -784,17 +854,24 @@ export class ProduitService implements OnInit{
     recupMatiereFiltre(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.matiereFiltreBox=[];
-            this.httpClient.post(this.httpRequest.InfoFiltre,{
-                "login":sessionStorage.getItem("loginCompte"),
-                "type":"matiere",
-                "langue":langue
-            }).subscribe(data=>{
-                var len = Object.keys(data).length
-                for(let i=1;i<(len+1);i++){
-                    this.matiereFiltreBox.push(data[i]);
-                }
-                this.emitMatiereFiltre();
-            })
+            if(sessionStorage.getItem("MatiereFiltre")!= null){
+              const getStringItem = sessionStorage.getItem("MatiereFiltre")
+              this.matiereFiltreBox.push( getStringItem.split(','))
+              this.emitMatiereFiltre();
+            }else{
+              this.httpClient.post(this.httpRequest.InfoFiltre,{
+                  "login":sessionStorage.getItem("loginCompte"),
+                  "type":"matiere",
+                  "langue":langue
+              }).subscribe(data=>{
+                  var len = Object.keys(data).length
+                  for(let i=1;i<(len+1);i++){
+                      this.matiereFiltreBox.push(data[i]);
+                  }
+                  sessionStorage.setItem("MatiereFiltre", this.matiereFiltreBox.toString())
+                  this.emitMatiereFiltre();
+              })
+            }
         }
     }
 
@@ -802,6 +879,12 @@ export class ProduitService implements OnInit{
     recupLigneFiltre(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.ligneFiltreBox=[];
+            if(sessionStorage.getItem("LigneFiltre")!= null){
+              const getStringItem = sessionStorage.getItem("LigneFiltre")
+               this.ligneFiltreBox.push( getStringItem.split(','))
+               this.ligneFiltreBox = this.ligneFiltreBox[0];
+               this.emitLigneFiltre();
+            }else{
             this.httpClient.post(this.httpRequest.InfoFiltre,{
                 "login":sessionStorage.getItem("loginCompte"),
                 "type":"ligne",
@@ -811,8 +894,10 @@ export class ProduitService implements OnInit{
                 for(let i=1;i<(len+1);i++){
                     this.ligneFiltreBox.push(data[i]);
                 }
+                sessionStorage.setItem("LigneFiltre", this.ligneFiltreBox.toString())
                 this.emitLigneFiltre();
             })
+            }
         }
     }
 
@@ -820,17 +905,25 @@ export class ProduitService implements OnInit{
     recupFamilleFiltre(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.familleFiltreBox=[];
-            this.httpClient.post(this.httpRequest.InfoFiltre,{
-                "login":sessionStorage.getItem("loginCompte"),
-                "type":"famille",
-                "langue":langue
-            }).subscribe(data=>{
-                var len = Object.keys(data).length
-                for(let i=1;i<(len+1);i++){
-                    this.familleFiltreBox.push(data[i]);
-                }
-                this.emitFamilleFiltre();
-            })
+            if(sessionStorage.getItem("FamilleFiltre")!= null){
+              const getStringItem = sessionStorage.getItem("FamilleFiltre")
+               this.familleFiltreBox.push(getStringItem.split(','))
+               this.familleFiltreBox = this.familleFiltreBox[0]
+               this.emitFamilleFiltre();
+             }else{
+              this.httpClient.post(this.httpRequest.InfoFiltre,{
+                  "login":sessionStorage.getItem("loginCompte"),
+                  "type":"famille",
+                  "langue":langue
+              }).subscribe(data=>{
+                  var len = Object.keys(data).length
+                  for(let i=1;i<(len+1);i++){
+                      this.familleFiltreBox.push(data[i]);
+                  }
+                sessionStorage.setItem("FamilleFiltre", this.familleFiltreBox.toString())
+                  this.emitFamilleFiltre();
+              })
+             }
         }
     }
 
@@ -838,6 +931,12 @@ export class ProduitService implements OnInit{
     recupModeleFiltre(langue){
       if(sessionStorage.getItem("isLoggedIn")=="true"){
           this.modeleFiltreBox=[];
+          if(sessionStorage.getItem("ModeleFiltre") !== null) {
+            const getStringItem =sessionStorage.getItem("ModeleFiltre");
+            this.modeleFiltreBox.push( getStringItem.split(','))
+            this.modeleFiltreBox = this.modeleFiltreBox[0]
+            this.emitModeleFiltre();
+          } else {
           this.httpClient.post(this.httpRequest.InfoFiltre,{
               "login":sessionStorage.getItem("loginCompte"),
               "type":"modele",
@@ -847,8 +946,10 @@ export class ProduitService implements OnInit{
               for(let i=1;i<(len+1);i++){
                   this.modeleFiltreBox.push(data[i]);
               }
+              sessionStorage.setItem("ModeleFiltre", this.modeleFiltreBox.toString())
               this.emitModeleFiltre();
           })
+          }
       }
   }
 
@@ -856,6 +957,12 @@ export class ProduitService implements OnInit{
     recupSousFamilleFiltre(langue){
       if(sessionStorage.getItem("isLoggedIn")=="true"){
           this.sousFamilleFiltreBox=[];
+          if(sessionStorage.getItem("SousFamilleFiltre") !== null) {
+            const getStringItem = sessionStorage.getItem("SousFamilleFiltre");
+            this.sousFamilleFiltreBox.push( getStringItem.split(','))
+            this.sousFamilleFiltreBox = this.sousFamilleFiltreBox[0]
+            this.emitSousFamilleFiltre();
+          } else {
           this.httpClient.post(this.httpRequest.InfoFiltre,{
               "login":sessionStorage.getItem("loginCompte"),
               "type":"sous-famille",
@@ -865,14 +972,22 @@ export class ProduitService implements OnInit{
               for(let i=1;i<(len+1);i++){
                   this.sousFamilleFiltreBox.push(data[i]);
               }
+              sessionStorage.setItem("SousFamilleFiltre", this.sousFamilleFiltreBox.toString())
               this.emitSousFamilleFiltre();
           })
+          }
       }
   }
+
   recupMarqueFiltre(langue){
     if(sessionStorage.getItem("isLoggedIn")=="true"){
         this.marqueFiltreBox=[];
-        this.httpClient.post(this.httpRequest.InfoFiltre,{
+        if(sessionStorage.getItem("MarqueFiltre") != null){
+          const getStringItem = sessionStorage.getItem("MarqueFiltre");
+          this.marqueFiltreBox.push( getStringItem.split(','));
+          this.emitMarqueFiltre();
+        }else{
+          this.httpClient.post(this.httpRequest.InfoFiltre,{
             "login":sessionStorage.getItem("loginCompte"),
             "type":"marque",
             "langue":langue
@@ -881,8 +996,11 @@ export class ProduitService implements OnInit{
             for(let i=1;i<(len+1);i++){
                 this.marqueFiltreBox.push(data[i]);
             }
+            sessionStorage.setItem("MarqueFiltre", this.marqueFiltreBox.toString());
             this.emitMarqueFiltre();
         })
+        }
+
     }
 }
 
@@ -890,17 +1008,24 @@ export class ProduitService implements OnInit{
     recupThemeFiltre(langue){
         if(sessionStorage.getItem("isLoggedIn")=="true"){
             this.themeFiltreBox=[];
-            this.httpClient.post(this.httpRequest.InfoFiltre,{
-                "login":sessionStorage.getItem("loginCompte"),
-                "type":"theme",
-                "langue":langue
-            }).subscribe(data=>{
-                var len = Object.keys(data).length
-                for(let i=1;i<(len+1);i++){
-                    this.themeFiltreBox.push(data[i]);
-                }
-                this.emitThemeFiltre();
-            })
+            if(sessionStorage.getItem("ThemeFiltre")!= null){
+              const getStringItem = sessionStorage.getItem("ThemeFiltre")
+              this.themeFiltreBox.push( getStringItem.split(','))
+              this.emitThemeFiltre();
+            }else{
+              this.httpClient.post(this.httpRequest.InfoFiltre,{
+                  "login":sessionStorage.getItem("loginCompte"),
+                  "type":"theme",
+                  "langue":langue
+              }).subscribe(data=>{
+                  var len = Object.keys(data).length
+                  for(let i=1;i<(len+1);i++){
+                      this.themeFiltreBox.push(data[i]);
+                  }
+                  sessionStorage.setItem("ThemeFiltre", this.themeFiltreBox.toString())
+                  this.emitThemeFiltre();
+              })
+            }
         }
     }
 
