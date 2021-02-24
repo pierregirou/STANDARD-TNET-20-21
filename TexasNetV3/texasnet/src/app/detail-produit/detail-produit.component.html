@@ -52,7 +52,7 @@
                             <strong *ngIf="visSousFamille">{{ 'detail.sousFamille' | translate }} :</strong><span *ngIf="visSousFamille"> {{ sousFamille }}<br/></span>
                             <strong *ngIf="visModele">{{ 'detail.modele' | translate }} :</strong><span *ngIf="visModele"> {{ modele }}</span>
                         </p>
-                        <div *ngIf=" description " class="titre-information">{{ 'detail.titre.description' | translate | titlecase }} : </div>
+                        <div *ngIf="description" class="titre-information">{{ 'detail.titre.description' | translate | titlecase }} : </div>
 
                         <span style="text-align: justify;"><span id="description-art" [innerHTML]="description"></span></span><br>
                         <div *ngIf="colori != 'PACK'" class="titre-information">{{ 'detail.titre.couleur' | translate | titlecase }} :<br>

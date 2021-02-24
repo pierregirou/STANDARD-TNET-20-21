@@ -59,13 +59,7 @@ export class ModalPanierComponent implements OnInit, OnDestroy {
       }
     );
     this.commandeService.emitIdDernierProduitAjout();
-
-
-    // rajout pour AMATEIS car il ne veulent pas la modal panier qui ralentie la prise de commande des VRP
-    this.closeModalPanier();
-
-
-
+   // this.closeModalPanier();  // rajout pour AMATEIS car il ne veulent pas la modal panier qui ralentie la prise de commande des VRP
 
 
 /*     this.router.events.subscribe((val) => {

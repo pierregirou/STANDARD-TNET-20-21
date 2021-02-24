@@ -1,0 +1,8 @@
+#bandeau-connexion {
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 8px 0px 12px #aaa;
+}
+
+#connexion {
+    border-radius: 0px 0px 5px 5px;
+}

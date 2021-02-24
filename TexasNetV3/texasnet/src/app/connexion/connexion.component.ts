@@ -50,9 +50,9 @@ export class ConnexionComponent implements OnInit {
       this.disableConnexion = true;
       alert('Impossible de commander avec le navigateur Microsoft Edge ou Internet Explorer !')
     }
-    
-    var ua = navigator.userAgent.toLowerCase(); 
-    if (ua.indexOf('safari') != -1) { 
+
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.indexOf('safari') != -1) {
       if (ua.indexOf('chrome') > -1) {
       } else {
         this.disableConnexion = true;

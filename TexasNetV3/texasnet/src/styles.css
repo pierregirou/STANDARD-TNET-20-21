@@ -31,6 +31,7 @@ html {
     width: 50%;
     padding: 0px 20px 20px 20px;
     background-color: white;
+    margin-bottom: 120px;
     margin-left: 25%;
     margin-right: 25%;
     box-shadow: 8px 8px 12px rgb(190, 191, 207);
@@ -88,11 +89,14 @@ input.example-right-align {
 }
 
 .footer-is-relative {
-    position: relative !important;
+    position: relative;
 }
 
 .footer-is-absolute {
-    position: absolute !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 
@@ -1145,6 +1149,7 @@ a#cRetour.cVisible {
         clear: left;
         width: 90%;
         padding: 5px 5px 5px 5px;
+        margin-bottom: 120px;
         background-color: white;
         margin-left: 5%;
         margin-right: 5%;

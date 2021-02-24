@@ -17,6 +17,7 @@ import { ImageService } from '../services/images.service';
 import { isUndefined } from 'util';
 import { LangueService } from '../services/langue.service';
 import { FiltreService } from '../services/filtre.service';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-detail-produit',
@@ -89,11 +90,12 @@ export class DetailProduitComponent implements OnInit {
   afficheInformation: boolean = false;
 
 
-  constructor(private templateService: TemplateService, private snackBar: MatSnackBar, private commandeService: CommandeService, private route: ActivatedRoute, private produitService: ProduitService, private detailService: DetailService, private router: Router, private moduleService: ModuleService, private imageService: ImageService, private langueService:LangueService, private filtreService:FiltreService) {
+  constructor(private templateService: TemplateService, private snackBar: MatSnackBar, private commandeService: CommandeService, private route: ActivatedRoute, private produitService: ProduitService, private detailService: DetailService, private router: Router, private moduleService: ModuleService, private imageService: ImageService, private langueService:LangueService, private filtreService:FiltreService, private _Location: Location) {
     this.commandeService.getCommande();
   }
 
   ngOnInit() {
+
       this.route.queryParams.subscribe(params => {
         if(typeof(params.selec)!=='undefined') {
           this.afficheSeulementSelection = true;
@@ -127,6 +129,7 @@ export class DetailProduitComponent implements OnInit {
     } else {
       this.isAuth = false;
     }
+
     const refproduit = this.route.snapshot.params['refproduit']; //récupère le refproduit du produit sélectionné
     /* Récupère en fonction de la référence du produit les détails depuis la méthode getProduit depuis produitService */
       this.produit = this.produitService.getProduit(refproduit);
@@ -153,9 +156,9 @@ export class DetailProduitComponent implements OnInit {
       var tabC  = [];
       var tabL  = [];
 
-    for (let f = 0; f < this.produit.arrayColori.length; f++) {
-      var prixSelectPromo = this.produit.arrayColori[f].tarif_promo;
-      if (!this.afficheSeulementSelection || (this.afficheSeulementSelection && this.produit.arrayColori[f].selection === "1")) {
+      for (let f = 0; f < this.produit.arrayColori.length; f++) {
+        var prixSelectPromo = this.produit.arrayColori[f].tarif_promo;
+        if (!this.afficheSeulementSelection || (this.afficheSeulementSelection && this.produit.arrayColori[f].selection === "1")) {
         if (this.promo === prixSelectPromo) {
           tab.push(this.produit.arrayColori[f].imageMiniature2);
           tabC.push(this.produit.arrayColori[f].codeColori);
@@ -170,7 +173,7 @@ export class DetailProduitComponent implements OnInit {
         this.arrayColorisImage = tab;
         this.arrayColorisLib = tabC;
         this.arrayColorisLibelle = tabL;
-    }
+      }
 
     for (let i = 0; i < this.produit.arrayColori.length; i++) {
       this.prixSelectPromo = this.produit.arrayColori[i].tarif_promo;
@@ -182,6 +185,7 @@ export class DetailProduitComponent implements OnInit {
       } else {
 
         if (this.produit.arrayColori[i].promo !== '1') {
+
           typeof(this.produit.arrayColori[i].imageMiniature2)==='string'?this.arrayTailleImage=this.produit.arrayColori[i].imageMiniature.split():this.arrayTailleImage = Object.values(this.produit.arrayColori[i].imageMiniature);
           //typeof(this.produit.arrayColori[i].imageMiniature2)==='string'?this.arrayTailleImage=this.produit.arrayColori[i].imageMiniature2.split():this.arrayTailleImage = Object.values(this.produit.arrayColori[i].imageMiniature2); // oakwood
           this.image = this.imageService.PhotosArt + this.produit.arrayColori[i].image;
@@ -200,6 +204,7 @@ export class DetailProduitComponent implements OnInit {
         this.PVC = false;
       }
     });
+
     /****************************************************************************************************************** */
     this.detailService.getDetail(this.refproduit).then(
       (data: any[]) => { //récupère les détails du produit
@@ -217,7 +222,6 @@ export class DetailProduitComponent implements OnInit {
               this.ligne = data2[4][0][0]['codeLigne'];
               this.sousFamille = data2[4][0][0]['codeSousFamille'];
               this.modele = data2[4][0][0]['codeModele'];
-              console.log(this.produit)
               this.libelle = String(langue) === '1' ? this.produit.libelle : this.produit.libelleANG;
               if (!this.leaving) {
                 this.filtreService.sendCurrentLigne(this.ligne);
@@ -259,7 +263,9 @@ export class DetailProduitComponent implements OnInit {
         const nbColori = data[1].codeColoris.length; //retourne le nombre de coloris que possède le produit
         this.nbColori = nbColori; //affiche le nombre de coloris dans les informations du produit
       }
-    )
+    ).catch((error) => {
+      console.log(error);
+    });
 
     //Activer/Désactiver les informations à afficher
     this.moduleService.VisualiseInformations().then(data => {
@@ -374,7 +380,8 @@ export class DetailProduitComponent implements OnInit {
   }
 
   returnProducts() {
-    this.router.navigate(['/contenu/produits/'+this.marque]);
+    //this.router.navigate(['/contenu/produits/'+this.marque]);
+    this._Location.back()
   }
 
   ngOnDestroy(){

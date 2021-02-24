@@ -23,8 +23,9 @@ export class DetailService{
     }
 
     getDetail(refproduit:string, codecolori:string='0634'){
-        return new Promise(
-            (resolve,reject)=>{
+      return new Promise(
+        (resolve,reject)=>{
+              console.log(refproduit, codecolori)
                 let tmpLangue = this.langueService.getLangue();
                 this.httpClient.post(this.httpRequest.detailProduit,{
                     "refproduit":refproduit,
@@ -35,7 +36,7 @@ export class DetailService{
                     resolve(data);
                 })
             }
-        )
+            )
     }
 
     getMiniatureSelonColoris(refproduit:string, coloris:string,saison:string){

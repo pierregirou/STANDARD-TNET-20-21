@@ -3,39 +3,84 @@
     margin-right: auto;
 }
 
-::ng-deep .mat-horizontal-content-container{
-  padding: 0 !important;
+::ng-deep .mat-horizontal-content-container {
+    padding: 0 !important;
 }
 
 .form-input-mobile {
-  display: block;
-  margin: auto;
-  width: 100%;
+    display: block;
+    margin: auto;
+    width: 100%;
 }
 
 .form-input-desktop {
-  display: block;
-  margin: auto;
-  width: 50%;
+    display: block;
+    margin: auto;
+    width: 50%;
 }
 
 .delete-button-container {
-  text-align: right;
-  padding: 6px 45px;
-  padding-bottom: 16px;
+    text-align: left;
+    padding: 6px 45px;
+    padding-bottom: 16px;
 }
 
 #valid-button {
-  float: right;
-  color: rgb(45, 196, 45);
-  font-size:18px;
-  height:35px;
-  margin: 16px 45px;
-  border: solid 1px rgb(45, 196, 45);
+    float: right;
+    color: whitesmoke;
+    background-color: rgba(36, 145, 36, 0.658);
+    font-size: 18px;
+    height: 35px;
+    margin: 16px 45px;
 }
 
-th:first-child, td:first-child
-{
-  position:sticky;
-  left:0px;
+th:first-child,
+td:first-child {
+    position: sticky;
+    left: 0px;
+    z-index: 99;
+}
+
+.th-last-item {
+    position: sticky;
+    right: 0px;
+    background-color: white
+}
+
+.th-item {
+    position: sticky;
+    right: 50px;
+    background-color: white
+}
+
+.td-last-item {
+    position: sticky;
+    right: 0px;
+    background-color: white;
+}
+
+.td-item {
+    position: sticky;
+    right: 50px;
+    background-color: white;
+}
+
+@media (max-width:670px) {
+    .delete-button-container {
+        text-align: center;
+        padding: 6px 45px;
+        padding-bottom: 10px;
+    }
+    .container-valid-button {
+        text-align: center;
+    }
+    #valid-button {
+        float: none;
+        margin: 10px 5px;
+        text-align: center;
+        width: 80%;
+        color: whitesmoke;
+        background-color: rgba(36, 145, 36, 0.658);
+        font-size: 18px;
+    }
 }

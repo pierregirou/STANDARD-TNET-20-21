@@ -18,6 +18,7 @@ import { isDefined } from '@angular/compiler/src/util';
 import { LangueService } from '../../services/langue.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService,LangChangeEvent } from '@ngx-translate/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-contenu-panier',
@@ -124,11 +125,10 @@ export class ContenuPanierComponent implements OnInit, OnDestroy {
   forceAffichageMobile:boolean = false;
   fiscalFrancais:number;
   quantiteInsuf:string;
-  pasDeStock:string
-  valueAreaComment:string
+  pasDeStock:string;
+  valueAreaComment:string;
 
-
-  constructor(private templateService:TemplateService,private snackBar:MatSnackBar,private detailService:DetailService, private breakPoint:BreakpointObserver, private moduleService:ModuleService,private deviceService:DeviceDetectorService,public imageService:ImageService,private httpRequest:HttpRequest,private commandeService:CommandeService, private router:Router, private formBuilder:FormBuilder, private httpClient:HttpClient, private langueService:LangueService, private sanitizer:DomSanitizer,translate: TranslateService) {
+  constructor(private templateService:TemplateService,private snackBar:MatSnackBar,private detailService:DetailService, private breakPoint:BreakpointObserver, private moduleService:ModuleService,private deviceService:DeviceDetectorService,public imageService:ImageService,private httpRequest:HttpRequest,private commandeService:CommandeService, private router:Router, private formBuilder:FormBuilder, private httpClient:HttpClient, private langueService:LangueService, private sanitizer:DomSanitizer,translate: TranslateService, private location:Location) {
     translate.get('panier.quantiteInsuf').subscribe((res: string) => {
       this.quantiteInsuf = res;
     });
@@ -624,7 +624,8 @@ export class ContenuPanierComponent implements OnInit, OnDestroy {
   }
 
   returnProducts(){
-    this.router.navigate(['/contenu/produits']);
+    //this.router.navigate(['/contenu/produits']);
+    this.location.back()
   }
 
   ngOnDestroy(){
@@ -717,6 +718,7 @@ export class ContenuPanierComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProduitTab(infoCommandeTab:any, prixASup:any){
+    console.log(infoCommandeTab,prixASup);
     let idsToDelete = [];
     let idsToDelString = '';
     let prixCommande = 0;

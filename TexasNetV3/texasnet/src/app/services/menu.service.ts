@@ -28,7 +28,7 @@ export class MenuService {
   ngOnInit() {}
 
   appelMenu() {
-    console.log(this.menu)
+    //console.log(this.menu)
     this.menuSubject.next(this.menu);
   }
 

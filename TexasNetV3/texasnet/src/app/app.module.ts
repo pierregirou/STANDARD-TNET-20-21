@@ -143,7 +143,7 @@ const appRoute: Routes = [
   { path: 'representant', component:RepresentantComponent },
   { path: 'approuveur/:type', component:ApprouveurComponent},
   /*{ path:'' , component:VisuSiteComponent },*/
-  { path:'', redirectTo:'/texasnet/accueil', pathMatch: 'full' },
+  { path:'', redirectTo:'connexion', pathMatch: 'full' }, /*1ere page lors du chargement */
   { path:'**',redirectTo:'not-found' }
 
 ]

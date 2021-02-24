@@ -69,7 +69,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.MenuArrayDoubleSubscription=this.menuService.menuSubject.subscribe(
       (menu:any[])=>{
-        console.log( menu)
+       // console.log(menu)
         this.menuNavbar = menu;
       });
     this.menuService.initialiseMenu();

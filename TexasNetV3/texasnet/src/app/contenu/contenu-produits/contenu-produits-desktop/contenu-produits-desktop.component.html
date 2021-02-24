@@ -13,9 +13,9 @@
                 <div class="card-body" style="padding: 0px;">
                     <div class="card-title">
                         <div (click)="goDetail(produit.promo,produit.refproduit,produit.tarifPromo,produit.coloris,produit.libcolori)" style="font-size:14px;font-weight:bold">
-                            <span *ngIf="lcLibelle1">{{produit.refproduit}}</span><br>
+                            <!-- <span *ngIf="lcLibelle1">{{produit.refproduit}}</span><br>  enlever pour elivie-->
                             <span *ngIf="produit.libelle != '' ">{{produit.libelle}}</span>
-                            <span *ngIf="lcLibelle2 && maLangue === 'FRA' ">{{produit.libelle}}</span><br>
+                            <!-- <span *ngIf="lcLibelle2 && maLangue === 'FRA' ">{{produit.libelle}}</span><br> -->
                             <span *ngIf="lcLibelle2 && maLangue === 'ANG' ">{{produit.libelleANG}}</span><br>
                             <span *ngIf="lcTheme"></span>
 

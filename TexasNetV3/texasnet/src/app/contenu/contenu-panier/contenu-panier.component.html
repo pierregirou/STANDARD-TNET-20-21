@@ -64,9 +64,8 @@
                                         <tr>
                                             <th style="color: rgb(19, 158, 224);background-color: #fff" scope="col">{{ 'commandetaille.coloris' | translate }} </th>
                                             <th style="text-align: center;width: 200px" scope="col" *ngFor="let tailles of tailleDebFin[i]">{{tailles}}</th>
-
-                                            <th scope="col" style="width:120px;">{{ 'compte.nbrPieces' | translate }} </th>
-                                            <th scope="col" style="width:140px;">{{ 'panier.total' | translate }} </th>
+                                            <th scope="col" class="th-item" style="width:120px">{{ 'compte.nbrPieces' | translate }} </th>
+                                            <th scope="col" class="th-last-item" style="width:140px">{{ 'panier.total' | translate }} </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,30 +74,30 @@
                                                 <th style="color: rgb(19, 158, 224);font-size:12px;background-color: #fff" scope="row"><img src="{{imageService.PhotosArt}}{{libPictoArray[i][j]}}" style="cursor: pointer;max-width:30px" (click)="changeColori(commande.info[17][1],coloris,i)" /> <span style="cursor: pointer;" (click)="changeColori(commande.info[17][1],coloris,i)"> {{libCodeColorisArray[i][j]}} {{coloris}} </span></th>
                                                 <td style="min-width: 100px" *ngFor="let infoTailles of infoTailleCommandeTableau[i][j]">
 
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" (click)="noStock(infoTailles.taille)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0"
-                                                        max="{{infoTailles.stockdisponible}}" matInput type="text" matTooltip="Quantité : {{infoTailles.stockdisponible}}" disabled>
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(177, 48, 48)" min="0" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}"
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" (click)="noStock(infoTailles.taille)" style="text-align: center;width:50px;border:1px solid rgb(177, 48, 48)"
+                                                        min="0" max="{{infoTailles.stockdisponible}}" matInput type="text" matTooltip="Quantité : {{infoTailles.stockdisponible}}" disabled>
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="text-align: center;width:50px;border:1px solid rgb(177, 48, 48)" min="0" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}"
                                                         type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border:1px solid rgb(56, 155, 56)" min="0" max="{{infoTailles.stockdisponible}}"
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && stockCouleur" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="text-align: center;width:50px;border:1px solid rgb(56, 155, 56)" min="0" max="{{infoTailles.stockdisponible}}"
                                                         matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>=stockIndisponible && stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="width:50px;border: 1px solid rgb(219, 164, 61)"
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>=stockIndisponible && stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idDetailProduit)" style="text-align: center;width:50px;border: 1px solid rgb(219, 164, 61)"
                                                         min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
 
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" (click)="noStock(infoTailles.taille)" style="width: 100%;background-color:#D3D3D3"
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible<=0 && !controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" (click)="noStock(infoTailles.taille)" style="text-align: center;width: 100%;background-color:#D3D3D3"
                                                         min="0" max="{{infoTailles.stockdisponible}}" matInput matTooltip="Quantité : {{infoTailles.stockdisponible}}" type="number">
-                                                    <input class="form-control" *ngIf="infoTailles.quantite === null && infoTailles.stockdisponible<=0 && controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" style="width: 100%;background-color:#696969"
+                                                    <input class="form-control" *ngIf="infoTailles.quantite === null && infoTailles.stockdisponible<=0 && controlStock && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value)" style="text-align: center;width: 100%;background-color:#696969"
                                                         min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="text" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite" disabled>
-                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)" style="width: 100%;background-color:#D3D3D3"
+                                                    <input class="form-control" *ngIf="infoTailles.stockdisponible>stockDisponible && !stockCouleur" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)" style="text-align: center;width: 100%;background-color:#D3D3D3"
                                                         min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
                                                     <input class="form-control" *ngIf="(infoTailles.quantite !== null || infoTailles.stockdisponible > 0) && !stockCouleur && infoTailles.stockdisponible<=stockDisponible" (change)="onChangeValueTab(infoTailles.idproduit,infoTailles.quantite,$event.target.value,infoTailles.codeColoris, infoTailles.stockdisponible)"
-                                                        style="width: 100%;background-color:#D3D3D3" min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}" [ngModel]="infoTailles.quantite">
-
+                                                        style="text-align: center;width: 100%;background-color:#D3D3D3" min="0" matInput matTooltip="Quantité restante : {{infoTailles.stockdisponible}}" type="number" name="{{i}}-{{j}}-{{infoTailles.taille}}"
+                                                        [ngModel]="infoTailles.quantite">
                                                 </td>
 
                                                 <ng-container *ngFor="let infoTaille of infoTailleCommandeTableau[i][j]">
                                                     <ng-container *ngIf="infoTaille.montantLigne >= 0">
-                                                        <td style="width:120px;">{{infoTaille.quantiteLigne}}</td>
-                                                        <td style="width:120px;">{{infoTaille.montantLigne}} €</td>
+                                                        <td class="td-item" style="width:120px;">{{infoTaille.quantiteLigne}}</td>
+                                                        <td class="td-last-item" style="width:120px;">{{infoTaille.montantLigne}} €</td>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
@@ -113,7 +112,7 @@
                     <ng-container *ngIf="modeSaisie===1">
                         <div *ngFor="let commande of arrayCommande;let i=index;let t=index">
                             <!-- information article   ref - nom - Prix Unitaire - supprimer-->
-                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white">
+                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white;border-radius: 5px;">
                                 <thead>
                                     <tr>
                                         <th>{{ commande.info[3][1] }}</th>
@@ -131,7 +130,7 @@
                                 <img style="width: 80px;height:auto;display:flex;margin-left:auto;margin-right:auto" src="{{imgEnCours[i]}}">
                             </div>
                             <!-- autres informations articles commandés   taille - nb de piece - prix total - modifier-->
-                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white">
+                            <table style="height:35px;text-align:center;background-color:rgb(108, 182, 255);width:100%;padding-top:5px;color:white;border-radius: 5px;">
                                 <tr>
                                     <th>{{ 'panier.taille' | translate }}</th>
                                     <th> {{ 'panier.pieceTotal' | translate }} </th>
@@ -156,8 +155,8 @@
                                             <th style="color: rgb(19, 158, 224);background-color: #fff" scope="col">{{ 'commandetaille.coloris' | translate }} </th>
                                             <th style="text-align: center;width: 200px" scope="col" *ngFor="let tailles of tailleDebFin[i]">{{tailles}}</th>
 
-                                            <th scope="col" style="width:120px;">{{ 'compte.nbrPieces' | translate }} </th>
-                                            <th scope="col" style="width:140px;">{{ 'panier.total' | translate }} </th>
+                                            <th scope="col" class="th-item" style="width:120px">{{ 'compte.nbrPieces' | translate }} </th>
+                                            <th scope="col" class="th-last-item" style="width:140px">{{ 'panier.total' | translate }} </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -186,9 +185,9 @@
                                                 </td>
 
                                                 <ng-container *ngFor="let infoTaille of infoTailleCommandeTableau[i][j]">
-                                                    <ng-container *ngIf="infoTaille.montantLigne >= 0">
-                                                        <td style="width:120px;">{{infoTaille.quantiteLigne}}</td>
-                                                        <td style="width:120px;">{{infoTaille.montantLigne}}€</td>
+                                                    <ng-container class="last-item" *ngIf="infoTaille.montantLigne >= 0">
+                                                        <td class="td-item" style="width:120px">{{infoTaille.quantiteLigne}}</td>
+                                                        <td class="td-last-item" style="width:120px">{{infoTaille.montantLigne}}€</td>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
@@ -291,7 +290,7 @@
                         </div>
 
                     </div>
-                    <div>
+                    <div class="container-valid-button">
                         <button id="valid-button" mat-button matStepperNext>{{ 'panier.validPanier' | translate }}
               <fa-icon icon="check"></fa-icon>
             </button>

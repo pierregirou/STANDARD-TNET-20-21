@@ -1,33 +1,35 @@
 <div id="modalAjoutPanier">
-  <div id="contenuModalGauche">
-    <span style="font-size: 18px;color: rgba(19, 159, 224, 0.486)"><fa-icon icon="check"></fa-icon>{{ 'modal.produitPanier' | translate }}</span>
-      <div style="width: 90%;margin-right:5%;margin-left:5%">
-        <div style="width: 45%;margin-right:2.5%;margin-left:2.5%;float:left">
-          <img style="width: 100%;height:auto" src="{{imageService.PhotosArt}}/{{imageArtModal}}">
+    <div id="contenuModalGauche">
+        <span style="font-size: 18px;color: rgba(19, 159, 224, 0.486)"><fa-icon icon="check"></fa-icon>{{ 'modal.produitPanier' | translate }}</span>
+        <div style="width: 90%;margin-right:5%;margin-left:5%">
+            <div style="width: 45%;margin-right:2.5%;margin-left:2.5%;float:left">
+                <img style="width: 100%;height:auto" src="{{imageService.PhotosArt}}/{{imageArtModal}}">
+            </div>
+            <div style="width: 45%;margin-right:2.5%;margin-left:2.5%;float:right">
+                <span style="font-size:18px;font-weight:bold">{{libelleProduitAjout}}</span><br/>
+                <span>{{ 'panier.taille' | translate }} {{ tailleMinProduitAjout }} {{ 'panier.AProposition' | translate }} {{ tailleMaxProduitAjout }}</span><br/>
+                <span>{{ 'panier.quantite' | translate }} </span>{{quantiteProduitAjout}}<br/>
+                <span>{{ 'panier.total' | translate }} {{totalProduitAjout}}€</span>
+            </div>
         </div>
-        <div style="width: 45%;margin-right:2.5%;margin-left:2.5%;float:right">
-          <span style="font-size:18px;font-weight:bold">{{libelleProduitAjout}}</span><br/>
-          <span>{{ 'panier.taille' | translate }} {{ tailleMinProduitAjout }} {{ 'panier.AProposition' | translate }} {{ tailleMaxProduitAjout }}</span><br/>
-          <span>{{ 'panier.quantite' | translate }} </span>{{quantiteProduitAjout}}<br/>
-          <span>{{ 'panier.total' | translate }} {{totalProduitAjout}}€</span>
-        </div>
-      </div>
     </div>
     <div id="contenuModalDroite">
-      <div>
-        <div style="float: left;width: 95%">
-          <span style="font-size:18px;color: grey">{{ 'menu.panier' | translate }} <fa-icon icon="shopping-cart"></fa-icon></span><br/><br/><br/>
-          <span *ngIf="quantitePanier>1">{{ 'panier.ilya' | translate }} {{quantitePanier}} {{ 'panier.produitDans' | translate }}</span>
-          <br/>
-          <span>{{ 'panier.totalPanier' | translate }}: {{montantPanier}}€</span><br/><br/>
-          <div style="text-align:center">
-            <div style="background-color: rgba(19, 159, 224, 0.486);color:white; cursor:pointer" [routerLink]="['/contenu/produits']" (click)="closeModalPanier()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'panier.continuer' | translate }}</div><br/>
-            <div style="background-color:rgba(63, 190, 63, 0.712); cursor:pointer" [routerLink]="['/contenu/panier']" (click)="closeModalPanier()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'acceuil.panier' | translate }}</div>
-          </div>
+        <div>
+            <div style="float: left;width: 95%">
+                <span style="font-size:18px;color: grey">{{ 'menu.panier' | translate }} <fa-icon icon="shopping-cart"></fa-icon></span><br/><br/><br/>
+                <span *ngIf="quantitePanier>1">{{ 'panier.ilya' | translate }} {{quantitePanier}} {{ 'panier.produitDans' | translate }}</span>
+                <br/>
+                <span>{{ 'panier.totalPanier' | translate }}: {{montantPanier}}€</span><br/><br/>
+                <div style="text-align:center">
+                    <!--[routerLink]="['/contenu/produits']"-->
+                    <div style="background-color: rgba(19, 159, 224, 0.486);color:white; cursor:pointer" (click)="closeModalPanier()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'panier.continuer' | translate }}</div><br/>
+                    <div style="background-color:rgba(63, 190, 63, 0.712); cursor:pointer" [routerLink]="['/contenu/panier']" (click)="closeModalPanier()" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]="">{{ 'acceuil.panier' | translate }}</div>
+                </div>
+            </div>
+            <div style="float: right;width: 5%">
+                <fa-icon matTooltip="Fermer la fenêtre" aria-label="Button that displays a tooltip in various positions" (click)="closeModalPanier()" icon="times" style="color: rgba(19, 159, 224, 0.486);cursor: pointer" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0"
+                    [matRippleColor]=""></fa-icon>
+            </div>
         </div>
-        <div style="float: right;width: 5%">
-          <fa-icon matTooltip="Fermer la fenêtre" aria-label="Button that displays a tooltip in various positions" (click)="closeModalPanier()" icon="times" style="color: rgba(19, 159, 224, 0.486);cursor: pointer" matRipple [matRippleUnbounded]="false" [matRippleRadius]="0" [matRippleColor]=""></fa-icon>
-        </div>
-      </div>
-  </div>
+    </div>
 </div>

@@ -476,7 +476,7 @@ export class ProduitService implements OnInit{
                 colorPresent.push(uneCouleur.libcolori);
             }
           }
-        }
+         }
       }
       colorPresent.sort();
       for(let uneCouleur2 of colorPresent) {
