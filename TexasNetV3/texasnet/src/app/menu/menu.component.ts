@@ -50,6 +50,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   MenuArrayDoubleSubscription:Subscription;
   cle1:string;
   mobNav:boolean = false;
+  boolOpen: boolean;
+  boolClose: boolean;
 
   constructor(private templateService:TemplateService, private breakpointObserver:BreakpointObserver,private langueService:LangueService, public imageService:ImageService,private commandeService:CommandeService,private httpRequest:HttpRequest, private authService:AuthService, private router:Router,private httpClient:HttpClient,private informationService:InformationService, private moduleService:ModuleService,private translate: TranslateService, private produitService: ProduitService, private menuService:MenuService) {
     //initialisation de points au début du programme
@@ -65,6 +67,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     ]).subscribe(result => {
       this.mobNav = result.matches;
     });
+
+    this.boolClose = true;
   }
   ngOnInit() {
     this.MenuArrayDoubleSubscription=this.menuService.menuSubject.subscribe(
@@ -318,6 +322,17 @@ export class MenuComponent implements OnInit, OnDestroy {
       sb1.value = "";
     } else if (sb2 !== null) {
       sb2.value = "";
+    }
+  }
+
+  changeIconButton(boolCloseValue: boolean){
+    console.log(boolCloseValue);
+    if(boolCloseValue === true){
+      this.boolClose = false;
+      this.boolOpen = true;
+    }else{
+      this.boolClose = true;
+      this.boolOpen = false;
     }
   }
 

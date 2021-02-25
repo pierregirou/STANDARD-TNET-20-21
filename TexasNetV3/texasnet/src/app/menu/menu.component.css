@@ -1,83 +1,107 @@
 .dropdown-menu {
-  width: fit-content;
+    width: fit-content;
 }
 
 .dropdown-on-hover {
     width: fit-content;
- }
+}
 
-.dropdown-on-hover:hover > .dropdown-menu {
+.dropdown-on-hover:hover>.dropdown-menu {
     display: block;
     margin-top: 0px;
- }
+}
 
- .dropdown-item:hover {
-   background-color: initial;
- }
+.dropdown-item:hover {
+    background-color: initial;
+}
 
- .dropdown-item:active {
-   background-color: initial;
- }
+.dropdown-item:active {
+    background-color: initial;
+}
 
- .dropdown-item {
-   cursor: pointer;
- }
+.dropdown-item {
+    cursor: pointer;
+}
 
 .nav-link-mobile {
-  display: block;
-  padding: 0.5rem;
+    display: block;
+    padding: 0.5rem;
 }
 
 #navbarTogglerDemo01 {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
 #fixe-nav-mobile {
-  display: flex;
+    display: flex;
 }
 
 .barre-de-recherche-mobile {
-  padding-right: 0.5rem;
-  max-width: 120px;
+    padding-right: 0.5rem;
+    max-width: 120px;
 }
 
 .icon-nav-mobile {
-  color: black;
+    color: black;
 }
 
 @media screen and (min-width: 1200px) {
-  .barre-de-recherche {
-    max-width: 180px;
-  }
+    .barre-de-recherche {
+        max-width: 180px;
+    }
 }
 
 @media not screen and (min-width: 1200px) {
-  .barre-de-recherche {
-      max-width: 120px;
-  }
+    .barre-de-recherche {
+        max-width: 120px;
+    }
 }
 
 @media screen and (min-width: 992px) {
-  .entete-menu {
-    display: inline-block;
-  }
+    .entete-menu {
+        display: inline-block;
+    }
 }
 
 @media not screen and (min-width: 992px) {
-  .entete-menu {
-    display: block;
-  }
-  
-  .container-sous-menu {
-    width: fit-content;
-    border: none;
-  }
-
-  .navbar {
-    padding: 0 !important;
-  }
-
-  #navbarTogglerDemo01 {
-    padding: 1%;
-  }
+    .entete-menu {
+        display: block;
+    }
+    .container-sous-menu {
+        width: fit-content;
+        border: none;
+    }
+    .navbar {
+        padding: 0 !important;
+    }
+    .navbar-brand {
+        display: none
+    }
+    #navbar-toggler-menu {
+        background: whitesmoke;
+        z-index: 20;
+    }
+    #navbarTogglerDemo01 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: whitesmoke;
+        padding: 1%;
+        text-align: center;
+        border-bottom: 3px solid rgba(137, 166, 196, 0.507);
+        transition: all 0.9s;
+    }
+    #first-item-menu {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .dropdown-item {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .dropdown-item:hover {
+        border-left: 1px solid rgba(128, 128, 128, 0.418);
+        border-right: 1px solid rgba(128, 128, 128, 0.418);
+    }
 }
